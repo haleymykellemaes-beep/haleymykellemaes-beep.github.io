@@ -13,7 +13,7 @@ Static HTML/CSS/JS. No build step. Case studies with a question, a method, and a
 - [What high-revenue films share](tmdb-revenue.html) — Python EDA. TMDb sample, inflation-adjusted revenue.
 - [Nike demand vs inventory](nike.html) — Tableau-style story from the FY2025 10-K analog.
 
-Also: [3NF normalization](normalization-3nf.html) note. Workbook: `Dental-AR-Tracker.xlsx`.
+Also: [3NF normalization](normalization-3nf.html) note.
 
 ## Local preview
 
