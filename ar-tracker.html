@@ -245,13 +245,12 @@
             <p>The stacked insurance/patient bars tell the same story both days: <strong>0–30 is mostly insurance</strong> (ERA still in flight). <strong>90+ is mostly patient</strong> (statements, plans, collections review). Working “total A/R” as one pile would send the morning to the wrong phone.</p>
 
             <h2>What I still build in Excel</h2>
-            <p>Curve is the source of truth. The workbook is the huddle layer: one row per claim, formulas for balance / age / bucket / follow-up, a queue for today. Sample rows in the download are fictional (<code>P-####</code>) so the file can live on a portfolio. Real PHI stays in Curve.</p>
+            <p>Curve is the source of truth. The workbook is the huddle layer: one row per claim, formulas for balance / age / bucket / follow-up, a queue for today. Real names stay in Curve. A public sample file (account number, date of service, patient balance, insurance balance) is not posted yet.</p>
             <ul>
-              <li><strong>AR Ledger</strong> — DOS, billed date, CDT, payer, charge, insurance paid, patient paid, adjustment.</li>
+              <li><strong>AR Ledger</strong> — account number, date of service, patient balance due, insurance balance due.</li>
               <li><strong>Dashboard</strong> — open A/R, insurance vs patient, 90+ dollars, aging mix.</li>
               <li><strong>Follow-up queue</strong> — open balance and next follow-up ≤ today.</li>
             </ul>
-            <p style="margin-top:18px"><a class="btn btn-dark" href="Dental-AR-Tracker.xlsx">Download Excel tracker</a></p>
 
             <h2>How a morning is supposed to run</h2>
             <ul>
@@ -283,7 +282,7 @@
             </div>
 
             <h2>Limitations</h2>
-            <p>Totals only. No patient names, no chart copies from the PMS, no provider names on this page. YoY uses the Curve “Totals for all payment types → Payments” line: $388,273.21 (2024) and $442,912.01 (2025). That is posted collections, not production or net of refunds. The Nov 16, 2025 snapshot is dated in Curve (31.4% in 90+); the second aging screenshot is the same dashboard on a later pull (18.7% in 90+). I lead with closer to 14% as the current figure — not a third extract, and not new patient-level dollars. 0–30 / 31–60 / 61–90 dollars on the Nov chart are read off the bar lengths so they add to $85,085 — they are not a CSV extract. The Excel file is a method demo, not a dump of the live ledger.</p>
+            <p>Totals only. No patient names, no chart copies from the PMS, no provider names on this page. YoY uses the Curve “Totals for all payment types → Payments” line: $388,273.21 (2024) and $442,912.01 (2025). That is posted collections, not production or net of refunds. The Nov 16, 2025 snapshot is dated in Curve (31.4% in 90+); the second aging screenshot is the same dashboard on a later pull (18.7% in 90+). I lead with closer to 14% as the current figure — not a third extract, and not new patient-level dollars. 0–30 / 31–60 / 61–90 dollars on the Nov chart are read off the bar lengths so they add to $85,085 — they are not a CSV extract. There is no Excel download on this page until a name-free sample exists.</p>
           </div>
 
           <a class="ticker ticker-link" href="nike.html">
