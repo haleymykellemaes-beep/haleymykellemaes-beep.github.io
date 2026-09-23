@@ -143,7 +143,7 @@
 
     <div class="prose">
       <h2>Extract (the heart of the pipeline)</h2>
-      <p>The nightly job is this join, plus the two functions, inserted into the detailed table. Payments are summed first so a rental with more than one payment still appears once.</p>
+      <p>The nightly job is this join, plus the two functions, inserted into the detailed table. Payments are summed first so a rental with more than one payment still appears once. Full script: <a href="sql/late_returns.sql"><code>sql/late_returns.sql</code></a>.</p>
       <pre class="code">SELECT
     r.rental_id,
     r.rental_date,
