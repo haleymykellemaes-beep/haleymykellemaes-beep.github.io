@@ -858,14 +858,21 @@ a.pill:hover { background: var(--blue); color: var(--white); }
   color: var(--ink);
 }
 .cover-visual small { font-size: 0.75rem; color: var(--muted); }
-.cv-ar, .cv-tmdb, .cv-happy, .cv-sql { background: var(--gray); color: var(--ink); }
+.cover-visual.cv-ar,
+.cover-visual.cv-tmdb,
+.cover-visual.cv-happy,
+.cover-visual.cv-sql,
+.cover-visual.cv-lulu,
+.cover-visual.cv-odds,
+.cover-visual.cv-nike { background: var(--gray); color: var(--ink); }
+.case-visual .thumb-viz,
 .case-visual .cv-tmdb,
 .case-visual .cv-happy,
 .case-visual .cv-sql,
 .case-visual .cv-odds,
 .case-visual .cv-nike,
 .case-visual .cv-lulu {
-  background: transparent;
+  background: inherit !important;
   color: inherit;
 }
 .cv-bars { display: flex; align-items: flex-end; gap: 6px; height: 88px; margin-top: 12px; }
@@ -969,10 +976,6 @@ a.pill:hover { background: var(--blue); color: var(--white); }
   line-height: 1.7;
   font-family: var(--mono);
 }
-.cv-lulu, .cv-odds, .cv-nike { background: var(--gray); color: var(--ink); }
-.case-visual .cv-lulu,
-.case-visual .cv-odds,
-.case-visual .cv-nike { background: transparent; color: inherit; }
 .cv-lulu .cv-row em { width: 72%; }
 .cv-lulu .cv-row.mid em { width: 22%; background: var(--pink); }
 .cv-nike .cv-row em { width: 68%; }
@@ -1641,7 +1644,7 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
 .case-visual .thumb-viz {
   margin-top: auto;
   padding-top: 12px;
-  background: transparent;
+  background: inherit !important;
 }
 .case-visual .thumb-viz b {
   display: block;
