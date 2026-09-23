@@ -1,0 +1,15 @@
+view,line,dollars_b,yoy_reported_pct,yoy_cn_pct,call
+Company,Revenue,46.309,-10,-9,Exception report
+Company,Inventory,7.489,0,0,Unfinished clearance
+Company,Gross margin pct,42.7,-190bp,-190bp,Markdowns + obsolescence
+Brand,Nike Brand,44.714,-9,-8,Context
+Channel,Wholesale,25.883,-7,-6,Hold
+Channel,Nike Direct,18.783,-13,-12,Do not refill last year's mix
+Channel,Brand digital,,,-20,Clear depth
+Channel,Nike-owned stores,,,0,Stores flat ≠ Direct fine
+Franchise,Jordan Brand,7.270,,-16,Clear
+Franchise,Men's,,,-5,Watch
+Franchise,Women's,,,-6,Watch
+Franchise,Kids',,,-5,Watch
+Geo,APLA,6.251,,-3,Hold relative
+Proxy,Direct-side inventory (0.42 × 7.489),3.1,,,Association only — not disclosed
