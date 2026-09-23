@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="model">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3NF employee table · Haley Maes</title>
+  <meta name="description" content="Normalizing a denormalized employee table to third normal form: ZIP to city/state and department to manager ID." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img class="brand-photo" src="img/haley.png" alt="" />Haley Maes</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a class="btn" href="Haley-Maes-Resume.html">Resume</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="stage">
+    <div class="page-col">
+      <nav class="hang-rail" aria-label="Case studies">
+        <a class="hang-tab" href="index.html">Work</a>
+        <a class="hang-tab" href="ar-tracker.html">A/R</a>
+        <a class="hang-tab" href="nike.html">Nike</a>
+        <a class="hang-tab" href="sports-projections.html">Odds</a>
+        <a class="hang-tab" href="tmdb-revenue.html">TMDb</a>
+        <a class="hang-tab" href="happiness-gdp.html">Happiness</a>
+        <a class="hang-tab is-active" href="late-returns.html">SQL</a>
+      </nav>
+      <div class="folder">
+  <main class="sheet">
+    <p class="folder-heading"><span>A 3NF NOTE</span></p>
+    <h1 class="display">Third normal form, from a messy employee dump</h1>
+    <div class="article-meta">
+      <a class="pill" href="index.html#work">← Work</a>
+      <span class="pill">Modeling</span>
+    </div>
+    <p class="paper-rule">ZIP → city, state · department → manager ID</p>
+    <p class="article-lede">The same ZIP stored with two cities is not a data-entry quirk. It is a transitive dependency waiting to lie.</p>
+
+    <div class="prose">
+      <h2>The problem</h2>
+      <p>A single Employee table held ID, name, street, city, state, ZIP, department, manager ID, position, and salary. <code>Employee ID</code> determines the row. Two facts did not depend on the employee; they depended on another non-key column.</p>
+      <ul>
+        <li><strong>ZIP → City, State.</strong> Chain: Employee ID → ZIP → City, State. In the sample, ZIP 32829 was typed as both Anytown and Sometown. 32831 had the same contradiction.</li>
+        <li><strong>Department → Manager ID.</strong> IT always pointed at 1015; Sales at 1021. Manager is a property of the department, not of Dickens vs Poe.</li>
+      </ul>
+      <p>Position does <em>not</em> determine salary here: two Vice Presidents, two salaries. The data disproved a dependency that looked tidy on a whiteboard.</p>
+
+      <h2>What 3NF looks like</h2>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Keep on Employee</h3>
+          <p>Emp ID, name, street, ZIP (FK), Dept (FK), position, salary. One person, one row, no city typed twice.</p>
+        </div>
+        <div class="panel">
+          <h3>Split out</h3>
+          <p><strong>ZIP</strong> (ZIP, city, state). <strong>Department</strong> (department, mgr ID). Update the ZIP once; every employee in that ZIP follows.</p>
+        </div>
+      </div>
+
+      <h2>So what</h2>
+      <p>Analysts inherit 1NF dumps from HR and PMS exports. Finding the transitive dep is how you stop a dashboard from averaging two cities for one ZIP. This is the same instinct as not inventing store location on a lab rental table that does not have it.</p>
+    </div>
+
+    <a class="ticker ticker-link" href="index.html#work">
+      <b>Back to work</b><span>↗</span>
+      <b>Back to work</b><span>↗</span>
+      <b>Back to work</b><span>↗</span>
+    </a>
+    <div class="pager">
+      <a href="late-returns.html">← SQL case</a>
+      <a href="index.html#work">All work →</a>
+    </div>
+  </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>Haley Maes · 3NF</span>
+      <a href="index.html">Portfolio home</a>
+    </div>
+  </footer>
+</body>
+</html>

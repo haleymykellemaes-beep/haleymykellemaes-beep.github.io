@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="access">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Where dental care is short · Haley Maes</title>
+  <meta name="description" content="Public-dataset analysis of HRSA dental Health Professional Shortage Areas as of June 30, 2026. Not a client engagement." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img class="brand-photo" src="img/haley.png" alt="" />Haley Maes</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a class="btn" href="Haley-Maes-Resume.html">Resume</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="stage">
+    <div class="page-col">
+      <nav class="hang-rail" aria-label="Case studies">
+        <a class="hang-tab is-active" href="index.html">Work</a>
+        <a class="hang-tab" href="ar-tracker.html">A/R</a>
+        <a class="hang-tab" href="nike.html">Nike</a>
+        <a class="hang-tab" href="sports-projections.html">Odds</a>
+        <a class="hang-tab" href="tmdb-revenue.html">TMDb</a>
+        <a class="hang-tab" href="happiness-gdp.html">Happiness</a>
+        <a class="hang-tab" href="late-returns.html">SQL</a>
+      </nav>
+      <div class="folder">
+  <main class="sheet">
+    <p class="folder-heading"><span>DENTAL ACCESS</span></p>
+    <h1 class="display">Where dental care is short</h1>
+    <div class="article-meta">
+      <a class="pill" href="index.html#work">← Work</a>
+      <span class="pill">Public data</span>
+    </div>
+    <p class="paper-rule">HRSA dental HPSA · Table 4 · 30 June 2026</p>
+    <p class="article-lede">A labeled analysis of HRSA’s dental Health Professional Shortage Areas. I did not work this as a client. I cleaned a public quarterly table so a hiring manager can see acquire → clean → visualize.</p>
+
+    <p class="notice"><strong>Public dataset.</strong> Source: HRSA Bureau of Health Workforce, <em>Designated HPSA Quarterly Summary</em>, Table 4, as of June 30, 2026 (data as of 1 July 2026; report dated 7 September 2026). <a href="https://data.hrsa.gov/default/generatehpsaquarterlyreport">data.hrsa.gov</a>.</p>
+
+      <div class="stats" style="margin: 28px 0">
+        <div class="stat"><b>76.8M</b><span>People in designated dental HPSAs</span></div>
+        <div class="stat"><b>33.6%</b><span>National percent of need met</span></div>
+        <div class="stat"><b>12,760</b><span>Dentists needed to lift designations</span></div>
+      </div>
+
+      <div class="pa-grid">
+        <div class="pa">
+          <h3>Problem</h3>
+          <p>A dental ops analyst hears “we can’t hire.” The federal table already says where need is unmet. The PDF is 15 pages. Nobody ranks it in a huddle.</p>
+        </div>
+        <div class="pa">
+          <h3>Approach</h3>
+          <p>Extract Table 4, keep states and DC, leave territories in a note. Rank by dentists needed and by percent of need met. Chart the worst eight on each axis.</p>
+        </div>
+        <div class="pa">
+          <h3>Insight</h3>
+          <p>Need-met and headcount-needed are not the same list. Florida needs 1,314 dentists. Delaware meets 4.2% of need. Rural areas hold 64% of dental designations.</p>
+        </div>
+        <div class="pa">
+          <h3>Impact</h3>
+          <p>Recruiting, Medicaid, and mobile capacity should follow dentists-needed. Access programs should follow need-met. One number would send you to the wrong state.</p>
+        </div>
+      </div>
+
+    <div class="prose">
+      <h2>Two rankings, not one</h2>
+      <p>Percent of need met is dentists available ÷ dentists required to drop the area below the shortage threshold (generally 5,000:1 geographic, 4,000:1 high-need). Practitioners needed is the headcount gap. A small state can look catastrophic on the first metric and quiet on the second.</p>
+    </div>
+
+    <div class="polaroid-row">
+      <figure class="polaroid clip-pink tilt-l">
+        <div class="polaroid-shot">
+          <div class="panel" style="margin:0;border:0;padding:4px 2px">
+            <h3>Most dentists still needed</h3>
+            <div class="bars" id="need-bars"></div>
+          </div>
+        </div>
+        <figcaption>Dentists needed to lift designations</figcaption>
+      </figure>
+      <figure class="polaroid clip-pink tilt-r">
+        <div class="polaroid-shot">
+          <div class="panel" style="margin:0;border:0;padding:4px 2px">
+            <h3>Lowest percent of need met</h3>
+            <div class="bars" id="pct-bars"></div>
+          </div>
+        </div>
+        <figcaption>Need-met is a different ranking than headcount</figcaption>
+      </figure>
+    </div>
+
+    <div class="prose">
+      <h2>What I cleaned</h2>
+      <ul>
+        <li>Dropped region subtotals so they do not double-count states.</li>
+        <li>Kept the 50 states + DC in the table. Territories (PR, VI, Pacific) are in the national total but not in the rank bars — different scale and policy.</li>
+        <li>Did not invent county detail. The public extract is state grain.</li>
+      </ul>
+      <p>Rural vs non-rural (Table 2): 5,093 of 7,951 dental designations are rural (64%). The people, though, skew more urban — non-rural designations cover 31.2M of the 76.8M. Shortage geography is rural; shortage headcount is often in cities.</p>
+
+      <h2>State table</h2>
+      <p>Click a header to sort. Sample of the cleaned extract.</p>
+    </div>
+    <div class="table-wrap">
+      <table id="state-table">
+        <thead>
+          <tr>
+            <th data-key="name">State</th>
+            <th data-key="des">Designations</th>
+            <th data-key="pop">Population in HPSAs</th>
+            <th data-key="pct">Need met</th>
+            <th data-key="need">Dentists needed</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <h2>Caveats a manager should hear</h2>
+      <ul>
+        <li>Facility HPSAs include some correctional populations. Automatic statutory sites are excluded from “practitioners needed” in the footnotes.</li>
+        <li>Need-met uses dentists only — not hygienists or mid-level providers.</li>
+        <li>This is a snapshot as of 30 June 2026, not a trend.</li>
+      </ul>
+      <p>Tools: public PDF/table extract, ranking, HTML charts. GitHub-ready: source citation, grain, exclusions, and the cleaned rows live on this page.</p>
+    </div>
+    <a class="ticker ticker-link" href="index.html#work">
+      <b>Back to work</b><span>↗</span>
+      <b>Back to work</b><span>↗</span>
+      <b>Back to work</b><span>↗</span>
+    </a>
+    <div class="pager">
+      <a href="ar-tracker.html">← A/R tracker</a>
+      <a href="late-returns.html">SQL case →</a>
+    </div>
+  </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>Haley Maes · Public data case</span>
+      <a href="index.html">Portfolio home</a>
+    </div>
+  </footer>
+
+  <script>
+    const STATES = [
+      { name: "Alabama", des: 92, pop: 755541, pct: 24.33, need: 139 },
+      { name: "Alaska", des: 345, pop: 788308, pct: 54.74, need: 83 },
+      { name: "Arizona", des: 287, pop: 3416091, pct: 34.51, need: 556 },
+      { name: "Arkansas", des: 157, pop: 1109146, pct: 22.69, need: 229 },
+      { name: "California", des: 591, pop: 3634892, pct: 36.35, need: 577 },
+      { name: "Colorado", des: 128, pop: 1219930, pct: 54.88, need: 129 },
+      { name: "Connecticut", des: 56, pop: 899409, pct: 21.39, need: 178 },
+      { name: "Delaware", des: 16, pop: 618161, pct: 4.15, need: 160 },
+      { name: "District of Columbia", des: 10, pop: 90280, pct: 2.90, need: 22 },
+      { name: "Florida", des: 292, pop: 6222405, pct: 19.74, need: 1314 },
+      { name: "Georgia", des: 186, pop: 1922418, pct: 17.57, need: 402 },
+      { name: "Hawaii", des: 35, pop: 283033, pct: 36.43, need: 49 },
+      { name: "Idaho", des: 98, pop: 452047, pct: 37.48, need: 70 },
+      { name: "Illinois", des: 289, pop: 2529158, pct: 26.36, need: 472 },
+      { name: "Indiana", des: 133, pop: 1135293, pct: 28.74, need: 208 },
+      { name: "Iowa", des: 152, pop: 646391, pct: 29.91, need: 108 },
+      { name: "Kansas", des: 133, pop: 273834, pct: 33.44, need: 44 },
+      { name: "Kentucky", des: 256, pop: 1371360, pct: 9.26, need: 316 },
+      { name: "Louisiana", des: 184, pop: 1918801, pct: 44.90, need: 266 },
+      { name: "Maine", des: 105, pop: 425483, pct: 28.83, need: 73 },
+      { name: "Maryland", des: 49, pop: 2290671, pct: 44.91, need: 277 },
+      { name: "Massachusetts", des: 61, pop: 320208, pct: 59.15, need: 35 },
+      { name: "Michigan", des: 274, pop: 1916665, pct: 26.28, need: 363 },
+      { name: "Minnesota", des: 230, pop: 1696487, pct: 48.86, need: 201 },
+      { name: "Mississippi", des: 154, pop: 1423544, pct: 40.23, need: 219 },
+      { name: "Missouri", des: 348, pop: 2558669, pct: 31.42, need: 408 },
+      { name: "Montana", des: 114, pop: 249082, pct: 45.81, need: 31 },
+      { name: "Nebraska", des: 115, pop: 135714, pct: 48.80, need: 14 },
+      { name: "Nevada", des: 70, pop: 1052887, pct: 24.57, need: 204 },
+      { name: "New Hampshire", des: 23, pop: 42823, pct: 23.02, need: 10 },
+      { name: "New Jersey", des: 40, pop: 313937, pct: 45.23, need: 45 },
+      { name: "New Mexico", des: 110, pop: 994618, pct: 16.10, need: 207 },
+      { name: "New York", des: 166, pop: 2794405, pct: 16.11, need: 592 },
+      { name: "North Carolina", des: 217, pop: 3540396, pct: 23.42, need: 692 },
+      { name: "North Dakota", des: 71, pop: 119626, pct: 29.61, need: 16 },
+      { name: "Ohio", des: 190, pop: 2706448, pct: 39.43, need: 425 },
+      { name: "Oklahoma", des: 192, pop: 1084104, pct: 45.58, need: 168 },
+      { name: "Oregon", des: 155, pop: 1552278, pct: 43.54, need: 222 },
+      { name: "Pennsylvania", des: 162, pop: 2257016, pct: 40.64, need: 355 },
+      { name: "Rhode Island", des: 16, pop: 226173, pct: 37.38, need: 36 },
+      { name: "South Carolina", des: 100, pop: 2001958, pct: 46.85, need: 267 },
+      { name: "South Dakota", des: 100, pop: 276608, pct: 27.00, need: 46 },
+      { name: "Tennessee", des: 164, pop: 2336739, pct: 31.56, need: 401 },
+      { name: "Texas", des: 359, pop: 3826317, pct: 25.51, need: 717 },
+      { name: "Utah", des: 62, pop: 212651, pct: 52.30, need: 26 },
+      { name: "Vermont", des: 15, pop: 48799, pct: 90.84, need: 0 },
+      { name: "Virginia", des: 182, pop: 2819320, pct: 51.64, need: 318 },
+      { name: "Washington", des: 221, pop: 3426843, pct: 61.76, need: 315 },
+      { name: "West Virginia", des: 123, pop: 719902, pct: 22.61, need: 140 },
+      { name: "Wisconsin", des: 167, pop: 1303099, pct: 33.29, need: 220 },
+      { name: "Wyoming", des: 30, pop: 59759, pct: 31.51, need: 11 }
+    ];
+
+    const fmt = new Intl.NumberFormat("en-US");
+    const byNeed = [...STATES].sort((a, b) => b.need - a.need).slice(0, 8);
+    const byPct = [...STATES].sort((a, b) => a.pct - b.pct).slice(0, 8);
+    const maxNeed = byNeed[0].need;
+    const maxGap = 100 - byPct[0].pct;
+
+    function bars(id, rows, valueFn, labelFn, max) {
+      document.getElementById(id).innerHTML = rows.map((r) => {
+        const v = valueFn(r);
+        const w = Math.max(4, (v / max) * 100);
+        return `<div class="bar-row"><span>${r.name}</span><div class="bar-track"><div class="bar-fill" style="width:${w}%"></div></div><b>${labelFn(r)}</b></div>`;
+      }).join("");
+    }
+    bars("need-bars", byNeed, (r) => r.need, (r) => fmt.format(r.need), maxNeed);
+    bars("pct-bars", byPct, (r) => 100 - r.pct, (r) => r.pct.toFixed(1) + "%", maxGap);
+
+    const tbody = document.querySelector("#state-table tbody");
+    let sortKey = "need";
+    let sortDir = -1;
+
+    function render() {
+      const rows = [...STATES].sort((a, b) => {
+        const av = a[sortKey], bv = b[sortKey];
+        if (typeof av === "string") return av.localeCompare(bv) * sortDir;
+        return (av - bv) * sortDir;
+      });
+      tbody.innerHTML = rows.map((r) => `
+        <tr>
+          <td>${r.name}</td>
+          <td>${fmt.format(r.des)}</td>
+          <td>${fmt.format(r.pop)}</td>
+          <td>${r.pct.toFixed(2)}%</td>
+          <td>${fmt.format(r.need)}</td>
+        </tr>`).join("");
+    }
+    document.querySelectorAll("#state-table th").forEach((th) => {
+      th.style.cursor = "pointer";
+      th.addEventListener("click", () => {
+        const key = th.dataset.key;
+        if (sortKey === key) sortDir *= -1;
+        else { sortKey = key; sortDir = key === "name" ? 1 : -1; }
+        render();
+      });
+    });
+    render();
+  </script>
+</body>
+</html>
