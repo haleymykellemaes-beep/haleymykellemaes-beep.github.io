@@ -341,12 +341,7 @@ a:hover { color: var(--ink); }
 }
 .display em,
 .case-body h3 em {
-  font-family: var(--sans);
   font-style: italic;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  font-size: 0.62em;
 }
 
 .script-logo,
@@ -1626,10 +1621,21 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
 .case-visual {
   background: var(--gray);
   padding: 22px 22px 20px;
-  min-height: 168px;
+  min-height: 220px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
+}
+.case-visual .thumb-viz {
+  margin-top: auto;
+  padding-top: 12px;
+}
+.case-visual .thumb-viz b {
+  display: block;
+  font-family: var(--display);
+  font-size: 2.1rem;
+  line-height: 0.9;
+  margin-bottom: 8px;
 }
 .case-card.featured .case-visual {
   background: #1b2fd4;
@@ -1657,43 +1663,46 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
   color: #F4EFE4;
 }
 .case-card[data-accent="ar"] .case-no { color: #F4EFE4; }
-.case-card[data-accent="ar"] .case-visual h3 { color: #F4EFE4; }
+.case-card[data-accent="ar"] .case-visual h3,
+.case-card[data-accent="ar"] .case-kpis b { color: #F4EFE4; }
+.case-card[data-accent="ar"] .case-kpis span { color: rgba(244, 239, 228, 0.75); }
 .case-card[data-accent="ar"].featured .case-visual li,
 .case-card[data-accent="ar"].featured .case-visual small,
 .case-card[data-accent="ar"].featured .cv-label {
   color: #F4EFE4;
 }
 .case-card[data-accent="tmdb"] .case-visual { background: #AB9DFF; color: #253A82; }
-.case-card[data-accent="tmdb"] .cv-label,
+.case-card[data-accent="tmdb"] .case-no,
+.case-card[data-accent="tmdb"] .case-visual h3,
+.case-card[data-accent="tmdb"] .case-visual b { color: #253A82; }
 .case-card[data-accent="tmdb"] .cv-row { color: #253A82; }
 .case-card[data-accent="tmdb"] .cv-row em { background: #253A82; }
-.case-card[data-accent="tmdb"] .case-visual b { color: #253A82; }
 .case-card[data-accent="happy"] .case-visual { background: #E3FC87; color: #253A82; }
-.case-card[data-accent="happy"] .cv-label,
-.case-card[data-accent="happy"] small { color: #253A82; }
-.case-card[data-accent="happy"] .case-visual b { color: #253A82; }
+.case-card[data-accent="happy"] .case-no,
+.case-card[data-accent="happy"] .case-visual h3,
+.case-card[data-accent="happy"] .case-visual b,
+.case-card[data-accent="happy"] .thumb-viz small { color: #253A82; }
 .case-card[data-accent="happy"] .cv-dots i { color: #253A82; background: #253A82; }
 .case-card[data-accent="sql"] .case-visual,
 .case-card[data-accent="sql"].featured .case-visual { background: #9DFECB; color: #2A56F2; }
-.case-card[data-accent="sql"] .cv-label { color: #2A56F2; }
-.case-card[data-accent="sql"] .cv-sql ul { color: #2A56F2; }
+.case-card[data-accent="sql"] .case-no,
 .case-card[data-accent="sql"] .case-visual h3,
 .case-card[data-accent="sql"] .case-visual b { color: #2A56F2; }
+.case-card[data-accent="sql"] .cv-sql ul { color: #2A56F2; }
 .case-card[data-accent="lulu"] .case-visual { background: #d45c64; color: #fff; }
-.case-card[data-accent="lulu"] .cv-label,
-.case-card[data-accent="lulu"] .cv-row { color: #f3cfd2; }
-.case-card[data-accent="lulu"] .cv-row em { background: #f3cfd2; }
 .case-card[data-accent="nike"] .case-visual { background: #F4EFE4; color: #1c1c1c; }
-.case-card[data-accent="nike"] .cv-label,
+.case-card[data-accent="nike"] .case-no,
+.case-card[data-accent="nike"] .case-visual h3,
+.case-card[data-accent="nike"] .case-visual b { color: #1c1c1c; }
 .case-card[data-accent="nike"] .cv-row { color: #5c5c58; }
 .case-card[data-accent="nike"] .cv-row em { background: #ff6a00; }
-.case-card[data-accent="nike"] .case-visual b { color: #1c1c1c; }
 .case-card[data-accent="odds"] .case-visual { background: #2A56F2; color: #9DFECB; }
-.case-card[data-accent="odds"] .cv-label,
+.case-card[data-accent="odds"] .case-no,
+.case-card[data-accent="odds"] .case-visual h3,
+.case-card[data-accent="odds"] .case-visual b { color: #9DFECB; }
 .case-card[data-accent="odds"] .cv-row { color: #9DFECB; }
 .case-card[data-accent="odds"] .cv-row em,
 .case-card[data-accent="odds"] .cv-row.mid em { background: #9DFECB; }
-.case-card[data-accent="odds"] .case-visual b { color: #9DFECB; }
 html[data-theme="sql"] .result.late {
   background: #2A56F2;
   color: #9DFECB;
@@ -1758,7 +1767,8 @@ html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-  margin-top: 18px;
+  margin-top: auto;
+  padding-top: 18px;
 }
 .case-kpis b {
   display: block;
