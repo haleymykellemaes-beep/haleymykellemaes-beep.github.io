@@ -12,7 +12,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from openpyxl import Workbook, load_workbook
-from openpyxl.chart import BarChart, PieChart, Reference
+from openpyxl.chart import PieChart, Reference
 from openpyxl.chart.label import DataLabelList
 from openpyxl.formatting.rule import FormulaRule
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
@@ -135,7 +135,7 @@ def build() -> None:
     cover["A8"] = "Accounts"
     cover["B8"] = len(raw)
     cover["A9"] = "See"
-    cover["B9"] = "Ledger · Calcs · Aging pivot · Dashboard"
+    cover["B9"] = "Ledger · Calcs · Aging pivot (tables + pie)"
 
     for addr in ("A7", "A8", "A9"):
         cover[addr].font = Font(bold=True, color=NAVY)
@@ -188,8 +188,6 @@ def build() -> None:
             cell.border = THIN
         led.cell(i, 16, bucket)
         led.cell(i, 17, "Yes" if nxt else "No")
-        led.cell(i, 18, f'=$B$8-C{i}')  # wrong - snapshot not on this sheet
-        # days since last visit vs snapshot date hardcoded
         led.cell(i, 18, f"=DATE(2026,9,23)-C{i}")
         for col in (1, 2, 3, 4, 16, 17, 18):
             led.cell(i, col).border = THIN
@@ -337,73 +335,53 @@ def build() -> None:
         pvt.cell(i, 1, rid)
         pvt.cell(i, 2, f'=SUMIF(Ledger!A:A,A{i},Ledger!E:E)').number_format = MONEY
         pvt.cell(i, 3, f'=SUMIF(Ledger!A:A,A{i},Ledger!F:F)').number_format = MONEY
-        pvt.cell(i, 4, f'=SUMIF(Ledger!A:A,A{i},Ledger!G:F)').number_format = MONEY
-        # fix insurance col G not F
-        pvt.cell(i, 4, f'=SUMIF(Ledger!A:A,A{i},Ledger!G:G)').number_format = MONEY
-    widths(pvt, [32, 16, 16, 16, 22])
+    pvt.cell(i, 4, f'=SUMIF(Ledger!A:A,A{i},Ledger!G:G)').number_format = MONEY
+    widths(pvt, [32, 18, 16, 16, 22])
 
-    # ----- Dashboard + charts -----
-    dash = wb.create_sheet("Dashboard")
-    dash["A1"] = "Huddle dashboard"
-    dash["A1"].font = Font(bold=True, size=18, color=NAVY)
-    dash["A3"] = "Total owing"
-    dash["B3"] = "=Calcs!B5"
-    dash["B3"].number_format = MONEY
-    dash["A4"] = "Patient / insurance"
-    dash["B4"] = '=TEXT(Calcs!B6,"$#,##0")&" / "&TEXT(Calcs!B7,"$#,##0")'
-    dash["A5"] = "Patient 90+"
-    dash["B5"] = "=Calcs!B9"
-    dash["B5"].number_format = MONEY
-    dash["A6"] = "90+ with no next appointment"
-    dash["B6"] = '=Calcs!B12&" accounts · "&TEXT(Calcs!B25,"$#,##0")'
-    for r in range(3, 7):
-        dash.cell(r, 1).font = Font(bold=True, color=NAVY)
-        dash.cell(r, 2).font = Font(size=14, color=NAVY)
-
-    # chart source already on Calcs 17:20
-    bar = BarChart()
-    bar.type = "col"
-    bar.grouping = "stacked"
-    bar.title = "Open A/R by aging bucket"
-    bar.y_axis.title = "Dollars"
-    data = Reference(calc, min_col=2, min_row=16, max_col=3, max_row=20)
-    cats = Reference(calc, min_col=1, min_row=17, max_row=20)
-    bar.add_data(data, from_rows=False, titles_from_data=True)
-    bar.set_categories(cats)
-    bar.shape = 4
-    bar.y_axis.numFmt = '"$"#,##0'
-    bar.style = 10
-    bar.width = 15
-    bar.height = 8
-    dash.add_chart(bar, "A8")
+    pvt["A30"] = "Next appointment"
+    pvt["A30"].font = Font(bold=True, size=16, color=NAVY)
+    pvt["A31"] = "Status"
+    pvt["B31"] = "Patients"
+    pvt["C31"] = "Open $"
+    pvt["D31"] = "Share"
+    style_header(pvt, 31, 4)
+    pvt["A32"] = "Scheduled"
+    pvt["B32"] = f'=COUNTIF(Ledger!Q2:Q{n},"Yes")'
+    pvt["C32"] = f'=SUMIF(Ledger!Q2:Q{n},"Yes",Ledger!E2:E{n})'
+    pvt["C32"].number_format = MONEY
+    pvt["D32"] = "=IF($B$34=0,0,B32/$B$34)"
+    pvt["D32"].number_format = PCT
+    pvt["A33"] = "Not scheduled"
+    pvt["B33"] = f'=COUNTIF(Ledger!Q2:Q{n},"No")'
+    pvt["C33"] = f'=SUMIF(Ledger!Q2:Q{n},"No",Ledger!E2:E{n})'
+    pvt["C33"].number_format = MONEY
+    pvt["D33"] = "=IF($B$34=0,0,B33/$B$34)"
+    pvt["D33"].number_format = PCT
+    pvt["A34"] = "Total"
+    pvt["B34"] = "=SUM(B32:B33)"
+    pvt["C34"] = "=SUM(C32:C33)"
+    pvt["C34"].number_format = MONEY
+    pvt["D34"] = "=SUM(D32:D33)"
+    pvt["D34"].number_format = PCT
+    for c in range(1, 5):
+        pvt.cell(34, c).font = Font(bold=True)
 
     pie = PieChart()
-    pie.title = "Patient vs insurance"
-    pie.add_data(Reference(calc, min_col=2, min_row=6, max_row=7), titles_from_data=False)
-    pie.set_categories(Reference(calc, min_col=1, min_row=6, max_row=7))
+    pie.title = "Patients scheduled vs not scheduled"
+    pie.add_data(Reference(pvt, min_col=2, min_row=31, max_row=33), titles_from_data=True)
+    pie.set_categories(Reference(pvt, min_col=1, min_row=32, max_row=33))
     pie.dataLabels = DataLabelList()
     pie.dataLabels.showPercent = True
-    pie.dataLabels.showVal = False
-    pie.width = 12
-    pie.height = 8
-    dash.add_chart(pie, "I8")
-
-    bar2 = BarChart()
-    bar2.type = "bar"
-    bar2.title = "Accounts by primary bucket"
-    bar2.add_data(Reference(pvt, min_col=4, min_row=4, max_row=8), titles_from_data=True)
-    bar2.set_categories(Reference(pvt, min_col=1, min_row=5, max_row=8))
-    bar2.style = 12
-    bar2.width = 15
-    bar2.height = 8
-    dash.add_chart(bar2, "A24")
-
-    widths(dash, [34, 42, 14, 14])
+    pie.dataLabels.showCatName = True
+    pie.dataLabels.showVal = True
+    pie.width = 14
+    pie.height = 10
+    pie.style = 10
+    pvt.add_chart(pie, "F30")
 
     calc.sheet_properties.tabColor = BLUE
     led.sheet_properties.tabColor = NAVY
     pvt.sheet_properties.tabColor = PINK
-    dash.sheet_properties.tabColor = BLUE
 
     wb.save(OUT)
     print(f"Wrote {OUT} rows={len(raw)} rps={len(rp_ids)} patients={len(pt_ids)}")
