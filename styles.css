@@ -344,8 +344,8 @@ a:hover { color: var(--ink); }
   font-family: var(--sans);
   font-style: italic;
   font-weight: 600;
-  text-transform: none;
-  letter-spacing: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   font-size: 0.62em;
 }
 
