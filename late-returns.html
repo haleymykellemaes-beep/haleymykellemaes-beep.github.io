@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="sql">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Late returns &amp; category performance · Haley Maes</title>
+  <meta name="description" content="PostgreSQL reporting pipeline for a DVD rental chain: which stores and film categories earn revenue, and which copies are late or still out." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img class="brand-photo" src="img/haley.png" alt="" />Haley Maes</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a class="btn" href="Haley-Maes-Resume.html">Resume</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="stage">
+    <div class="page-col">
+      <nav class="hang-rail" aria-label="Case studies">
+        <a class="hang-tab" href="index.html">Work</a>
+        <a class="hang-tab" href="ar-tracker.html">A/R</a>
+        <a class="hang-tab" href="nike.html">Nike</a>
+        <a class="hang-tab" href="sports-projections.html">Odds</a>
+        <a class="hang-tab" href="tmdb-revenue.html">TMDb</a>
+        <a class="hang-tab" href="happiness-gdp.html">Happiness</a>
+        <a class="hang-tab is-active" href="late-returns.html">SQL</a>
+      </nav>
+      <div class="folder">
+  <main class="sheet">
+    <p class="folder-heading"><span>THE SQL CASE</span></p>
+    <h1 class="display">Late returns &amp; category performance</h1>
+    <div class="article-meta">
+      <a class="pill" href="index.html#work">← Work</a>
+      <span class="pill">SQL</span>
+    </div>
+    <p class="paper-rule">Clerk call list · store × category scorecard · nightly refresh</p>
+    <p class="article-lede">A rental chain does not only need a sales total. A title that looks in stock is still unavailable if the disc is sitting in someone’s house.</p>
+
+    <p class="notice"><strong>SQL case on a public sample database</strong> (Sakila-style DVD rental / WGU Advanced Data Management). Course work, rewritten as an operations report — not a live client.</p>
+
+    <div class="stats">
+      <div class="stat"><b>7</b><span>Source tables joined into one rental grain</span></div>
+      <div class="stat"><b>2</b><span>Layers: clerk call list + store-category scorecard</span></div>
+      <div class="stat"><b>Nightly</b><span>Stored procedure refresh after close</span></div>
+    </div>
+
+    <div class="pa-grid">
+      <div class="pa">
+        <h3>Problem</h3>
+        <p>Revenue can look healthy while copies sit in living rooms. Staff need a call list. Managers need store × category, not 16,000 rental rows.</p>
+      </div>
+      <div class="pa">
+        <h3>Approach</h3>
+        <p>Functions recode active flags and classify On Time / Late / Still Out. A trigger rolls each insert into the summary. A procedure reloads both tables after close.</p>
+      </div>
+      <div class="pa">
+        <h3>Insight</h3>
+        <p>High revenue plus a high late-return rate is a warning: demand is there, inventory is not recirculating. Inactive accounts that still have a disc are first on the list.</p>
+      </div>
+      <div class="pa">
+        <h3>Impact</h3>
+        <p>Morning shift gets a current Still Out queue without querying live rental tables all day. District can compare the same category across stores.</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <h2>The question</h2>
+      <p>Built on the public DVD rental sample database (the same Sakila-style schema used in WGU’s Advanced Data Management course). The operating question is practical:</p>
+      <p><strong>Which stores and film categories are earning rental revenue, and which of those same categories are tying up copies because customers bring them back late or not at all?</strong></p>
+      <p>District managers need to know whether a high revenue number is healthy, or whether it is being propped up by titles that do not recirculate. Store staff need a list they can actually call.</p>
+
+      <h2>What shipped</h2>
+      <p>A PostgreSQL reporting layer, not a one-off query:</p>
+      <ul>
+        <li><strong>Detailed table</strong> — one row per rental: customer, store, title, category, payment, account status, return status.</li>
+        <li><strong>Summary table</strong> — one row per store and category: volume, revenue, on-time / late / still-out counts, and late-return percentage.</li>
+        <li><strong>Functions</strong> — recode the <code>active</code> flag into Active/Inactive, and classify each rental as On Time, Late, or Still Out from rental date + allowed duration.</li>
+        <li><strong>Trigger</strong> — every insert into the detailed table upserts the matching summary row, including the late-return rate.</li>
+        <li><strong>Stored procedure</strong> — truncate, reload, let the trigger rebuild the scorecard. Designed to run with pgAgent after the store closes.</li>
+      </ul>
+
+      <div class="two-col">
+        <div class="panel">
+          <h3>Detailed table — for the clerk</h3>
+          <table>
+            <tr><th>Use</th><td>Exception list: Late and Still Out</td></tr>
+            <tr><th>Grain</th><td>One rental</td></tr>
+            <tr><th>Priority</th><td>Inactive accounts that still have a disc</td></tr>
+          </table>
+        </div>
+        <div class="panel">
+          <h3>Summary table — for the manager</h3>
+          <table>
+            <tr><th>Use</th><td>Scorecard by store × category</td></tr>
+            <tr><th>Grain</th><td>Store + film category</td></tr>
+            <tr><th>Warning</th><td>High revenue + high late-return %</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <h2>The classification rule</h2>
+      <p>Return status is not stored on the rental row. The function compares <code>return_date</code> to <code>rental_date + rental_duration</code>. Try it with the same logic the database uses:</p>
+    </div>
+
+    <figure class="polaroid clip-pink tilt-r">
+    <div class="polaroid-shot">
+    <div class="demo" style="margin:0;box-shadow:none;padding:4px">
+      <h3>Classify a rental</h3>
+      <p class="hint">Same rules as <code>fn_return_status</code>: null return date → Still Out; otherwise late if the disc comes back after the allowed days.</p>
+      <div class="demo-grid">
+        <div>
+          <label for="rental-date">Rental date</label>
+          <input id="rental-date" type="date" />
+        </div>
+        <div>
+          <label for="return-date">Return date</label>
+          <input id="return-date" type="date" />
+        </div>
+        <div>
+          <label for="duration">Allowed days</label>
+          <input id="duration" type="number" min="1" max="21" value="3" />
+        </div>
+        <button type="button" id="classify">Classify</button>
+      </div>
+      <p style="margin:14px 0 0">
+        <label style="display:inline-flex;align-items:center;gap:8px;font-size:0.9rem;color:var(--muted);font-weight:600;letter-spacing:0;text-transform:none">
+          <input id="still-out" type="checkbox" style="width:auto" /> Disc is still out (null return date)
+        </label>
+      </p>
+      <div class="result still" id="result">Still Out</div>
+    </div>
+    </div>
+    <figcaption>Same rules as fn_return_status</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Extract (the heart of the pipeline)</h2>
+      <p>The nightly job is this join, plus the two functions, inserted into the detailed table. Payments are summed first so a rental with more than one payment still appears once.</p>
+      <pre class="code">SELECT
+    r.rental_id,
+    r.rental_date,
+    r.return_date,
+    i.store_id,
+    c.customer_id,
+    (c.first_name || ' ' || c.last_name) AS customer_name,
+    fn_account_status(c.active) AS customer_status,
+    f.film_id,
+    f.title AS film_title,
+    cat.name AS category_name,
+    f.rental_duration AS rental_duration_days,
+    COALESCE(pay.payment_amount, 0) AS payment_amount,
+    fn_return_status(
+        r.rental_date::TIMESTAMP,
+        r.return_date::TIMESTAMP,
+        f.rental_duration
+    ) AS return_status
+FROM rental AS r
+INNER JOIN inventory AS i     ON r.inventory_id = i.inventory_id
+INNER JOIN film AS f          ON i.film_id = f.film_id
+INNER JOIN film_category AS fc ON f.film_id = fc.film_id
+INNER JOIN category AS cat    ON fc.category_id = cat.category_id
+INNER JOIN customer AS c      ON r.customer_id = c.customer_id
+LEFT JOIN (
+    SELECT rental_id, SUM(amount) AS payment_amount
+    FROM payment
+    GROUP BY rental_id
+) AS pay ON r.rental_id = pay.rental_id;</pre>
+
+      <h2>How a manager is supposed to use it</h2>
+      <ul>
+        <li>Open the summary. Find categories with high revenue and a high late-return percentage — demand is there, copies are not recirculating.</li>
+        <li>Drill to the detailed table for that store and category. Call Still Out first, then Late. Flag Inactive customers who still have a copy.</li>
+        <li>Decide whether to buy more copies or tighten the hold policy. Do not celebrate a revenue spike that is trapping inventory off the shelf.</li>
+      </ul>
+      <p>Refresh is nightly, after close, so the morning shift has a current call list without querying live rental tables all day.</p>
+
+      <h2>What I would do next in a production shop</h2>
+      <p>Add store location and days overdue (those fields are not in the lab tables, so they were not invented here). Expose the summary as a small dashboard with a Still Out queue. Track whether call-backs actually recover copies — the report should change behavior, not just describe it.</p>
+    </div>
+
+    <a class="ticker ticker-link" href="normalization-3nf.html">
+      <b>Next: 3NF note</b><span>↗</span>
+      <b>Next: 3NF note</b><span>↗</span>
+      <b>Next: 3NF note</b><span>↗</span>
+    </a>
+    <div class="pager">
+      <a href="happiness-gdp.html">← Happiness &amp; GDP</a>
+      <a href="normalization-3nf.html">3NF note →</a>
+    </div>
+  </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>Haley Maes · SQL case</span>
+      <a href="index.html">Portfolio home</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const rental = document.getElementById("rental-date");
+      const ret = document.getElementById("return-date");
+      const duration = document.getElementById("duration");
+      const still = document.getElementById("still-out");
+      const result = document.getElementById("result");
+      const today = new Date();
+      const iso = (d) => d.toISOString().slice(0, 10);
+      const start = new Date(today);
+      start.setDate(today.getDate() - 5);
+      rental.value = iso(start);
+      ret.value = iso(today);
+
+      function classify() {
+        const days = Number(duration.value) || 0;
+        const rDate = new Date(rental.value + "T00:00:00");
+        if (still.checked || !ret.value) {
+          setResult("Still Out", "still");
+          return;
+        }
+        const back = new Date(ret.value + "T00:00:00");
+        const due = new Date(rDate);
+        due.setDate(due.getDate() + days);
+        if (back > due) setResult("Late", "late");
+        else setResult("On Time", "ontime");
+      }
+
+      function setResult(text, cls) {
+        result.textContent = text;
+        result.className = "result " + cls;
+      }
+
+      still.addEventListener("change", () => {
+        ret.disabled = still.checked;
+      });
+      document.getElementById("classify").addEventListener("click", classify);
+      classify();
+    })();
+  </script>
+</body>
+</html>

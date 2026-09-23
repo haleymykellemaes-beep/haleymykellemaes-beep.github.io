@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="tmdb">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TMDb movie revenue · Haley Maes</title>
+  <meta name="description" content="Exploratory analysis of TMDb movies: inflation-adjusted revenue vs budget, popularity, genre, and release year." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img class="brand-photo" src="img/haley.png" alt="" />Haley Maes</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a class="btn" href="Haley-Maes-Resume.html">Resume</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="stage">
+    <div class="page-col">
+      <nav class="hang-rail" aria-label="Case studies">
+        <a class="hang-tab" href="index.html">Work</a>
+        <a class="hang-tab" href="ar-tracker.html">A/R</a>
+        <a class="hang-tab" href="nike.html">Nike</a>
+        <a class="hang-tab" href="sports-projections.html">Odds</a>
+        <a class="hang-tab is-active" href="tmdb-revenue.html">TMDb</a>
+        <a class="hang-tab" href="happiness-gdp.html">Happiness</a>
+        <a class="hang-tab" href="late-returns.html">SQL</a>
+      </nav>
+      <div class="folder">
+  <main class="sheet">
+    <p class="folder-heading"><span>THE TMDB CASE</span></p>
+    <h1 class="display">What high-revenue films share</h1>
+    <div class="article-meta">
+      <a class="pill" href="index.html#work">← Work</a>
+      <span class="pill">Python</span>
+    </div>
+    <p class="paper-rule">Budget · popularity · genre medians · 2010 dollars</p>
+    <p class="article-lede">About 10,000 TMDb titles. Dependent variable: inflation-adjusted revenue. The work is association, not a recipe for a hit.</p>
+
+    <figure class="polaroid clip-pink tilt-r">
+      <div class="polaroid-shot">
+        <div class="stats" style="margin:0">
+          <div class="stat"><b>$148.6M</b><span>Animation median revenue adj (n = 237, ≥50 films)</span></div>
+          <div class="stat"><b>−0.10</b><span>Correlation: release year vs revenue adj</span></div>
+          <div class="stat"><b>~½</b><span>Titles missing or zero budget/revenue</span></div>
+        </div>
+      </div>
+      <figcaption>Sample headlines · association, not a hit recipe</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>The questions</h2>
+      <ol>
+        <li>How do budget, popularity, vote average, and runtime relate to <code>revenue_adj</code>?</li>
+        <li>Which genres tend to earn higher inflation-adjusted revenue?</li>
+        <li>How have revenues and popularity moved by release year (1960–2015)?</li>
+      </ol>
+
+      <h2>Method</h2>
+      <p>Pandas + seaborn on the TMDb movie CSV. Zeros in budget and revenue treated as missing (complete-case revenue work favors better-documented films). Multi-label genres expanded, so a film can sit in more than one bar. The numbers are the notebook’s.</p>
+
+      <h2>Findings</h2>
+      <p><strong>Budget and popularity</strong> show the strongest positive associations with high inflation-adjusted revenue. Vote average and runtime are weaker. That is a pattern in this sample, not proof that buying a bigger budget causes a bigger box office.</p>
+      <p>Drama, Comedy, Thriller, and Action appear most often. Frequency is not the same as commercial performance. Among genres with at least 50 films that have known revenue:</p>
+
+      <figure class="polaroid clip-pink tilt-l">
+        <div class="polaroid-shot">
+          <div class="bars" aria-label="Median inflation-adjusted revenue by genre" style="margin:4px 0">
+            <div class="bar-row"><span>Animation</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>$148.6M</span></div>
+            <div class="bar-row"><span>Adventure</span><div class="bar-track"><div class="bar-fill" style="width:77%"></div></div><span>$115.1M</span></div>
+            <div class="bar-row"><span>Family</span><div class="bar-track"><div class="bar-fill" style="width:68%"></div></div><span>$101.7M</span></div>
+            <div class="bar-row"><span>Fantasy</span><div class="bar-track"><div class="bar-fill" style="width:68%"></div></div><span>$101.4M</span></div>
+            <div class="bar-row"><span>Action</span><div class="bar-track"><div class="bar-fill" style="width:51%"></div></div><span>$76.2M</span></div>
+            <div class="bar-row"><span>War</span><div class="bar-track"><div class="bar-fill" style="width:48%"></div></div><span>$71.3M</span></div>
+            <div class="bar-row"><span>Sci-Fi</span><div class="bar-track"><div class="bar-fill" style="width:48%"></div></div><span>$71.0M</span></div>
+            <div class="bar-row"><span>Comedy</span><div class="bar-track"><div class="bar-fill" style="width:31%"></div></div><span>$46.7M</span></div>
+          </div>
+        </div>
+        <figcaption>Median revenue adj · 2010 USD · genres with ≥50 films</figcaption>
+      </figure>
+      <p>Median <code>revenue_adj</code> in millions of 2010 USD. Animation n=237; Adventure n=843; Comedy n=1,771.</p>
+
+      <p>The extract includes far more recent movies (peak year <strong>2014, 699 titles</strong>). Popularity is mildly higher for more recent films (year vs popularity corr <strong>0.09</strong>). Mean inflation-adjusted revenue by year is volatile — blockbusters and missing financials move the line. Year vs revenue corr is <strong>−0.10</strong>.</p>
+
+      <h2>So what</h2>
+      <p>If you are ranking “what the data says about hits,” start with budget and popularity, then genre mix — not with “newer films automatically make more.” Comedy is everywhere and not the median-revenue leader.</p>
+
+      <h2>Limitations</h2>
+      <ul>
+        <li>About half of movies have missing or zero budget/revenue.</li>
+        <li>Treating zeros as missing can hide a few true low-value titles.</li>
+        <li>Expanded genres double-count films.</li>
+        <li>TMDb popularity is platform-specific and may favor newer or more discussed titles.</li>
+        <li>No causal claim.</li>
+      </ul>
+      <p>Next research I would actually run: ROI (<code>revenue_adj / budget_adj</code>) and genre performance inside the same decade, controlling for vote count.</p>
+    </div>
+
+    <a class="ticker ticker-link" href="happiness-gdp.html">
+      <b>Next: Happiness &amp; GDP</b><span>↗</span>
+      <b>Next: Happiness &amp; GDP</b><span>↗</span>
+      <b>Next: Happiness &amp; GDP</b><span>↗</span>
+    </a>
+    <div class="pager">
+      <a href="sports-projections.html">← Sports projections</a>
+      <a href="happiness-gdp.html">Happiness &amp; GDP →</a>
+    </div>
+  </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>Haley Maes · TMDb EDA</span>
+      <a href="index.html">Portfolio home</a>
+    </div>
+  </footer>
+</body>
+</html>
