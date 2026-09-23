@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Haley Maes · Data Analyst · Résumé</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #294bef;
+      --pink: #ff88cf;
+      --ink: #101528;
+      --muted: #5c6478;
+      --line: rgba(16, 21, 40, 0.12);
+      --gray: #f6f6f6;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      font-family: Outfit, "Segoe UI", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--gray);
+      line-height: 1.4;
+      font-size: 10.5pt;
+    }
+    .sheet {
+      width: min(8.5in, 100%);
+      min-height: 11in;
+      margin: 24px auto;
+      background: var(--white);
+      padding: 0.55in 0.62in 0.5in;
+      box-shadow: 0 18px 50px rgba(41, 75, 239, 0.12);
+    }
+    header { text-align: left; }
+    h1 {
+      margin: 0;
+      font-family: "Bebas Neue", Impact, sans-serif;
+      font-size: 42pt;
+      line-height: 0.88;
+      letter-spacing: 0.02em;
+      font-weight: 400;
+      color: var(--pink);
+      text-transform: uppercase;
+    }
+    .role {
+      margin: 4px 0 8px;
+      font-family: "Bebas Neue", Impact, sans-serif;
+      font-size: 18pt;
+      letter-spacing: 0.06em;
+      color: var(--blue);
+      text-transform: uppercase;
+    }
+    .meta {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 9.5pt;
+      font-weight: 500;
+    }
+    .meta a { color: var(--blue); text-decoration: none; }
+    h2 {
+      margin: 13px 0 7px;
+      font-size: 8.5pt;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border-bottom: 1.5px solid var(--blue);
+      padding-bottom: 3px;
+      font-weight: 700;
+    }
+    .profile { margin: 0; color: var(--ink); }
+    .skills {
+      margin: 0;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .job { margin: 0 0 10px; }
+    .job-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+    }
+    .job h3 {
+      margin: 0;
+      font-size: 10.5pt;
+      font-weight: 700;
+    }
+    .job h3 span { font-weight: 500; color: var(--muted); }
+    .when {
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--blue);
+      white-space: nowrap;
+    }
+    ul {
+      margin: 4px 0 0;
+      padding-left: 1.1em;
+    }
+    li { margin: 0 0 3px; }
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 4px;
+    }
+    .print-hint {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+    .print-hint a { color: var(--blue); }
+    @media print {
+      body { background: #fff; }
+      .print-hint { display: none; }
+      .sheet {
+        margin: 0;
+        box-shadow: none;
+        width: auto;
+        min-height: 0;
+        padding: 0.45in 0.5in;
+      }
+      a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <p class="print-hint"><a href="index.html">← Portfolio</a> · Print this page / Save as PDF</p>
+  <article class="sheet">
+    <header>
+      <h1>Haley Maes</h1>
+      <p class="role">Data Analyst</p>
+      <p class="meta">Arvada, CO · (720) 467-3584 · <a href="mailto:haleymykellemaes@gmail.com">haleymykellemaes@gmail.com</a> · <a href="https://www.linkedin.com/in/haleymmaes">linkedin.com/in/haleymmaes</a></p>
+    </header>
+
+    <h2>Profile</h2>
+    <p class="profile"><strong>Data analyst with an investigator’s eye. I find patterns in complex data and translate them into decisions.</strong> I build financial models and dashboards that surface insights from messy operational data. I’m relentless about accuracy, comfortable with ambiguity, and driven to understand not just what the numbers say, but why. I’ll write SQL or Python when the question demands it, but I <em>excel</em> at Excel when that’s the right tool. I work well independently and love collaborating across teams to turn data into action.</p>
+
+    <h2>Technical skills</h2>
+    <p class="skills">SQL · Python · Excel (XLOOKUP, pivot tables, conditional formatting, financial modeling) · Tableau · Power BI · Visualization · Financial reporting &amp; reconciliation · Process automation · Google Sheets · Google Workspace · Cursor · Claude</p>
+
+    <h2>Experience</h2>
+    <div class="job">
+      <div class="job-top">
+        <h3>Financial Operations Analyst <span>Denver Family Dental · Denver, CO</span></h3>
+        <span class="when">Jun 2024 – Present</span>
+      </div>
+      <ul>
+        <li>Analyzed claims, payments, and aging A/R to find bottlenecks and quantify dollar impact of operational misses.</li>
+        <li>Designed the Excel denial-tracking system; used payer mix and denial reason to prioritize 90+ accounts and redesign the collection workflow.</li>
+        <li>Ran vendor cost analysis across supply categories; negotiated with top vendors and cut overhead where the numbers held.</li>
+        <li>Tied wait times, scheduling, and staff notes to process changes that lifted the practice Google rating by nearly 1 point.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-top">
+        <h3>Assistant Head of School <span>promoted from Lead Teacher · Guidepost Montessori · Dallas, TX</span></h3>
+        <span class="when">Jul 2023 – Jun 2024</span>
+      </div>
+      <ul>
+        <li>Reconciled tuition billing for 100+ families; coded variable charges and tracked payment compliance across systems.</li>
+        <li>Wrote data-entry standards so administrative records stayed consistent instead of living in three versions of the truth.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-top">
+        <h3>Guest Experience Lead <span>RNR Hospitality Group · Scottsdale, AZ</span></h3>
+        <span class="when">Aug 2022 – Jun 2023</span>
+      </div>
+      <ul>
+        <li>Owned daily cash reconciliation and shift-level reporting; tracked variance and flagged discrepancies the same day.</li>
+        <li>Watched inventory and vendor performance to tighten ordering and reduce waste.</li>
+      </ul>
+    </div>
+
+    <h2>Projects</h2>
+    <div class="job">
+      <div class="job-top">
+        <h3>Excel · Accounts receivable tracker <span>Denial recovery &amp; aging</span></h3>
+      </div>
+      <ul>
+        <li>Built an end-to-end Excel model for claim status, denial reason, days outstanding, and dollar impact — the huddle list, not a dashboard nobody opens.</li>
+        <li>Posted collections $388,273 → $442,912 (+14%). 90+ share of open A/R moved from 31.4% toward 14% (~50%+ drop in that overdue pile in the first month of the workflow).</li>
+        <li>Root-cause work showed a large share of denials were preventable with verification changes; insurance vs patient aging now drives who gets called before lunch.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-top">
+        <h3>Tableau · Nike channel &amp; inventory analog <span>FY2025 10-K</span></h3>
+      </div>
+      <ul>
+        <li>Built a Tableau / Power BI-style executive story from public filings: KPI strip, story steps, comparison, and a huddle table — clear Jordan and digital depth; hold wholesale.</li>
+        <li>Revenue $46.309B (−10%) vs inventory $7.489B (flat). Direct −13%, wholesale −7%. Analog only — not an employer.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-top">
+        <h3>Python · Happiness and GDP <span>Wrangling &amp; EDA</span></h3>
+      </div>
+      <ul>
+        <li>Melted World Bank GDP from wide years to country–year, mapped World Bank names to the Happiness Report, inner-joined, and dropped unusable pairs — 1,927 clean rows.</li>
+        <li>pandas / numpy: <code>melt</code>, <code>merge</code>, <code>np.log</code>, <code>corr</code>, <code>qcut</code>, <code>groupby</code>, <code>pivot_table</code>. Correlation of life evaluation with log GDP per capita is 0.836.</li>
+      </ul>
+    </div>
+
+    <h2>Education</h2>
+    <div class="edu-row">
+      <div><strong>B.S., Data Analytics</strong> — Western Governors University, online</div>
+      <span class="when">2026</span>
+    </div>
+    <div class="edu-row">
+      <div><strong>Computational Mathematical Sciences</strong> — Arizona State University</div>
+    </div>
+  </article>
+</body>
+</html>

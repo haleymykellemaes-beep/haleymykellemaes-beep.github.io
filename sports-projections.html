@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="odds">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sportsbook projection vs close · Haley Maes</title>
+  <meta name="description" content="Portfolio model: Super Bowl LIX projection vs closing line and sportsbook hold. Not betting advice." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img class="brand-photo" src="img/haley.png" alt="" />Haley Maes</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a class="btn" href="Haley-Maes-Resume.html">Resume</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="stage">
+    <div class="page-col">
+      <nav class="hang-rail" aria-label="Case studies">
+        <a class="hang-tab" href="index.html">Work</a>
+        <a class="hang-tab" href="ar-tracker.html">A/R</a>
+        <a class="hang-tab" href="nike.html">Nike</a>
+        <a class="hang-tab is-active" href="sports-projections.html">Odds</a>
+        <a class="hang-tab" href="tmdb-revenue.html">TMDb</a>
+        <a class="hang-tab" href="happiness-gdp.html">Happiness</a>
+        <a class="hang-tab" href="late-returns.html">SQL</a>
+      </nav>
+
+      <div class="folder">
+        <main class="sheet">
+          <p class="folder-heading"><span>Probability</span></p>
+          <div class="case-hero">
+            <div>
+              <h1 class="display">The model said Eagles. The close said Chiefs.</h1>
+              <p class="paper-rule">Super Bowl LIX · SRS vs close · hold</p>
+              <div class="article-meta">
+                <a class="pill" href="index.html#work">← Work</a>
+                <span class="pill">Ops board · not a pick</span>
+              </div>
+              <p class="article-lede">A sportsbook analyst does not publish a “lock.” They post a number, take the other side of every ticket, and watch whether the close still matches the projection. When it does not, the question is hold and liability — not which team to back.</p>
+            </div>
+            <figure class="phone" aria-label="Fictional sportsbook board. Public closing lines and state hold only.">
+              <div class="phone-bezel">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                  <p class="ph-kicker">Desk · LIX</p>
+                  <p class="ph-title">Close vs model</p>
+                  <div class="ph-kpi hot">
+                    <span>SRS projection</span>
+                    <b>PHI −3.5</b>
+                    <em>7.7 − 4.2 · neutral site</em>
+                  </div>
+                  <div class="ph-kpi">
+                    <span>Market close</span>
+                    <b>KC −1</b>
+                    <em>−1 to −1.5 · ML −120 / +100</em>
+                  </div>
+                  <div class="ph-kpi">
+                    <span>Nevada hold</span>
+                    <b>14.6%</b>
+                    <em>vs 3.7% on LVIII</em>
+                  </div>
+                  <div class="ph-list">
+                    <div class="ph-row"><span>Gap</span><b>~4.8 pts</b></div>
+                    <div class="ph-row"><span>Posted vig</span><b>4.5%</b></div>
+                    <div class="ph-row"><span>Final</span><b>40–22 PHI</b></div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+          </div>
+
+          <p class="notice"><strong>Portfolio model — not betting advice.</strong> No wagers, no bankroll, no “how to beat a book.” The artifact is the same table a trading desk would use: implied probability, de-vig, projection vs close, expected hold vs realized hold. I did not find a prior sports notebook of mine, so this is built from public 2024 NFL stats and published Super Bowl LIX lines.</p>
+
+          <div class="stats">
+            <div class="stat"><b>PHI −3.5</b><span>Simple SRS projection · PFR 2024 (7.7 vs 4.2)</span></div>
+            <div class="stat"><b>+12.7 pp</b><span>Model P(PHI) 60.5% vs de-vig close 47.8%</span></div>
+            <div class="stat"><b>14.6%</b><span>Nevada hold on $151.6M · 3.7% a year earlier</span></div>
+          </div>
+
+          <div class="prose">
+            <h2>The question</h2>
+            <p><strong>Did a transparent team-strength number disagree with the Super Bowl LIX close enough that a book should have treated the posted line as stale — and what did hold actually do once the game landed?</strong></p>
+            <p>Regular-season NFL hold on a balanced −110 / −110 market is about four and a half cents. Super Bowls wander because the public is loud and the liabilities are not. Last year Nevada held <strong>3.7%</strong> on Super Bowl LVIII. LIX it held <strong>14.6%</strong>. That is a calibration and exposure story.</p>
+
+            <h2>Method</h2>
+            <ol>
+              <li><strong>Projection.</strong> 2024 Simple Rating System from Pro-Football-Reference: Philadelphia <strong>7.7</strong>, Kansas City <strong>4.2</strong>. Difference <strong>3.5 points</strong> toward the Eagles. Super Bowl is a neutral site, so I do not add home field. Call it <strong>PHI −3.5</strong>.</li>
+              <li><strong>Close.</strong> Consensus Super Bowl LIX close: Chiefs <strong>−1 to −1.5</strong>, moneyline about <strong>Chiefs −120 / Eagles +100</strong> (opened near −120 / even; some books Eagles +105). Midpoint spread <strong>KC −1.25</strong>.</li>
+              <li><strong>Implied probability and hold.</strong> American odds → raw implied p. Sum minus 1 is the overround (posted hold if the book is balanced). Divide each side by the sum to de-vig.</li>
+              <li><strong>Spread → win probability.</strong> A desk rule of thumb: about <strong>3 percentage points per point of spread</strong>. PHI −3.5 → <strong>60.5%</strong> Eagles. I state the rule so a hiring manager can swap it.</li>
+              <li><strong>Compare to realized hold.</strong> Nevada Gaming Control Board handle and win, plus published ticket/money splits. Expected hold if balanced at −120 / +100 is <strong>4.55%</strong>. Realized hold is a result, not a forecast.</li>
+            </ol>
+
+            <h2>Projection vs the closing line</h2>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Eagles</th>
+                  <th>Chiefs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2024 record (PFR)</td>
+                  <td>14–3 · PF 463 · PA 303 · PD +160</td>
+                  <td>15–2 · PF 385 · PA 326 · PD +59</td>
+                </tr>
+                <tr>
+                  <td>SRS</td>
+                  <td>7.7</td>
+                  <td>4.2</td>
+                </tr>
+                <tr>
+                  <td>Model spread</td>
+                  <td colspan="2">PHI −3.5 (neutral)</td>
+                </tr>
+                <tr>
+                  <td>Closing spread</td>
+                  <td colspan="2">KC −1 to −1.5</td>
+                </tr>
+                <tr>
+                  <td>Closing ML (typical)</td>
+                  <td>+100</td>
+                  <td>−120</td>
+                </tr>
+                <tr>
+                  <td>Raw implied p</td>
+                  <td>50.0%</td>
+                  <td>54.5%</td>
+                </tr>
+                <tr>
+                  <td>De-vig p</td>
+                  <td>47.8%</td>
+                  <td>52.2%</td>
+                </tr>
+                <tr>
+                  <td>Model p (3% / pt)</td>
+                  <td>60.5%</td>
+                  <td>39.5%</td>
+                </tr>
+                <tr>
+                  <td>Gap vs close</td>
+                  <td colspan="2">~4.8 points · +12.7 pp toward PHI</td>
+                </tr>
+                <tr>
+                  <td>Result (9 Feb 2025)</td>
+                  <td colspan="2">Eagles 40–22 · margin 18 · total 62 (O/U ~48.5)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note-strip">American odds: negative p = |odds| / (|odds| + 100); positive p = 100 / (odds + 100). De-vig divides each raw p by 1.0455. This is a one-game board, not a 272-game backtest.</p>
+
+          <div class="pa-grid">
+            <div class="pa">
+              <h3>Posted hold</h3>
+              <p>−120 / +100 sums to 104.55%. If the book is balanced, theoretical hold is <strong>4.55%</strong> — a normal NFL moneyline. The close was not wild. The <em>disagreement with SRS</em> was.</p>
+            </div>
+            <div class="pa">
+              <h3>Desk flag</h3>
+              <p>Model 60.5% vs market 47.8% on Philadelphia is a <strong>double-digit probability gap</strong>. You do not “bet the Eagles.” You decide whether to shade the underdog, eat Chiefs tickets, or accept that the market is pricing dynasty more than point differential.</p>
+            </div>
+            <div class="pa">
+              <h3>Public vs money</h3>
+              <p>BetMGM (SI): Chiefs opened −1.5; <strong>52% of tickets / 42% of money</strong> on Kansas City to cover. Eagles moneyline drew <strong>63% of tickets / 60% of money</strong>. Tickets and dollars were not the same side on the spread.</p>
+            </div>
+            <div class="pa">
+              <h3>Realized hold</h3>
+              <p>Nevada: <strong>$151,618,159</strong> handle, <strong>$22,134,104</strong> win, <strong>14.6%</strong> hold — vs $185.6M / 3.7% on LVIII. New York held 30.6% on $154.9M. Pennsylvania lost $6.5M on $101.6M (home-state Eagles). Hold is geography plus liability, not a posted vig.</p>
+            </div>
+          </div>
+
+          <div class="prose">
+            <h2>So what</h2>
+            <p>Two numbers a morning meeting can argue with:</p>
+            <ol>
+              <li><strong>The close was ~4.8 points away from a dumb, public SRS.</strong> Kansas City won more games. Philadelphia outscored people by 160 to 59. The market faded the point differential. After the fact the Eagles won by 18 — that does not prove the model, but it is the direction the exception report was pointing.</li>
+              <li><strong>Expected hold was 4.6%. Nevada realized 14.6%.</strong> That is almost four times Super Bowl LVIII. A book that was long Eagles (or short the public favorite) had a historic Sunday. A book that was stuck on Philadelphia — Pennsylvania — paid it back. The EV table is for exposure, not for a parlay card.</li>
+            </ol>
+            <p>What I would ship in a shop: a nightly file of closing line vs model, a residual in points and in probability, and a hold waterfall (posted vig → expected hold given ticket mix → realized). Flag games with a &gt;1-point close/model gap <em>and</em> a ticket/money split. LIX would have lit up both.</p>
+          </div>
+
+          <div class="demo">
+            <h3>Implied p and hold</h3>
+            <p class="hint">Type two American moneylines. The output is the two-way overround — what the book keeps if the sides balance. Not a bet slip.</p>
+            <div class="demo-grid">
+              <div>
+                <label for="ml-a">Side A (e.g. −120)</label>
+                <input id="ml-a" type="number" value="-120" />
+              </div>
+              <div>
+                <label for="ml-b">Side B (e.g. +100)</label>
+                <input id="ml-b" type="number" value="100" />
+              </div>
+              <div>
+                <button type="button" id="hold-calc">De-vig</button>
+              </div>
+            </div>
+            <div class="result ontime" id="hold-out">−120 / +100 · hold 4.55% · A 52.2% · B 47.8%</div>
+          </div>
+
+          <div class="prose">
+            <h2>Limitations</h2>
+            <ul>
+              <li>One Super Bowl, not a season-long calibration. I will not pretend a Brier score from n = 1.</li>
+              <li>SRS is last year’s regular season. It ignores playoff injuries, rest, and Super Bowl-specific game plans.</li>
+              <li>The 3%-per-point conversion is a rule of thumb, not a fitted logistic. A different mapping moves 60.5%.</li>
+              <li>Closing lines varied by book (−1 vs −1.5, +100 vs +105). I used the published consensus band, not a single sportsbook dump.</li>
+              <li>State hold includes futures, props, and parlays, not only the moneyline in the table. Nevada 14.6% is the whole Super Bowl book.</li>
+              <li><strong>Not betting advice.</strong> A portfolio model of public stats. Do not use it to place a wager.</li>
+            </ul>
+
+            <h2>Sources</h2>
+            <ul>
+              <li>Pro-Football-Reference, 2024 NFL standings — records, point differential, SRS (PHI 7.7, KC 4.2).</li>
+              <li>ESPN box score, Super Bowl LIX, 9 Feb 2025 — Eagles 40, Chiefs 22.</li>
+              <li>Published closes: Vegas Insider / Covers / SI (BetMGM ticket splits) — spread −1 to −1.5, ML about −120 / +100, total ~48.5.</li>
+              <li>Nevada Gaming Control Board figures as reported (handle $151,618,159, win $22,134,104, hold 14.60%; LVIII hold 3.70%). New York and Pennsylvania handle/hold as reported by Vegas Insider.</li>
+            </ul>
+          </div>
+
+          <a class="ticker ticker-link" href="tmdb-revenue.html">
+            <b>Next: TMDb</b><span>↗</span>
+            <b>Next: TMDb</b><span>↗</span>
+            <b>Next: TMDb</b><span>↗</span>
+          </a>
+          <div class="pager">
+            <a href="nike.html">← Nike analog</a>
+            <a href="tmdb-revenue.html">TMDb revenue →</a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>Haley Maes · Sports projections</span>
+      <a href="index.html">Portfolio home</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function implied(odds) {
+        const o = Number(odds);
+        if (!Number.isFinite(o) || o === 0) return null;
+        return o < 0 ? (-o) / (-o + 100) : 100 / (o + 100);
+      }
+      function fmtPct(x, d) {
+        return (x * 100).toFixed(d) + "%";
+      }
+      function run() {
+        const a = implied(document.getElementById("ml-a").value);
+        const b = implied(document.getElementById("ml-b").value);
+        const out = document.getElementById("hold-out");
+        if (a == null || b == null) {
+          out.textContent = "Need two American odds.";
+          out.className = "result still";
+          return;
+        }
+        const sum = a + b;
+        const hold = sum - 1;
+        out.textContent = "Hold " + fmtPct(hold, 2) + " · A " + fmtPct(a / sum, 1) + " · B " + fmtPct(b / sum, 1) + " (de-vig)";
+        out.className = hold > 0 ? "result ontime" : "result late";
+      }
+      document.getElementById("hold-calc").addEventListener("click", run);
+      document.getElementById("ml-a").addEventListener("change", run);
+      document.getElementById("ml-b").addEventListener("change", run);
+      run();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="nike">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nike channel &amp; inventory analog · Haley Maes</title>
+  <meta name="description" content="Public 10-K analog: Nike FY2025 revenue $46.309B (−10%). Inventory $7.489B flat. Direct −13% vs wholesale −7%. A channel-and-mix call, not a claim of employment." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img class="brand-photo" src="img/haley.png" alt="" />Haley Maes</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a class="btn" href="Haley-Maes-Resume.html">Resume</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="stage">
+    <div class="page-col">
+      <nav class="hang-rail" aria-label="Case studies">
+        <a class="hang-tab" href="index.html">Work</a>
+        <a class="hang-tab" href="ar-tracker.html">A/R</a>
+        <a class="hang-tab is-active" href="nike.html">Nike</a>
+        <a class="hang-tab" href="sports-projections.html">Odds</a>
+        <a class="hang-tab" href="tmdb-revenue.html">TMDb</a>
+        <a class="hang-tab" href="happiness-gdp.html">Happiness</a>
+        <a class="hang-tab" href="late-returns.html">SQL</a>
+      </nav>
+
+      <div class="folder">
+        <main class="sheet">
+          <p class="folder-heading"><span>Tableau · Public 10-K</span></p>
+          <div class="case-hero">
+            <div>
+              <h1 class="display">Demand fell. The pile did not.</h1>
+              <p class="paper-rule">Premium athletic analog · FY2025 10-K · channel &amp; mix</p>
+              <div class="article-meta">
+                <a class="pill" href="index.html#work">← Work</a>
+                <span class="pill">Tableau</span>
+                <span class="pill">Power BI story</span>
+                <span class="pill">Forecast · not an employer</span>
+              </div>
+              <p class="article-lede">A data analyst at a premium athletic brand does not need another logo slide. They need a call: which channel and region still deserve inventory depth, and which franchise already burned margin with discounts.</p>
+            </div>
+            <figure class="phone" aria-label="Fictional channel board. Public company totals only. No store-level consumer data.">
+              <div class="phone-bezel">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                  <p class="ph-kicker">Tableau story · analog</p>
+                  <p class="ph-title">Next unit</p>
+                  <div class="ph-kpi hot">
+                    <span>Revenue vs inventory</span>
+                    <b>−10% · flat</b>
+                    <em>$46.3B down. $7.489B still sitting.</em>
+                  </div>
+                  <div class="ph-kpi">
+                    <span>Cut first</span>
+                    <b>Digital · Jordan</b>
+                    <em>Brand digital −20% · Jordan −16%</em>
+                  </div>
+                  <div class="ph-kpi">
+                    <span>Hold relative</span>
+                    <b>Wholesale · APLA</b>
+                    <em>−6% CN · −3% CN</em>
+                  </div>
+                  <div class="ph-list">
+                    <div class="ph-row"><span>Jordan Brand</span><b>Clear</b></div>
+                    <div class="ph-row"><span>Nike Direct digital</span><b>Cut</b></div>
+                    <div class="ph-row"><span>Wholesale / APLA</span><b>Hold</b></div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+          </div>
+
+          <p class="notice"><strong>Public-data analog — I did not work at Nike.</strong> No client file. I used NIKE, Inc. FY2025 results (year ended 31 May 2025) the way a DA would: channel, region, franchise, inventory, then a clear-vs-hold call. This page is the numbers layer on Form 10-K / Investor Relations filings, not a job claim.</p>
+
+          <div class="stats">
+            <div class="stat"><b>$46.309B</b><span>FY2025 revenue · −10% (−9% currency-neutral)</span></div>
+            <div class="stat"><b>−10% · flat</b><span>Revenue vs inventory $7.489B</span></div>
+            <div class="stat"><b>42.7%</b><span>Gross margin · −190 bps</span></div>
+          </div>
+
+          <div class="prose">
+            <h2>The question</h2>
+            <p><strong>If revenue fell 10% and inventory stayed flat at $7.489B, should the next unit follow last year’s Direct-heavy mix — or follow the channels that fell less?</strong></p>
+            <p>Management’s own language names the cost: markdowns on Nike Direct, discounts and higher returns with wholesale partners, and higher inventory obsolescence reserves. Gross margin already gave up 190 basis points to 42.7%. The DA job is to keep the next buy from feeding the same pile.</p>
+
+            <h2>Method</h2>
+            <ol>
+              <li><strong>Take the public mix.</strong> Region, channel, consumer/franchise, inventory, gross margin — FY2025 vs FY2024 from the earnings release and Form 10-K.</li>
+              <li><strong>Separate channel from brand.</strong> Nike Brand $44.714B (−9%). Wholesale $25.883B (−7% / −6% CN). Nike Direct $18.783B (−13% / −12% CN) — about 42% of Brand revenue. Digital inside Direct fell 20%; Nike-owned stores were flat.</li>
+              <li><strong>Rank the geos.</strong> Every geography declined. APLA (−3% CN) was the softest. Greater China (−12% CN) and EMEA (−10% CN) fell harder.</li>
+              <li><strong>Flag the franchise exception.</strong> Jordan Brand $7.270B (−16% CN) fell faster than Men’s, Women’s, or Kids’ (−5% to −6%).</li>
+              <li><strong>Call the next unit.</strong> Clear / cut / hold — the decision, not a chart of everything that went down.</li>
+            </ol>
+
+            <h2>Tableau / Power BI story · channel &amp; region</h2>
+            <p>Same story I would ship in Tableau or Power BI: KPI strip, story steps, one comparison, a table a huddle can read. This page is that layout in HTML — not a Desktop workbook or a Service embed.</p>
+          </div>
+
+          <section class="viz-story" aria-label="Nike FY2025 BI story">
+            <div class="viz-kpis" role="group" aria-label="Key metrics">
+              <div class="viz-kpi">
+                <span>NIKE, Inc. revenue</span>
+                <b>$46.309B</b>
+                <em>−10% · −9% CN</em>
+              </div>
+              <div class="viz-kpi">
+                <span>Inventory</span>
+                <b>$7.489B</b>
+                <em>flat vs $7.519B</em>
+              </div>
+              <div class="viz-kpi">
+                <span>Nike Direct</span>
+                <b>$18.783B</b>
+                <em>−13% · −12% CN</em>
+              </div>
+              <div class="viz-kpi">
+                <span>Gross margin</span>
+                <b>42.7%</b>
+                <em>−190 bps</em>
+              </div>
+            </div>
+
+            <div class="viz-steps" role="tablist" aria-label="Story steps">
+              <button type="button" class="viz-step is-active" role="tab" aria-selected="true" data-step="channel">1 · Channel</button>
+              <button type="button" class="viz-step" role="tab" aria-selected="false" data-step="region">2 · Region</button>
+              <button type="button" class="viz-step" role="tab" aria-selected="false" data-step="franchise">3 · Franchise</button>
+            </div>
+
+            <p class="viz-caption" id="viz-caption">Wholesale fell less than Direct. Digital inside Direct (−20%) is the exception report.</p>
+
+            <div class="viz-chart" id="viz-chart" aria-live="polite"></div>
+
+            <div class="viz-filters" role="group" aria-label="Table filter">
+              <span class="viz-filter-label">Table view</span>
+              <button type="button" class="viz-filter is-active" data-view="all">All rows</button>
+              <button type="button" class="viz-filter" data-view="channel">Channel</button>
+              <button type="button" class="viz-filter" data-view="region">Region</button>
+              <button type="button" class="viz-filter" data-view="franchise">Franchise</button>
+            </div>
+
+            <div class="table-wrap viz-table-wrap">
+              <table class="viz-table" id="viz-table">
+                <thead>
+                  <tr>
+                    <th>Bucket</th>
+                    <th>FY2025</th>
+                    <th>FY2024</th>
+                    <th>Change</th>
+                    <th>CN</th>
+                  </tr>
+                </thead>
+                <tbody id="viz-tbody"></tbody>
+              </table>
+            </div>
+            <p class="note-strip">Source: NIKE, Inc. FY2025 earnings release (26 Jun 2025) and Form 10-K for the fiscal year ended 31 May 2025 (Nike Investor Relations / SEC). Dollars in millions in the filing; shown in billions here. CN = currency-neutral, a company non-GAAP measure.</p>
+          </section>
+
+          <div class="prose">
+            <h2>The numbers (cited)</h2>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Bucket</th>
+                  <th>FY2025</th>
+                  <th>Signal</th>
+                  <th>Share of Brand</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>NIKE, Inc. revenue</td>
+                  <td>$46.309B</td>
+                  <td>−10% · −9% CN</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>Nike Brand</td>
+                  <td>$44.714B</td>
+                  <td>−9% · −9% CN</td>
+                  <td>100%</td>
+                </tr>
+                <tr>
+                  <td>Wholesale</td>
+                  <td>$25.883B</td>
+                  <td>−7% · −6% CN</td>
+                  <td>57.9%</td>
+                </tr>
+                <tr>
+                  <td>Nike Direct</td>
+                  <td>$18.783B</td>
+                  <td>−13% · −12% CN · digital −20%, stores flat</td>
+                  <td>42.0%</td>
+                </tr>
+                <tr>
+                  <td>North America</td>
+                  <td>$19.572B</td>
+                  <td>−9% · −8% CN</td>
+                  <td>43.8%</td>
+                </tr>
+                <tr>
+                  <td>EMEA</td>
+                  <td>$12.257B</td>
+                  <td>−10% · −10% CN</td>
+                  <td>27.4%</td>
+                </tr>
+                <tr>
+                  <td>Greater China</td>
+                  <td>$6.586B</td>
+                  <td>−13% · −12% CN</td>
+                  <td>14.7%</td>
+                </tr>
+                <tr>
+                  <td>APLA</td>
+                  <td>$6.251B</td>
+                  <td>−7% · −3% CN</td>
+                  <td>14.0%</td>
+                </tr>
+                <tr>
+                  <td>Jordan Brand</td>
+                  <td>$7.270B</td>
+                  <td>−16% · −16% CN</td>
+                  <td>16.3%</td>
+                </tr>
+                <tr>
+                  <td>Inventory</td>
+                  <td>$7.489B</td>
+                  <td>flat vs $7.519B</td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note-strip">Shares are of Nike Brand revenue $44.714B (association math from cited dollars). Converse $1.692B (−19%) sits outside Brand. Corporate revenue is a hedge plug, not a geography.</p>
+
+          <div class="polaroid-row">
+            <figure class="polaroid">
+              <div class="polaroid-shot">
+                <div class="bars" aria-label="FY2025 currency-neutral change by channel" style="margin:4px 0">
+                  <div class="bar-row"><span>Wholesale CN</span><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--pink)"></div></div><span>−6%</span></div>
+                  <div class="bar-row"><span>Direct CN</span><div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--pink)"></div></div><span>−12%</span></div>
+                  <div class="bar-row"><span>Brand digital</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--pink)"></div></div><span>−20%</span></div>
+                  <div class="bar-row"><span>Owned stores</span><div class="bar-track"><div class="bar-fill" style="width:2%"></div></div><span>flat</span></div>
+                </div>
+              </div>
+              <figcaption>Direct is not one channel. Digital is.</figcaption>
+            </figure>
+            <figure class="polaroid">
+              <div class="polaroid-shot drop-shot">
+                <p class="drop-kicker">Gross margin</p>
+                <div class="drop-pair" role="img" aria-label="Gross margin fell from 44.6 percent to 42.7 percent">
+                  <div class="drop-col was">
+                    <b>44.6%</b>
+                    <em style="height:100%"></em>
+                    <span>FY2024</span>
+                  </div>
+                  <span class="drop-arrow" aria-hidden="true">→</span>
+                  <div class="drop-col now">
+                    <b>42.7%</b>
+                    <em style="height:78%"></em>
+                    <span>FY2025</span>
+                  </div>
+                </div>
+              </div>
+              <figcaption>−190 bps: discounts, mix, obsolescence reserves.</figcaption>
+            </figure>
+          </div>
+
+          <div class="prose">
+            <h2>Two inventory readings</h2>
+            <p>Company totals only. Inventory is not published by channel or region. The association is: revenue compressed 10%, the balance sheet inventory line did not.</p>
+          </div>
+
+          <div class="two-col">
+            <div class="panel">
+              <h3>Naive restock</h3>
+              <p>Treat flat inventory as “cleaned up” and refill to last year’s Direct-heavy shape. Brand digital already fell 20%. Jordan fell 16%. Another Direct-first buy feeds the channel that discounted hardest and the franchise that shrunk fastest.</p>
+            </div>
+            <div class="panel">
+              <h3>Mix-aware hold</h3>
+              <p>Clear Jordan depth and digital-led SKUs first. Hold relative support for wholesale (still ~58% of Brand) and APLA (mildest geo at −3% CN). Do not confuse “stores flat” with “Direct is fine” — Direct is digital plus stores.</p>
+            </div>
+          </div>
+
+          <div class="prose">
+            <p>Proxy math, labeled as such: Nike Direct is 42% of Brand revenue. If inventory roughly followed that mix, about <strong>$3.1B</strong> of the $7.489B pile would sit on the Direct side (0.42 × $7.489B). That is an association, not a disclosed split. The point is the rate: revenue −10% with inventory ≈0% is weeks of supply rising, not a victory lap.</p>
+          </div>
+
+          <div class="prose">
+            <h2>The decision (analog families)</h2>
+            <p>No SKU sell-through and no regional inventory file was published. I will not invent one. The public proxies are good enough to rank the next unit:</p>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Analog family</th>
+                  <th>Public proxy</th>
+                  <th>Call</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Jordan Brand</td>
+                  <td>$7.270B · −16% CN · faster than Men’s/Women’s/Kids’</td>
+                  <td><strong>Clear</strong> — franchise overhang</td>
+                </tr>
+                <tr>
+                  <td>Nike Direct digital</td>
+                  <td>Brand digital −20%; Direct −12% CN; stores flat</td>
+                  <td><strong>Cut depth</strong> — traffic problem, not door count</td>
+                </tr>
+                <tr>
+                  <td>Greater China</td>
+                  <td>$6.586B · −12% CN · EBIT −31%</td>
+                  <td><strong>Hold / cut</strong> — do not restock the decline</td>
+                </tr>
+                <tr>
+                  <td>Wholesale</td>
+                  <td>$25.883B · −6% CN · still 58% of Brand</td>
+                  <td><strong>Hold</strong> — fell less than Direct</td>
+                </tr>
+                <tr>
+                  <td>APLA</td>
+                  <td>$6.251B · −3% CN · softest geography</td>
+                  <td><strong>Hold relative</strong> — not a growth bet, least damage</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="prose">
+            <h2>So what</h2>
+            <p>Total revenue −10% is the wrong control tower. <strong>Revenue −10% with inventory flat, Direct −13%, and Jordan −16%</strong> is the exception report. Clear Jordan and digital-led depth. Hold wholesale share and the softest geo (APLA). That is how you stop feeding a 42.7% margin that already lost 190 bps to discounts and obsolescence.</p>
+            <p>Flat inventory after a down year is not neutral. It is unfinished clearance. The next buy that copies FY2024’s Direct weight copies the channel that fell twice as hard as wholesale on a currency-neutral basis.</p>
+
+            <h2>Limitations</h2>
+            <ul>
+              <li>Company totals, not SKU, size, or door-cluster sell-through. A real merchant file could reverse a family-level call.</li>
+              <li>Inventory is not published by channel or region. The ~$3.1B Direct-side proxy assumes inventory follows Brand revenue mix.</li>
+              <li>Currency-neutral growth is the company’s non-GAAP measure. I cite both reported and CN where the filing does.</li>
+              <li>Jordan, Men’s, Women’s, and Kids’ are consumer/franchise views that can overlap with “Others” adjustments — use the disclosed dollars, not invented bridges.</li>
+              <li>This is a portfolio analog, not advice to Nike or a claim I sat in their planning meeting.</li>
+            </ul>
+            <p>What I would run with an actual export: weeks-of-supply by channel and franchise vs the company inventory line, digital conversion and traffic by geo, and a markdown-risk flag on Jordan depth still sitting after clearance windows.</p>
+
+            <h2>Sources</h2>
+            <ul>
+              <li>NIKE, Inc., <em>Reports Fiscal 2025 Fourth Quarter and Full Year Results</em>, 26 Jun 2025 (Nike Investor Relations) — revenue $46.309B, Nike Brand $44.714B, wholesale $25.883B, Nike Direct $18.783B, digital −20%, stores flat, gross margin 42.7%, inventory $7.489B.</li>
+              <li>Form 10-K for the fiscal year ended 31 May 2025 (SEC / Nike Investor Relations) — segment revenues (North America, EMEA, Greater China, APLA), EBIT by segment, inventory-risk language, channel mix discussion.</li>
+              <li>Supplemental Nike Brand revenue details in the FY2025 earnings exhibit — Men’s, Women’s, Kids’, Jordan Brand dollars and CN changes.</li>
+            </ul>
+          </div>
+
+          <a class="ticker ticker-link" href="sports-projections.html">
+            <b>Next: Sports projections</b><span>↗</span>
+            <b>Next: Sports projections</b><span>↗</span>
+            <b>Next: Sports projections</b><span>↗</span>
+          </a>
+          <div class="pager">
+            <a href="ar-tracker.html">← A/R tracker</a>
+            <a href="sports-projections.html">Sports projections →</a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>Haley Maes · Athletic channel analog</span>
+      <a href="index.html">Portfolio home</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var rows = [
+        { view: "channel", label: "Wholesale", fy25: 25.883, fy24: 27.758, chg: "−7%", cn: "−6%" },
+        { view: "channel", label: "Nike Direct", fy25: 18.783, fy24: 21.519, chg: "−13%", cn: "−12%" },
+        { view: "region", label: "North America", fy25: 19.572, fy24: 21.396, chg: "−9%", cn: "−8%" },
+        { view: "region", label: "EMEA", fy25: 12.257, fy24: 13.607, chg: "−10%", cn: "−10%" },
+        { view: "region", label: "Greater China", fy25: 6.586, fy24: 7.545, chg: "−13%", cn: "−12%" },
+        { view: "region", label: "APLA", fy25: 6.251, fy24: 6.729, chg: "−7%", cn: "−3%" },
+        { view: "franchise", label: "Men’s", fy25: 23.216, fy24: 24.785, chg: "−6%", cn: "−6%" },
+        { view: "franchise", label: "Women’s", fy25: 9.719, fy24: 10.366, chg: "−6%", cn: "−5%" },
+        { view: "franchise", label: "Kids’", fy25: 5.695, fy24: 6.019, chg: "−5%", cn: "−5%" },
+        { view: "franchise", label: "Jordan Brand", fy25: 7.270, fy24: 8.701, chg: "−16%", cn: "−16%" }
+      ];
+
+      var charts = {
+        channel: {
+          caption: "Wholesale fell less than Direct. Digital inside Direct (−20%) is the exception report.",
+          bars: [
+            { label: "Wholesale CN", value: -6, display: "−6%" },
+            { label: "Direct CN", value: -12, display: "−12%" },
+            { label: "Brand digital", value: -20, display: "−20%" },
+            { label: "Owned stores", value: 0, display: "flat" }
+          ]
+        },
+        region: {
+          caption: "Every geography declined. APLA (−3% CN) was the softest; Greater China (−12% CN) fell hardest among the big four.",
+          bars: [
+            { label: "APLA CN", value: -3, display: "−3%" },
+            { label: "N. America CN", value: -8, display: "−8%" },
+            { label: "EMEA CN", value: -10, display: "−10%" },
+            { label: "G. China CN", value: -12, display: "−12%" }
+          ]
+        },
+        franchise: {
+          caption: "Jordan (−16% CN) fell faster than Men’s, Women’s, or Kids’. That is the franchise overhang.",
+          bars: [
+            { label: "Kids’ CN", value: -5, display: "−5%" },
+            { label: "Women’s CN", value: -5, display: "−5%" },
+            { label: "Men’s CN", value: -6, display: "−6%" },
+            { label: "Jordan CN", value: -16, display: "−16%" }
+          ]
+        }
+      };
+
+      var chartEl = document.getElementById("viz-chart");
+      var captionEl = document.getElementById("viz-caption");
+      var tbody = document.getElementById("viz-tbody");
+      var tableView = "all";
+
+      function fmtB(n) {
+        return "$" + n.toFixed(3) + "B";
+      }
+
+      function renderChart(step) {
+        var conf = charts[step];
+        if (!conf) return;
+        captionEl.textContent = conf.caption;
+        var max = 0;
+        for (var i = 0; i < conf.bars.length; i++) {
+          var a = Math.abs(conf.bars[i].value);
+          if (a > max) max = a;
+        }
+        if (max < 1) max = 1;
+        var html = "";
+        for (var j = 0; j < conf.bars.length; j++) {
+          var b = conf.bars[j];
+          var pct = Math.round((Math.abs(b.value) / max) * 100);
+          if (b.value === 0) pct = 3;
+          html +=
+            '<div class="bar-row">' +
+            "<span>" +
+            b.label +
+            '</span><div class="bar-track"><div class="bar-fill" style="width:' +
+            pct +
+            '%"></div></div><span>' +
+            b.display +
+            "</span></div>";
+        }
+        chartEl.innerHTML = '<div class="bars viz-bars">' + html + "</div>";
+      }
+
+      function renderTable(view) {
+        tableView = view;
+        var html = "";
+        for (var i = 0; i < rows.length; i++) {
+          var r = rows[i];
+          if (view !== "all" && r.view !== view) continue;
+          html +=
+            "<tr><td>" +
+            r.label +
+            "</td><td>" +
+            fmtB(r.fy25) +
+            "</td><td>" +
+            fmtB(r.fy24) +
+            "</td><td>" +
+            r.chg +
+            "</td><td>" +
+            r.cn +
+            "</td></tr>";
+        }
+        tbody.innerHTML = html;
+      }
+
+      document.querySelectorAll(".viz-step").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".viz-step").forEach(function (b) {
+            b.classList.remove("is-active");
+            b.setAttribute("aria-selected", "false");
+          });
+          btn.classList.add("is-active");
+          btn.setAttribute("aria-selected", "true");
+          renderChart(btn.getAttribute("data-step"));
+        });
+      });
+
+      document.querySelectorAll(".viz-filter").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".viz-filter").forEach(function (b) {
+            b.classList.remove("is-active");
+          });
+          btn.classList.add("is-active");
+          renderTable(btn.getAttribute("data-view"));
+        });
+      });
+
+      renderChart("channel");
+      renderTable("all");
+    })();
+  </script>
+</body>
+</html>
