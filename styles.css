@@ -339,6 +339,15 @@ a:hover { color: var(--ink); }
   text-align: left;
   color: var(--ink);
 }
+.display em,
+.case-body h3 em {
+  font-family: var(--sans);
+  font-style: italic;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.62em;
+}
 
 .script-logo,
 .script-cover {
