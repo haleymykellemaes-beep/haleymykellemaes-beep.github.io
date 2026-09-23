@@ -1,99 +1,413 @@
-"""PHI-safe A/R sample: account number, DOS, patient balance, insurance balance.
+"""Build a PHI-safe A/R tracker from a Curve 90+ outstanding export.
 
-No names. Fictional P-#### rows for the public portfolio.
+Drops names. Maps responsible party / patient to IDs only.
+Most recent visit and next appointment are demo dates (not PMS).
 """
 
+from __future__ import annotations
+
+import hashlib
+import random
+from datetime import date, timedelta
 from pathlib import Path
 
-from openpyxl import Workbook
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl import Workbook, load_workbook
+from openpyxl.chart import BarChart, PieChart, Reference
+from openpyxl.chart.label import DataLabelList
+from openpyxl.formatting.rule import FormulaRule
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.table import Table, TableStyleInfo
 
-OUT = Path(__file__).resolve().parent.parent / "AR-Sample-Ledger.xlsx"
+ROOT = Path(__file__).resolve().parent.parent
+OUT = ROOT / "AR-Sample-Ledger.xlsx"
+SOURCE = Path("/Users/haley/Documents/90OutstandingBalance_20260923.csv.xlsx")
+SNAPSHOT = date(2026, 9, 23)
 
-ROWS = [
-    ("P-1042", "2025-04-03", 412.00, 0.00),
-    ("P-1188", "2025-07-22", 0.00, 186.40),
-    ("P-2310", "2025-08-14", 95.00, 240.00),
-    ("P-2401", "2025-01-18", 620.50, 0.00),
-    ("P-2519", "2025-06-09", 0.00, 310.00),
-    ("P-2604", "2025-08-28", 40.00, 88.00),
-    ("P-2711", "2025-03-12", 275.00, 0.00),
-    ("P-2806", "2025-09-02", 0.00, 154.75),
-    ("P-2914", "2025-05-27", 150.00, 150.00),
-    ("P-3002", "2024-12-11", 890.00, 0.00),
-    ("P-3108", "2025-07-01", 0.00, 425.00),
-    ("P-3220", "2025-08-19", 60.00, 0.00),
-    ("P-3345", "2025-02-06", 340.00, 0.00),
-    ("P-3417", "2025-09-08", 0.00, 97.20),
-    ("P-3551", "2025-04-29", 210.00, 75.00),
-    ("P-3609", "2025-06-16", 0.00, 268.00),
-    ("P-3722", "2025-01-30", 515.00, 0.00),
-    ("P-3840", "2025-08-05", 25.00, 190.00),
-    ("P-3901", "2025-03-21", 0.00, 0.00),
-    ("P-4012", "2025-07-30", 180.00, 220.00),
-]
+NAVY = "1B365D"
+CREAM = "F4EFE4"
+PINK = "FF88CF"
+BLUE = "294BEF"
+THIN = Border(
+    left=Side(style="thin", color="D9D4C8"),
+    right=Side(style="thin", color="D9D4C8"),
+    top=Side(style="thin", color="D9D4C8"),
+    bottom=Side(style="thin", color="D9D4C8"),
+)
+HEAD = Font(name="Calibri", bold=True, color=CREAM, size=11)
+HEAD_FILL = PatternFill("solid", fgColor=NAVY)
+MONEY = '"$"#,##0.00'
+PCT = "0.0%"
+DATE_FMT = "YYYY-MM-DD"
 
 
-def main() -> None:
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "Sample ledger"
+def _rng(key: str) -> random.Random:
+    seed = int(hashlib.sha256(key.encode()).hexdigest()[:16], 16)
+    return random.Random(seed)
 
-    header = Font(name="Calibri", bold=True, color="F4EFE4")
-    head_fill = PatternFill("solid", fgColor="1B365D")
-    money = '$#,##0.00'
-    thin = Border(
-        left=Side(style="thin", color="D9D4C8"),
-        right=Side(style="thin", color="D9D4C8"),
-        top=Side(style="thin", color="D9D4C8"),
-        bottom=Side(style="thin", color="D9D4C8"),
-    )
 
-    ws["A1"] = "PHI-safe sample — fictional account numbers. No names."
-    ws.merge_cells("A1:D1")
-    ws["A1"].font = Font(name="Calibri", italic=True, color="5C6478", size=10)
+def load_source(path: Path) -> list[tuple]:
+    ws = load_workbook(path, data_only=True).active
+    rows = []
+    for r in ws.iter_rows(min_row=2, values_only=True):
+        rp, total, pt, ins = r[0], r[1], r[2], r[3]
+        if rp is None or not isinstance(total, (int, float)):
+            continue
+        rows.append(r)
+    return rows
 
-    cols = [
-        "Account number",
-        "Date of service",
-        "Patient balance due",
-        "Insurance balance due",
+
+def assign_ids(rows: list[tuple]) -> tuple[dict[str, str], dict[str, str]]:
+    rp_ids: dict[str, str] = {}
+    pt_ids: dict[str, str] = {}
+    rp_n = 1001
+    pt_n = 2001
+    for r in rows:
+        rp = str(r[0]).strip()
+        pt = str(r[12]).strip() if r[12] else rp
+        if rp not in rp_ids:
+            rp_ids[rp] = f"RP-{rp_n}"
+            rp_n += 1
+        if pt not in pt_ids:
+            pt_ids[pt] = f"P-{pt_n}"
+            pt_n += 1
+    return rp_ids, pt_ids
+
+
+def demo_dates(patient_id: str, pt_over_90: float) -> tuple[date, date | None]:
+    rng = _rng(patient_id)
+    if pt_over_90 and pt_over_90 > 0:
+        last = SNAPSHOT - timedelta(days=rng.randint(95, 400))
+        nxt = None if rng.random() < 0.62 else SNAPSHOT + timedelta(days=rng.randint(3, 45))
+    else:
+        last = SNAPSHOT - timedelta(days=rng.randint(7, 120))
+        nxt = None if rng.random() < 0.28 else SNAPSHOT + timedelta(days=rng.randint(1, 70))
+    return last, nxt
+
+
+def primary_bucket(pt90, pt61, pt31, pt0, ins90, ins61, ins31, ins0) -> str:
+    vals = [
+        ("90+", (pt90 or 0) + (ins90 or 0)),
+        ("61–90", (pt61 or 0) + (ins61 or 0)),
+        ("31–60", (pt31 or 0) + (ins31 or 0)),
+        ("0–30", (pt0 or 0) + (ins0 or 0)),
     ]
-    for i, name in enumerate(cols, 1):
-        cell = ws.cell(3, i, name)
-        cell.font = header
-        cell.fill = head_fill
-        cell.alignment = Alignment(horizontal="left")
+    return max(vals, key=lambda x: x[1])[0]
 
-    for r, row in enumerate(ROWS, 4):
-        acct, dos, pt, ins = row
-        ws.cell(r, 1, acct).border = thin
-        c = ws.cell(r, 2, dos)
-        c.number_format = "YYYY-MM-DD"
-        c.border = thin
-        pt_c = ws.cell(r, 3, pt)
-        pt_c.number_format = money
-        pt_c.border = thin
-        ins_c = ws.cell(r, 4, ins)
-        ins_c.number_format = money
-        ins_c.border = thin
 
-    last = 3 + len(ROWS)
-    ws.cell(last + 2, 1, "Patient $ open")
-    ws.cell(last + 2, 3, f"=SUM(C4:C{last})")
-    ws.cell(last + 2, 3).number_format = money
-    ws.cell(last + 3, 1, "Insurance $ open")
-    ws.cell(last + 3, 4, f"=SUM(D4:D{last})")
-    ws.cell(last + 3, 4).number_format = money
+def style_header(ws, row, cols):
+    for i in range(1, cols + 1):
+        c = ws.cell(row, i)
+        c.font = HEAD
+        c.fill = HEAD_FILL
+        c.alignment = Alignment(horizontal="center", wrap_text=True, vertical="center")
+        c.border = THIN
+    ws.row_dimensions[row].height = 32
 
-    widths = (20, 18, 22, 24)
-    for i, w in enumerate(widths, 1):
+
+def widths(ws, sizes):
+    for i, w in enumerate(sizes, 1):
         ws.column_dimensions[get_column_letter(i)].width = w
 
+
+def build() -> None:
+    raw = load_source(SOURCE)
+    rp_ids, pt_ids = assign_ids(raw)
+
+    wb = Workbook()
+
+    # ----- Cover -----
+    cover = wb.active
+    cover.title = "About"
+    cover["A1"] = "A/R tracker — 90+ outstanding (de-identified)"
+    cover["A1"].font = Font(name="Calibri", bold=True, size=18, color=NAVY)
+    cover.merge_cells("A1:F1")
+    cover["A3"] = (
+        "Names removed. Responsible party and patient are IDs only. "
+        "Most recent visit and next appointment are demo dates for the portfolio workflow — not pulled from the PMS. "
+        "Dollar aging is from the 23 Sep 2026 outstanding-balance extract."
+    )
+    cover["A3"].alignment = Alignment(wrap_text=True)
+    cover.merge_cells("A3:F5")
+    cover["A7"] = "Snapshot"
+    cover["B7"] = SNAPSHOT
+    cover["B7"].number_format = DATE_FMT
+    cover["A8"] = "Accounts"
+    cover["B8"] = len(raw)
+    cover["A9"] = "See"
+    cover["B9"] = "Ledger · Calcs · Aging pivot · Dashboard"
+
+    for addr in ("A7", "A8", "A9"):
+        cover[addr].font = Font(bold=True, color=NAVY)
+    widths(cover, [22, 28, 18, 18, 18, 18])
+
+    # ----- Ledger -----
+    led = wb.create_sheet("Ledger")
+    headers = [
+        "Responsible Party Patient ID",
+        "Patient ID",
+        "Most recent visit",
+        "Next appointment",
+        "Total owing",
+        "Patient total owing",
+        "Insurance total owing",
+        "Patient 0–30",
+        "Patient 31–60",
+        "Patient 61–90",
+        "Patient over 90",
+        "Insurance 0–30",
+        "Insurance 31–60",
+        "Insurance 61–90",
+        "Insurance over 90",
+        "Primary bucket",
+        "Has next appointment",
+        "Days since last visit",
+    ]
+    for i, h in enumerate(headers, 1):
+        led.cell(1, i, h)
+    style_header(led, 1, len(headers))
+
+    money_cols = range(5, 16)
+    for i, r in enumerate(raw, 2):
+        rp = str(r[0]).strip()
+        pt_name = str(r[12]).strip() if r[12] else rp
+        rid = rp_ids[rp]
+        pid = pt_ids[pt_name]
+        pt90 = r[7] or 0
+        last, nxt = demo_dates(pid, pt90)
+        bucket = primary_bucket(r[7], r[6], r[5], r[4], r[11], r[10], r[9], r[8])
+        led.cell(i, 1, rid)
+        led.cell(i, 2, pid)
+        led.cell(i, 3, last).number_format = DATE_FMT
+        nc = led.cell(i, 4, nxt if nxt else None)
+        nc.number_format = DATE_FMT
+        vals = [r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11]]
+        for j, v in enumerate(vals, 5):
+            cell = led.cell(i, j, float(v or 0))
+            cell.number_format = MONEY
+            cell.border = THIN
+        led.cell(i, 16, bucket)
+        led.cell(i, 17, "Yes" if nxt else "No")
+        led.cell(i, 18, f'=$B$8-C{i}')  # wrong - snapshot not on this sheet
+        # days since last visit vs snapshot date hardcoded
+        led.cell(i, 18, f"=DATE(2026,9,23)-C{i}")
+        for col in (1, 2, 3, 4, 16, 17, 18):
+            led.cell(i, col).border = THIN
+
+    last_row = 1 + len(raw)
+    for i in range(2, last_row + 1):
+        led.cell(i, 18).number_format = "0"
+
+    tab = Table(displayName="ARLedger", ref=f"A1:R{last_row}")
+    tab.tableStyleInfo = TableStyleInfo(name="TableStyleMedium2", showRowStripes=True)
+    led.add_table(tab)
+    led.auto_filter.ref = f"A1:R{last_row}"
+    led.freeze_panes = "A2"
+    widths(led, [28, 14, 18, 18, 14, 18, 20, 14, 14, 14, 16, 14, 14, 14, 16, 16, 20, 18])
+    led.conditional_formatting.add(
+        f"K2:K{last_row}",
+        FormulaRule(formula=[f"K2>0"], fill=PatternFill("solid", fgColor="F8D0D4")),
+    )
+
+    n = last_row  # last data row
+
+    # ----- Calcs -----
+    calc = wb.create_sheet("Calcs")
+    calc["A1"] = "Calculation tables"
+    calc["A1"].font = Font(bold=True, size=16, color=NAVY)
+    calc.merge_cells("A1:D1")
+
+    calc["A3"] = "Headline"
+    calc["A4"] = "Accounts"
+    calc["B4"] = f"=COUNTA(Ledger!B2:B{n})"
+    calc["A5"] = "Total owing"
+    calc["B5"] = f"=SUM(Ledger!E2:E{n})"
+    calc["B5"].number_format = MONEY
+    calc["A6"] = "Patient owing"
+    calc["B6"] = f"=SUM(Ledger!F2:F{n})"
+    calc["B6"].number_format = MONEY
+    calc["A7"] = "Insurance owing"
+    calc["B7"] = f"=SUM(Ledger!G2:G{n})"
+    calc["B7"].number_format = MONEY
+    calc["A8"] = "Patient share of open"
+    calc["B8"] = "=IF(B5=0,0,B6/B5)"
+    calc["B8"].number_format = PCT
+    calc["A9"] = "Patient over 90"
+    calc["B9"] = f"=SUM(Ledger!K2:K{n})"
+    calc["B9"].number_format = MONEY
+    calc["A10"] = "90+ share of patient $"
+    calc["B10"] = "=IF(B6=0,0,B9/B6)"
+    calc["B10"].number_format = PCT
+    calc["A11"] = "90+ accounts (patient $ > 0)"
+    calc["B11"] = f'=COUNTIF(Ledger!K2:K{n},">0")'
+    calc["A12"] = "90+ with no next appointment"
+    calc["B12"] = f'=COUNTIFS(Ledger!K2:K{n},">0",Ledger!Q2:Q{n},"No")'
+    calc["A13"] = "Unique responsible parties"
+    calc["B13"] = f"=SUMPRODUCT(1/COUNTIF(Ledger!A2:A{n},Ledger!A2:A{n}))"
+    calc["B13"].number_format = "0"
+
+    calc["A15"] = "Aging mix — dollars"
+    calc["A16"] = "Bucket"
+    calc["B16"] = "Patient $"
+    calc["C16"] = "Insurance $"
+    calc["D16"] = "Total $"
+    calc["E16"] = "Share"
+    style_header(calc, 16, 5)
+    buckets = [
+        ("0–30", "H", "L"),
+        ("31–60", "I", "M"),
+        ("61–90", "J", "N"),
+        ("90+", "K", "O"),
+    ]
+    for i, (label, pcol, icol) in enumerate(buckets, 17):
+        calc.cell(i, 1, label)
+        calc.cell(i, 2, f"=SUM(Ledger!{pcol}2:{pcol}{n})").number_format = MONEY
+        calc.cell(i, 3, f"=SUM(Ledger!{icol}2:{icol}{n})").number_format = MONEY
+        calc.cell(i, 4, f"=B{i}+C{i}").number_format = MONEY
+        calc.cell(i, 5, f"=IF($D$21=0,0,D{i}/$D$21)").number_format = PCT
+    calc["A21"] = "Total"
+    calc["B21"] = "=SUM(B17:B20)"
+    calc["C21"] = "=SUM(C17:C20)"
+    calc["D21"] = "=SUM(D17:D20)"
+    calc["E21"] = "=SUM(E17:E20)"
+    for col in range(2, 5):
+        calc.cell(21, col).number_format = MONEY
+    calc["E21"].number_format = PCT
+    for c in range(1, 6):
+        calc.cell(21, c).font = Font(bold=True)
+
+    calc["A23"] = "Huddle flags"
+    calc["A24"] = "Patient 90+ and no next appointment (work first)"
+    calc["B24"] = "=B12"
+    calc["A25"] = "Open $ on those accounts"
+    calc["B25"] = f'=SUMIFS(Ledger!E2:E{n},Ledger!K2:K{n},">0",Ledger!Q2:Q{n},"No")'
+    calc["B25"].number_format = MONEY
+
+    for addr in ("A3", "A15", "A23"):
+        calc[addr].font = Font(bold=True, size=13, color=NAVY)
+    for r in range(4, 14):
+        calc.cell(r, 1).font = Font(bold=True)
+    widths(calc, [44, 18, 16, 14, 12])
+
+    # ----- Aging pivot (SUMIFS, live) -----
+    pvt = wb.create_sheet("Aging pivot")
+    pvt["A1"] = "Pivot — aging bucket × patient vs insurance"
+    pvt["A1"].font = Font(bold=True, size=16, color=NAVY)
+    pvt.merge_cells("A1:C1")
+    pvt["A2"] = "Live SUMIFS off Ledger. Change a dollar on Ledger and this sheet moves."
+    pvt["A4"] = "Primary bucket"
+    pvt["B4"] = "Patient $"
+    pvt["C4"] = "Insurance $"
+    pvt["D4"] = "Accounts"
+    pvt["E4"] = "No next appointment"
+    style_header(pvt, 4, 5)
+    for i, label in enumerate(["0–30", "31–60", "61–90", "90+"], 5):
+        pvt.cell(i, 1, label)
+        pvt.cell(i, 2, f'=SUMIF(Ledger!P:P,A{i},Ledger!F:F)').number_format = MONEY
+        pvt.cell(i, 3, f'=SUMIF(Ledger!P:P,A{i},Ledger!G:G)').number_format = MONEY
+        pvt.cell(i, 4, f'=COUNTIF(Ledger!P:P,A{i})')
+        pvt.cell(i, 5, f'=COUNTIFS(Ledger!P:P,A{i},Ledger!Q:Q,"No")')
+    pvt["A9"] = "Total"
+    pvt["B9"] = "=SUM(B5:B8)"
+    pvt["C9"] = "=SUM(C5:C8)"
+    pvt["D9"] = "=SUM(D5:D8)"
+    pvt["E9"] = "=SUM(E5:E8)"
+    pvt["B9"].number_format = MONEY
+    pvt["C9"].number_format = MONEY
+    for c in range(1, 6):
+        pvt.cell(9, c).font = Font(bold=True)
+
+    pvt["A11"] = "Pivot — responsible party (open $ ≥ $200)"
+    pvt["A11"].font = Font(bold=True, size=13, color=NAVY)
+    pvt["A12"] = "Filter this table in Excel (Data → Filter) or insert a PivotTable from ARLedger."
+    # Top RPs by summing in python for a static top-10 PLUS formula note
+    from collections import defaultdict
+
+    rp_tot: dict[str, float] = defaultdict(float)
+    for r in raw:
+        rp = rp_ids[str(r[0]).strip()]
+        rp_tot[rp] += float(r[1] or 0)
+    top = sorted(rp_tot.items(), key=lambda x: -x[1])[:15]
+    pvt["A13"] = "Responsible Party Patient ID"
+    pvt["B13"] = "Total owing"
+    pvt["C13"] = "Patient $"
+    pvt["D13"] = "Insurance $"
+    style_header(pvt, 13, 4)
+    for i, (rid, _) in enumerate(top, 14):
+        pvt.cell(i, 1, rid)
+        pvt.cell(i, 2, f'=SUMIF(Ledger!A:A,A{i},Ledger!E:E)').number_format = MONEY
+        pvt.cell(i, 3, f'=SUMIF(Ledger!A:A,A{i},Ledger!F:F)').number_format = MONEY
+        pvt.cell(i, 4, f'=SUMIF(Ledger!A:A,A{i},Ledger!G:F)').number_format = MONEY
+        # fix insurance col G not F
+        pvt.cell(i, 4, f'=SUMIF(Ledger!A:A,A{i},Ledger!G:G)').number_format = MONEY
+    widths(pvt, [32, 16, 16, 16, 22])
+
+    # ----- Dashboard + charts -----
+    dash = wb.create_sheet("Dashboard")
+    dash["A1"] = "Huddle dashboard"
+    dash["A1"].font = Font(bold=True, size=18, color=NAVY)
+    dash["A3"] = "Total owing"
+    dash["B3"] = "=Calcs!B5"
+    dash["B3"].number_format = MONEY
+    dash["A4"] = "Patient / insurance"
+    dash["B4"] = '=TEXT(Calcs!B6,"$#,##0")&" / "&TEXT(Calcs!B7,"$#,##0")'
+    dash["A5"] = "Patient 90+"
+    dash["B5"] = "=Calcs!B9"
+    dash["B5"].number_format = MONEY
+    dash["A6"] = "90+ with no next appointment"
+    dash["B6"] = '=Calcs!B12&" accounts · "&TEXT(Calcs!B25,"$#,##0")'
+    for r in range(3, 7):
+        dash.cell(r, 1).font = Font(bold=True, color=NAVY)
+        dash.cell(r, 2).font = Font(size=14, color=NAVY)
+
+    # chart source already on Calcs 17:20
+    bar = BarChart()
+    bar.type = "col"
+    bar.grouping = "stacked"
+    bar.title = "Open A/R by aging bucket"
+    bar.y_axis.title = "Dollars"
+    data = Reference(calc, min_col=2, min_row=16, max_col=3, max_row=20)
+    cats = Reference(calc, min_col=1, min_row=17, max_row=20)
+    bar.add_data(data, from_rows=False, titles_from_data=True)
+    bar.set_categories(cats)
+    bar.shape = 4
+    bar.y_axis.numFmt = '"$"#,##0'
+    bar.style = 10
+    bar.width = 15
+    bar.height = 8
+    dash.add_chart(bar, "A8")
+
+    pie = PieChart()
+    pie.title = "Patient vs insurance"
+    pie.add_data(Reference(calc, min_col=2, min_row=6, max_row=7), titles_from_data=False)
+    pie.set_categories(Reference(calc, min_col=1, min_row=6, max_row=7))
+    pie.dataLabels = DataLabelList()
+    pie.dataLabels.showPercent = True
+    pie.dataLabels.showVal = False
+    pie.width = 12
+    pie.height = 8
+    dash.add_chart(pie, "I8")
+
+    bar2 = BarChart()
+    bar2.type = "bar"
+    bar2.title = "Accounts by primary bucket"
+    bar2.add_data(Reference(pvt, min_col=4, min_row=4, max_row=8), titles_from_data=True)
+    bar2.set_categories(Reference(pvt, min_col=1, min_row=5, max_row=8))
+    bar2.style = 12
+    bar2.width = 15
+    bar2.height = 8
+    dash.add_chart(bar2, "A24")
+
+    widths(dash, [34, 42, 14, 14])
+
+    calc.sheet_properties.tabColor = BLUE
+    led.sheet_properties.tabColor = NAVY
+    pvt.sheet_properties.tabColor = PINK
+    dash.sheet_properties.tabColor = BLUE
+
     wb.save(OUT)
-    print(OUT)
+    print(f"Wrote {OUT} rows={len(raw)} rps={len(rp_ids)} patients={len(pt_ids)}")
 
 
 if __name__ == "__main__":
-    main()
+    build()

@@ -6,7 +6,7 @@ Static HTML/CSS/JS. No build step. Case studies with a question, a method, and a
 
 ## Featured work
 
-- [Accounts receivable tracker](ar-tracker.html) — Excel · dental operations. Collections $388k → $443k (+14%). 90+ share moved from 31.4% toward 14%. Public sample: [`AR-Sample-Ledger.xlsx`](AR-Sample-Ledger.xlsx) (account #, DOS, patient $, insurance $ — no names).
+- [Accounts receivable tracker](ar-tracker.html) — Excel · dental operations. Collections $388k → $443k (+14%). Public workbook: [`AR-Sample-Ledger.xlsx`](AR-Sample-Ledger.xlsx) (IDs only, aging, pivots, dashboard).
 - [Happiness and GDP](happiness-gdp.html) — Python · pandas. [`python/happiness_gdp.py`](python/happiness_gdp.py). r = 0.836 across 1,927 country–years.
 - [Late returns pipeline](late-returns.html) — PostgreSQL. [`sql/late_returns.sql`](sql/late_returns.sql).
 - [Projection vs the closing line](sports-projections.html) — Super Bowl LIX. SRS PHI −3.5 vs close KC −1. Vegas hold 14.6%.
