@@ -69,12 +69,9 @@
     </figure>
 
     <div class="prose">
-      <h2>The questions</h2>
-      <ol>
-        <li>How do budget, popularity, vote average, and runtime relate to <code>revenue_adj</code>?</li>
-        <li>Which genres tend to earn higher inflation-adjusted revenue?</li>
-        <li>How have revenues and popularity moved by release year (1960–2015)?</li>
-      </ol>
+      <h2>The question</h2>
+      <p><strong>If you greenlighted from genre volume, would you actually pick the titles that earn?</strong></p>
+      <p>Drama, Comedy, Thriller, and Action appear most often in this TMDb sample. Frequency is not the same as commercial performance. Among genres with ≥50 films that have known inflation-adjusted revenue, Animation’s median sits near $149M — Comedy’s near $47M. Budget and popularity move with adj. revenue; vote average and runtime are weaker.</p>
 
       <h2>Method</h2>
       <p>Pandas + seaborn on the TMDb movie CSV. Zeros in budget and revenue treated as missing (complete-case revenue work favors better-documented films). Multi-label genres expanded, so a film can sit in more than one bar. The numbers are the notebook’s.</p>
