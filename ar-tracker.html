@@ -246,13 +246,13 @@
             <p>The stacked insurance/patient bars tell the same story both days: <strong>0–30 is mostly insurance</strong> (ERA still in flight). <strong>90+ is mostly patient</strong> (statements, plans, collections review). Working “total A/R” as one pile would send the morning to the wrong phone.</p>
 
             <h2>What I still build in Excel</h2>
-            <p>Curve is the source of truth. The workbook is the huddle layer: one row per claim, formulas for balance / age / bucket / follow-up, a queue for today. Real names stay in Curve. The public sample has four columns only: account number, date of service, patient balance due, insurance balance due.</p>
+            <p>Curve is the source of truth. The workbook is the huddle layer: IDs not names, aging buckets, a follow-up queue. <strong>Most recent visit</strong> and <strong>next appointment</strong> on the public file are demo dates so the huddle workflow is visible without scheduling PHI. Dollar aging is from a 23 Sep 2026 outstanding extract.</p>
             <ul>
-              <li><strong>AR Ledger</strong> — account number, date of service, patient balance due, insurance balance due.</li>
-              <li><strong>Dashboard</strong> — open A/R, insurance vs patient, 90+ dollars, aging mix.</li>
-              <li><strong>Follow-up queue</strong> — open balance and next follow-up ≤ today.</li>
+              <li><strong>Ledger</strong> — Responsible Party Patient ID, Patient ID, visit dates, patient vs insurance aging.</li>
+              <li><strong>Calcs / Aging pivot</strong> — live SUMIFS: mix, 90+ share, accounts with no next appointment.</li>
+              <li><strong>Dashboard</strong> — stacked aging, patient vs insurance, accounts by bucket.</li>
             </ul>
-            <p style="margin-top:18px"><a class="btn btn-dark" href="AR-Sample-Ledger.xlsx">Download sample ledger</a> <span style="margin-left:10px;font-size:0.85rem;color:var(--muted)">Fictional P-#### rows. No names.</span></p>
+            <p style="margin-top:18px"><a class="btn btn-dark" href="AR-Sample-Ledger.xlsx">Download A/R tracker</a> <span style="margin-left:10px;font-size:0.85rem;color:var(--muted)">110 accounts. IDs only. No names.</span></p>
 
             <h2>How a morning is supposed to run</h2>
             <ul>
@@ -284,7 +284,7 @@
             </div>
 
             <h2>Limitations</h2>
-            <p>Totals only. No patient names, no chart copies from the PMS, no provider names on this page. YoY uses the Curve “Totals for all payment types → Payments” line: $388,273.21 (2024) and $442,912.01 (2025). That is posted collections, not production or net of refunds. The Nov 16, 2025 snapshot is dated in Curve (31.4% in 90+); the second aging screenshot is the same dashboard on a later pull (18.7% in 90+). I lead with closer to 14% as the current figure — not a third extract, and not new patient-level dollars. 0–30 / 31–60 / 61–90 dollars on the Nov chart are read off the bar lengths so they add to $85,085 — they are not a CSV extract. The public Excel sample is fictional P-#### rows with four columns only.</p>
+            <p>Totals only on this page. No patient names, no chart copies from the PMS, no provider names. YoY uses the Curve “Totals for all payment types → Payments” line: $388,273.21 (2024) and $442,912.01 (2025). That is posted collections, not production or net of refunds. The Nov 16, 2025 snapshot is dated in Curve (31.4% in 90+); the second aging screenshot is the same dashboard on a later pull (18.7% in 90+). I lead with closer to 14% as the current figure — not a third extract. The public workbook uses IDs only; visit and next-appointment dates are demo fields for the huddle layout.</p>
           </div>
 
           <a class="ticker ticker-link" href="nike.html">
