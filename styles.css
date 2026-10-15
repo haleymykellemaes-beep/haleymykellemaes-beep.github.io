@@ -1636,7 +1636,7 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
 .work-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
+  gap: 56px 44px;
   isolation: isolate;
 }
 .case-card {
@@ -1645,20 +1645,20 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
   display: flex;
   flex-direction: column;
   background: var(--white);
-  border-radius: 16px;
+  border-radius: 22px;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  min-height: 0;
+  min-height: 560px;
   scale: 1;
-  box-shadow: 0 0 0 rgba(16, 21, 40, 0);
+  box-shadow: 0 1px 2px rgba(16, 21, 40, 0.04), 0 10px 28px rgba(16, 21, 40, 0.06);
   outline: 2px solid transparent;
   outline-offset: 3px;
   transition: scale 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s ease, outline-color 0.32s ease;
 }
 .case-card:hover,
 .case-card:focus-visible {
-  scale: 1.045;
+  scale: 1.02;
   z-index: 4;
   box-shadow: 0 16px 40px rgba(16, 21, 40, 0.12);
   color: inherit;
@@ -1674,8 +1674,8 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
 }
 .case-visual {
   background: var(--gray);
-  padding: 22px 22px 20px;
-  min-height: 220px;
+  padding: 32px 32px 28px;
+  min-height: 340px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1688,7 +1688,7 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
 .case-visual .thumb-viz b {
   display: block;
   font-family: var(--display);
-  font-size: 2.1rem;
+  font-size: 2.45rem;
   line-height: 0.9;
   margin-bottom: 8px;
 }
@@ -1800,14 +1800,14 @@ html[data-theme="nike"] a.ticker,
 html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
 .case-visual h3,
 .case-body h3 {
-  margin: 8px 0 6px;
+  margin: 10px 0 10px;
   font-family: var(--display);
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: clamp(2.05rem, 3.2vw, 3rem);
   line-height: 0.92;
   letter-spacing: 0.02em;
 }
 .case-body {
-  padding: 20px 22px 22px;
+  padding: 28px 32px 36px;
 }
 .case-body span,
 .case-meta {
@@ -1817,7 +1817,7 @@ html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
   font-weight: 700;
   color: var(--blue);
 }
-.case-body p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.case-body p { margin: 0; color: var(--muted); font-size: 1.08rem; line-height: 1.55; }
 .hover-kpi {
   margin: 0;
   max-height: 0;
@@ -2007,10 +2007,6 @@ html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
   to { opacity: 1; transform: none; }
 }
 
-@media (min-width: 1080px) {
-  .work-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .case-card.featured { grid-column: 1 / -1; }
-}
 @media (prefers-reduced-motion: reduce) {
   .rise { animation: none; }
   .caret { display: none !important; animation: none; }
@@ -2046,9 +2042,19 @@ html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
   .home-hero .hero-photo { width: 176px; height: 176px; }
   .phone { width: min(250px, 72%); }
 }
+@media (max-width: 860px) {
+  .work-grid,
+  .case-card.featured {
+    grid-template-columns: 1fr;
+  }
+  .work-grid { gap: 40px; }
+  .case-card { min-height: 0; }
+  .case-visual { min-height: 280px; }
+  .case-body h3 { font-size: clamp(2.1rem, 7vw, 2.8rem); }
+  .case-body p { font-size: 1.08rem; }
+}
 @media (max-width: 720px) {
   .home-hero .wrap,
-  .work-grid,
   .case-card.featured,
   .case-hero {
     grid-template-columns: 1fr;
