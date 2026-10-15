@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "AR-Sample-Ledger.xlsx"
 SOURCE = Path("/Users/haley/Documents/90OutstandingBalance_20260923.csv.xlsx")
 SNAPSHOT = date(2026, 9, 23)
+PORTFOLIO_TODAY = date(2026, 10, 15)
 
 NAVY = "1B365D"
 CREAM = "F4EFE4"
@@ -74,15 +75,35 @@ def assign_ids(rows: list[tuple]) -> tuple[dict[str, str], dict[str, str]]:
     return rp_ids, pt_ids
 
 
-def demo_dates(patient_id: str, pt_over_90: float) -> tuple[date, date | None]:
+def demo_dates(patient_id: str, pt_over_90: float) -> tuple[date, int | None]:
+    """Return last-visit date and a TODAY()+n offset (or None). Offsets are after portfolio today."""
     rng = _rng(patient_id)
     if pt_over_90 and pt_over_90 > 0:
         last = SNAPSHOT - timedelta(days=rng.randint(95, 400))
-        nxt = None if rng.random() < 0.62 else SNAPSHOT + timedelta(days=rng.randint(3, 45))
+        nxt_n = None if rng.random() < 0.62 else rng.randint(1, 70)
     else:
         last = SNAPSHOT - timedelta(days=rng.randint(7, 120))
-        nxt = None if rng.random() < 0.28 else SNAPSHOT + timedelta(days=rng.randint(1, 70))
-    return last, nxt
+        nxt_n = None if rng.random() < 0.28 else rng.randint(1, 70)
+    return last, nxt_n
+
+
+def family_rp_map(pt_ids: dict[str, str]) -> dict[str, str]:
+    """Map patient name -> RP id. Some RPs cover 2-3 patients (not 1:1)."""
+    names = list(pt_ids.keys())
+    out: dict[str, str] = {}
+    i = 0
+    rp_n = 1001
+    while i < len(names):
+        rng = _rng(pt_ids[names[i]])
+        roll = rng.random()
+        size = 3 if roll < 0.14 else 2 if roll < 0.42 else 1
+        size = min(size, len(names) - i)
+        rid = f"RP-{rp_n}"
+        rp_n += 1
+        for j in range(size):
+            out[names[i + j]] = rid
+        i += size
+    return out
 
 
 def primary_bucket(pt90, pt61, pt31, pt0, ins90, ins61, ins31, ins0) -> str:
@@ -112,34 +133,44 @@ def widths(ws, sizes):
 
 def build() -> None:
     raw = load_source(SOURCE)
-    rp_ids, pt_ids = assign_ids(raw)
+    _rp_ids, pt_ids = assign_ids(raw)
+    family_rps = family_rp_map(pt_ids)
 
     wb = Workbook()
 
     # ----- Cover -----
     cover = wb.active
     cover.title = "About"
-    cover["A1"] = "A/R tracker — 90+ outstanding (de-identified)"
+    cover["A1"] = "A/R tracker — 90+ outstanding extract (de-identified)"
     cover["A1"].font = Font(name="Calibri", bold=True, size=18, color=NAVY)
     cover.merge_cells("A1:F1")
     cover["A3"] = (
-        "Names removed. Responsible party and patient are IDs only. "
-        "Most recent visit and next appointment are demo dates for the portfolio workflow — not pulled from the PMS. "
-        "Dollar aging is from the 23 Sep 2026 outstanding-balance extract."
+        "This sample is 90+ only: one row per patient account on a 23 Sep 2026 90+ outstanding extract, "
+        "not one row per open charge, and not the full open A/R board. "
+        "Do not compare this file's mix to the case-study story (31.4% to 18.7% of all open A/R). "
+        "Placeholder IDs only (RP-100x / P-20xx), not PMS IDs. No real names. "
+        "Most recent visit and next appointment are demo fields; next appointment uses TODAY()+n so dates stay after today. "
+        "Some responsible parties cover 2-3 patients."
     )
-    cover["A3"].alignment = Alignment(wrap_text=True)
-    cover.merge_cells("A3:F5")
-    cover["A7"] = "Snapshot"
-    cover["B7"] = SNAPSHOT
-    cover["B7"].number_format = DATE_FMT
-    cover["A8"] = "Accounts"
-    cover["B8"] = len(raw)
-    cover["A9"] = "See"
-    cover["B9"] = "Ledger · Calcs · Aging pivot (tables + pie)"
+    cover["A3"].alignment = Alignment(wrap_text=True, vertical="top")
+    cover.merge_cells("A3:F8")
+    cover.row_dimensions[3].height = 28
+    cover["A10"] = "Snapshot"
+    cover["B10"] = SNAPSHOT
+    cover["B10"].number_format = DATE_FMT
+    cover["A11"] = "Rows (patient accounts)"
+    cover["B11"] = len(raw)
+    cover["A12"] = "Grain"
+    cover["B12"] = "One row per patient account on the 90+ extract (not per charge)"
+    cover["A13"] = "See"
+    cover["B13"] = "Ledger · Calcs · Aging pivot (tables + pie)"
 
-    for addr in ("A7", "A8", "A9"):
+    for addr in ("A10", "A11", "A12", "A13"):
         cover[addr].font = Font(bold=True, color=NAVY)
-    widths(cover, [22, 28, 18, 18, 18, 18])
+    cover["B12"].alignment = Alignment(wrap_text=True)
+    widths(cover, [26, 62, 18, 18, 18, 18])
+    cover.row_dimensions[1].height = 24
+    cover.row_dimensions[12].height = 32
 
     # ----- Ledger -----
     led = wb.create_sheet("Ledger")
@@ -171,15 +202,15 @@ def build() -> None:
     for i, r in enumerate(raw, 2):
         rp = str(r[0]).strip()
         pt_name = str(r[12]).strip() if r[12] else rp
-        rid = rp_ids[rp]
+        rid = family_rps[pt_name]
         pid = pt_ids[pt_name]
         pt90 = r[7] or 0
-        last, nxt = demo_dates(pid, pt90)
+        last, nxt_n = demo_dates(pid, pt90)
         bucket = primary_bucket(r[7], r[6], r[5], r[4], r[11], r[10], r[9], r[8])
         led.cell(i, 1, rid)
         led.cell(i, 2, pid)
         led.cell(i, 3, last).number_format = DATE_FMT
-        nc = led.cell(i, 4, nxt if nxt else None)
+        nc = led.cell(i, 4, f"=TODAY()+{nxt_n}" if nxt_n else None)
         nc.number_format = DATE_FMT
         vals = [r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11]]
         for j, v in enumerate(vals, 5):
@@ -187,7 +218,7 @@ def build() -> None:
             cell.number_format = MONEY
             cell.border = THIN
         led.cell(i, 16, bucket)
-        led.cell(i, 17, "Yes" if nxt else "No")
+        led.cell(i, 17, "Yes" if nxt_n else "No")
         led.cell(i, 18, f"=DATE(2026,9,23)-C{i}")
         for col in (1, 2, 3, 4, 16, 17, 18):
             led.cell(i, col).border = THIN
@@ -201,7 +232,7 @@ def build() -> None:
     led.add_table(tab)
     led.auto_filter.ref = f"A1:R{last_row}"
     led.freeze_panes = "A2"
-    widths(led, [28, 14, 18, 18, 14, 18, 20, 14, 14, 14, 16, 14, 14, 14, 16, 16, 20, 18])
+    widths(led, [32, 14, 18, 18, 14, 20, 22, 14, 16, 16, 18, 16, 16, 16, 20, 16, 22, 20])
     led.conditional_formatting.add(
         f"K2:K{last_row}",
         FormulaRule(formula=[f"K2>0"], fill=PatternFill("solid", fgColor="F8D0D4")),
@@ -323,7 +354,8 @@ def build() -> None:
 
     rp_tot: dict[str, float] = defaultdict(float)
     for r in raw:
-        rp = rp_ids[str(r[0]).strip()]
+        pt_name = str(r[12]).strip() if r[12] else str(r[0]).strip()
+        rp = family_rps[pt_name]
         rp_tot[rp] += float(r[1] or 0)
     top = sorted(rp_tot.items(), key=lambda x: -x[1])[:15]
     pvt["A13"] = "Responsible Party Patient ID"
@@ -335,7 +367,7 @@ def build() -> None:
         pvt.cell(i, 1, rid)
         pvt.cell(i, 2, f'=SUMIF(Ledger!A:A,A{i},Ledger!E:E)').number_format = MONEY
         pvt.cell(i, 3, f'=SUMIF(Ledger!A:A,A{i},Ledger!F:F)').number_format = MONEY
-    pvt.cell(i, 4, f'=SUMIF(Ledger!A:A,A{i},Ledger!G:G)').number_format = MONEY
+        pvt.cell(i, 4, f'=SUMIF(Ledger!A:A,A{i},Ledger!G:G)').number_format = MONEY
     widths(pvt, [32, 18, 16, 16, 22])
 
     pvt["A30"] = "Next appointment"
@@ -384,7 +416,10 @@ def build() -> None:
     pvt.sheet_properties.tabColor = PINK
 
     wb.save(OUT)
-    print(f"Wrote {OUT} rows={len(raw)} rps={len(rp_ids)} patients={len(pt_ids)}")
+    print(
+        f"Wrote {OUT} rows={len(raw)} rps={len(set(family_rps.values()))} "
+        f"patients={len(pt_ids)}"
+    )
 
 
 if __name__ == "__main__":
