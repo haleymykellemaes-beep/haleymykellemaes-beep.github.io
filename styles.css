@@ -1635,17 +1635,17 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
 
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 56px 44px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px 22px;
   isolation: isolate;
 }
 .work-grid .case-card {
-  min-height: 580px;
+  min-height: 420px;
 }
 .work-grid .case-visual {
   flex: 1 1 auto;
-  min-height: 580px;
-  padding: 22px 24px 26px;
+  min-height: 420px;
+  padding: 18px 18px 20px;
 }
 .work-grid .thumb-viz {
   flex: 1;
@@ -1659,7 +1659,7 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
 .work-grid .thumb-kpi {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(5.2rem, 11vw, 8rem);
+  font-size: clamp(3.4rem, 5.4vw, 5.6rem);
   line-height: 0.8;
   letter-spacing: 0.01em;
 }
@@ -2081,7 +2081,20 @@ html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
   text-decoration: none;
   line-height: 1;
 }
+.contact-phone-hint {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
 .contact-band .contact-phone:hover {
+  color: var(--pink);
+}
+.contact-band .contact-phone:hover .contact-phone-hint {
   color: var(--pink);
 }
 .contact-band .btn-line {
@@ -2244,16 +2257,33 @@ html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
   .home-hero .hero-photo { width: 176px; height: 176px; }
   .phone { width: min(250px, 72%); }
 }
-@media (max-width: 860px) {
+@media (max-width: 1199px) {
+  .work-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 46px 36px;
+  }
+  .work-grid .case-card {
+    min-height: 476px;
+  }
+  .work-grid .case-visual {
+    min-height: 476px;
+    padding: 18px 20px 22px;
+  }
+  .work-grid .thumb-kpi {
+    font-size: clamp(4.2rem, 8vw, 6.6rem);
+  }
+}
+@media (max-width: 859px) {
   .work-grid,
   .case-card.featured {
     grid-template-columns: 1fr;
   }
-  .work-grid { gap: 40px; }
+  .work-grid { gap: 32px; }
   .case-card { min-height: 0; }
   .work-grid .case-card { min-height: 0; }
   .case-visual { min-height: 280px; }
-  .work-grid .case-visual { min-height: 360px; }
+  .work-grid .case-visual { min-height: 300px; padding: 20px 18px 18px; }
+  .work-grid .thumb-kpi { font-size: clamp(3.6rem, 16vw, 5.4rem); }
   .case-body h3 { font-size: clamp(2.1rem, 7vw, 2.8rem); }
   .case-body p { font-size: 1.08rem; }
 }
