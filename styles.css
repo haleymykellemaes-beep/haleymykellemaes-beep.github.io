@@ -2012,13 +2012,13 @@ html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
 }
 .case-card:hover .hover-kpi,
 .case-card:focus-visible .hover-kpi {
-  max-height: 3rem;
+  max-height: 4.5rem;
   opacity: 1;
   margin: 8px 0 6px;
 }
 @media (hover: none) {
   .hover-kpi {
-    max-height: 3rem;
+    max-height: 4.5rem;
     opacity: 1;
     margin: 8px 0 6px;
   }
