@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Haley Maes · Data Analyst · Resume</title>
+  <title>Haley Maes - Data Analyst - Resume</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <style>
     :root {
       --navy: #1b365d;
       --ink: #1a1a1a;
-      --muted: #4a5568;
+      --muted: #333333;
       --line: #1b365d;
       --gray: #f3f4f6;
       --white: #ffffff;
@@ -20,104 +20,99 @@
       font-family: Calibri, "Segoe UI", Arial, Helvetica, sans-serif;
       color: var(--ink);
       background: var(--gray);
-      line-height: 1.32;
-      font-size: 10pt;
+      line-height: 1.24;
+      font-size: 9.7pt;
     }
     .sheet {
       width: min(8.5in, 100%);
       min-height: 11in;
       margin: 24px auto;
       background: var(--white);
-      padding: 0.5in 0.58in 0.45in;
+      padding: 0.4in 0.58in 0.35in;
       box-shadow: 0 12px 40px rgba(27, 54, 93, 0.12);
     }
-    header { text-align: center; border-bottom: 2px solid var(--navy); padding-bottom: 8px; margin-bottom: 8px; }
+    header { text-align: center; margin-bottom: 6px; }
     h1 {
       margin: 0;
-      font-size: 22pt;
+      font-size: 20pt;
       line-height: 1.05;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
       font-weight: 700;
       color: var(--navy);
-      text-transform: uppercase;
-    }
-    .role {
-      margin: 3px 0 6px;
-      font-size: 11pt;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      color: var(--ink);
-      text-transform: uppercase;
     }
     .meta {
-      margin: 0;
-      color: var(--muted);
-      font-size: 9.5pt;
+      margin: 4px 0 0;
+      color: var(--ink);
+      font-size: 10pt;
     }
     .meta a { color: var(--navy); text-decoration: none; }
-    h2 {
-      margin: 8px 0 3px;
-      font-size: 10pt;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--navy);
-      border-bottom: 1px solid var(--navy);
-      padding-bottom: 2px;
+    .role {
+      margin: 7px 0 0;
+      font-size: 11pt;
+      letter-spacing: 0.16em;
       font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
     }
-    .portfolio-line {
-      margin: 0 0 4px;
+    .role-sub {
+      margin: 1px 0 0;
       font-size: 9pt;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--muted);
     }
-    .portfolio-line a { color: var(--navy); text-decoration: underline; }
-    .job h3 a,
-    .job h3 span a { color: var(--navy); text-decoration: underline; }
-    .profile { margin: 0; }
-    .skills { margin: 0 0 3px; }
-    .skills b { color: var(--navy); font-weight: 700; }
-    .job { margin: 0 0 5px; }
-    .job-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: baseline;
+    h2 {
+      margin: 7px 0 3px;
+      font-size: 10pt;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--navy);
+      border-bottom: 1.25px solid var(--navy);
+      padding-bottom: 1px;
+      font-weight: 700;
     }
+    .profile { margin: 0; }
+    .skills { margin: 0; }
+    .job { margin: 0 0 4px; }
     .job h3 {
       margin: 0;
       font-size: 10.5pt;
       font-weight: 700;
+      color: var(--ink);
     }
-    .job h3 span { font-weight: 400; color: var(--muted); }
-    .when {
+    .job h3 a,
+    .job h3 span a { color: var(--navy); text-decoration: underline; }
+    .job-meta {
+      margin: 0 0 1px;
       font-size: 9.5pt;
-      font-weight: 700;
-      color: var(--navy);
-      white-space: nowrap;
+      color: var(--muted);
     }
+    .job-meta a { color: var(--navy); text-decoration: underline; }
+    .portfolio-line {
+      margin: 0 0 4px;
+      font-size: 9.5pt;
+    }
+    .portfolio-line a { color: var(--navy); text-decoration: underline; }
     ul {
-      margin: 2px 0 0;
+      margin: 1px 0 0;
       padding-left: 1.15em;
     }
-    li { margin: 0 0 1px; }
-    .edu-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 0 0 3px;
-    }
+    li { margin: 0 0 1.5px; }
+    .edu { margin: 0 0 3px; }
+    .edu strong { font-size: 10.5pt; }
+    .edu-meta { margin: 0; font-size: 9.5pt; color: var(--muted); }
     .print-hint {
       text-align: center;
       font-size: 12px;
-      color: var(--muted);
+      color: #4a5568;
       margin: 0 0 12px;
     }
     .print-hint a { color: var(--navy); }
     .print-hint .dl { font-weight: 700; }
     @media print {
-      @page { size: letter; margin: 0.4in 0.5in; }
+      @page { size: letter; margin: 0.38in 0.5in; }
       html, body { margin: 0; background: #fff; }
-      body { font-size: 9.6pt; }
+      body { font-size: 9.4pt; }
       .print-hint { display: none !important; }
       .sheet {
         margin: 0;
@@ -127,9 +122,11 @@
         padding: 0;
       }
       a { color: inherit; text-decoration: none; }
+      .meta a,
       .portfolio-line a,
       .job h3 a,
-      .job h3 span a {
+      .job h3 span a,
+      .job-meta a {
         color: var(--navy);
         text-decoration: underline;
       }
@@ -137,90 +134,82 @@
   </style>
 </head>
 <body>
-  <p class="print-hint"><a href="index.html"><- Portfolio</a> · <a class="dl" href="Haley-Maes-Resume.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></p>
+  <p class="print-hint"><a href="index.html">&lt;- Portfolio</a> | <a class="dl" href="Haley-Maes-Resume.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></p>
   <article class="sheet">
     <header>
       <h1>Haley Maes</h1>
-      <p class="role">Data Analyst · Financial Operations</p>
-      <p class="meta">Arvada, CO · 720-467-3584 · <a href="mailto:haleymykellemaes@gmail.com">haleymykellemaes@gmail.com</a> · <a href="https://www.linkedin.com/in/haleymmaes">linkedin.com/in/haleymmaes</a><br />
-      <a href="https://haleymykellemaes-beep.github.io/">haleymykellemaes-beep.github.io</a></p>
+      <p class="meta">Arvada, CO  |  (720) 467-3584  |  <a href="mailto:haleymykellemaes@gmail.com">haleymykellemaes@gmail.com</a></p>
+      <p class="meta"><a href="https://www.linkedin.com/in/haleymmaes">linkedin.com/in/haleymmaes</a>  |  <a href="https://haleymykellemaes-beep.github.io/">https://haleymykellemaes-beep.github.io/</a></p>
+      <p class="role">Data Analyst</p>
+      <p class="role-sub">Finance &amp; operations</p>
     </header>
 
-    <h2>Summary</h2>
-    <p class="profile">Data analyst who builds Excel, SQL, and Python reporting that collections and operations teams actually use. At Denver Family Dental, increased posted collections 14% ($388,273 to $442,912) and cut 90+ A/R from 31.4% of open balance toward 14% by splitting insurance vs. patient aging into a daily follow-up queue.</p>
+    <h2>Profile</h2>
+    <p class="profile">Analytically driven data analyst with hands-on experience translating operational data into reporting that collections and operations teams use. Skilled in SQL, Python, and advanced Excel, with a track record of building reporting systems and quantifying dollar impact: posted collections $388,273 to $442,912 (+14%) and 90+ A/R from 31.4% of open balance toward 14%. Currently completing a B.S. in Data Analytics (expected November 2026) to deepen forecasting and large-scale analysis.</p>
 
-    <h2>Skills</h2>
-    <p class="skills"><b>Technical:</b> SQL (PostgreSQL) · Python (pandas, numpy) · Excel (XLOOKUP, pivot tables, financial modeling) · Tableau · Power BI · Google Sheets</p>
-    <p class="skills"><b>Finance &amp; operations:</b> A/R aging · collections · cash reconciliation · variance analysis · vendor / cost analysis · financial reporting · process documentation</p>
+    <h2>Core Skills</h2>
+    <p class="skills">SQL  |  Python  |  Advanced Excel (pivot tables, XLOOKUP, financial modeling)  |  Tableau  |  Power BI  |  Google Sheets  |  Cursor (Advanced)  |  Claude (Advanced)  |  Financial Reporting &amp; Reconciliation  |  Cost &amp; Variance Analysis  |  Process Automation</p>
 
     <h2>Experience</h2>
     <div class="job">
-      <div class="job-top">
-        <h3>Financial Operations Analyst <span>Denver Family Dental · Denver, CO</span></h3>
-        <span class="when">Jun 2024 - Present</span>
-      </div>
+      <h3>Financial Operations Analyst</h3>
+      <p class="job-meta">Denver Family Dental  |  Denver, CO  |  June 2024 - Present</p>
       <ul>
-        <li>Increased posted collections from $388,273 to $442,912 (+14%) and reduced 90+ A/R from 31.4% of open balance toward 14%.</li>
-        <li>Built the Excel A/R tracker (insurance vs. patient aging, denial reason, next action) so the morning works the 90-day pile first.</li>
-        <li>Analyzed supply spend by vendor and category; negotiated with top vendors and cut overhead where unit cost supported it.</li>
-        <li>Tied wait times, scheduling, and staff notes to process changes that lifted the practice Google rating by nearly 1 point.</li>
+        <li>Own end-to-end financial operations for a high-volume practice, translating raw claims, payment, and collections data into reporting for leadership decision-making.</li>
+        <li>Built a denial-tracking analytics system from scratch in Excel to surface root-cause trends, improving clean-claim performance and payment turnaround.</li>
+        <li>Increased posted collections from $388,273 to $442,912 (+14%) and reduced 90+ A/R from 31.4% of open balance toward 14% by redesigning collections workflows around aging data.</li>
+        <li>Manage inventory ordering and vendor cost analysis, identifying and reducing overhead across multiple supply categories.</li>
+        <li>Led implementation of a new payment processing platform, lowering transaction fees and adding secure remote payment options for customers.</li>
+        <li>Analyzed customer experience data and drove process changes that lifted the practice's Google rating by nearly a full point.</li>
       </ul>
     </div>
     <div class="job">
-      <div class="job-top">
-        <h3>Assistant Head of School <span>Guidepost Montessori · Dallas, TX · promoted from Lead Teacher</span></h3>
-        <span class="when">Jul 2023 - Jun 2024</span>
-      </div>
+      <h3>Assistant Head of School (promoted from Lead Teacher)</h3>
+      <p class="job-meta">Guidepost Montessori  |  Dallas, TX  |  July 2023 - June 2024</p>
       <ul>
-        <li>Reconciled tuition billing for 100+ families; coded variable charges and tracked payment compliance across systems.</li>
-        <li>Wrote data-entry standards so administrative records stayed consistent instead of living in three conflicting versions.</li>
+        <li>Promoted into a leadership role overseeing daily operations, enrollment, and family-facing communication for 100+ families.</li>
+        <li>Managed a tuition billing portal, coding variable charges and reconciling family accounts for accuracy.</li>
+        <li>Maintained accurate records across multiple administrative systems and trained staff on documentation standards.</li>
       </ul>
     </div>
     <div class="job">
-      <div class="job-top">
-        <h3>Guest Experience Lead <span>RNR Hospitality Group · Scottsdale, AZ</span></h3>
-        <span class="when">Aug 2022 - Jun 2023</span>
-      </div>
+      <h3>Guest Experience Lead</h3>
+      <p class="job-meta">RNR Hospitality Group  |  Scottsdale, AZ  |  August 2022 - June 2023</p>
       <ul>
-        <li>Owned daily cash reconciliation and shift-level reporting; tracked variance and flagged discrepancies the same day.</li>
-        <li>Monitored inventory and vendor performance to tighten ordering and reduce waste.</li>
+        <li>Managed cash reconciliation, opening/closing procedures, and shift-level financial reporting in a high-volume service environment.</li>
+        <li>Oversaw inventory tracking and vendor ordering as part of shift operations.</li>
       </ul>
     </div>
 
-    <h2>Selected projects</h2>
+    <h2>Selected Projects</h2>
     <p class="portfolio-line">Full write-ups: <a href="https://haleymykellemaes-beep.github.io/">https://haleymykellemaes-beep.github.io/</a></p>
     <div class="job">
-      <div class="job-top">
-        <h3><a href="https://haleymykellemaes-beep.github.io/happiness-gdp.html">Python · Happiness and GDP</a> <span><a href="https://haleymykellemaes-beep.github.io/happiness-gdp.html">haleymykellemaes-beep.github.io/happiness-gdp.html</a></span></h3>
-      </div>
+      <h3><a href="https://haleymykellemaes-beep.github.io/happiness-gdp.html">Python - Happiness and GDP</a> <span class="job-meta" style="font-weight:400"> | <a href="https://haleymykellemaes-beep.github.io/happiness-gdp.html">https://haleymykellemaes-beep.github.io/happiness-gdp.html</a></span></h3>
       <ul>
         <li>Joined World Bank GDP to the World Happiness Report (1,927 country-years). Life evaluation vs. log GDP per capita: r = 0.836. pandas / numpy - melt, merge, corr, qcut.</li>
       </ul>
     </div>
     <div class="job">
-      <div class="job-top">
-        <h3><a href="https://haleymykellemaes-beep.github.io/late-returns.html">SQL · Late returns pipeline</a> <span><a href="https://haleymykellemaes-beep.github.io/late-returns.html">haleymykellemaes-beep.github.io/late-returns.html</a></span></h3>
-      </div>
+      <h3><a href="https://haleymykellemaes-beep.github.io/late-returns.html">SQL - Late returns pipeline</a> <span class="job-meta" style="font-weight:400"> | <a href="https://haleymykellemaes-beep.github.io/late-returns.html">https://haleymykellemaes-beep.github.io/late-returns.html</a></span></h3>
       <ul>
         <li>Built a clerk call list and a store x category scorecard (On Time / Late / Still Out) with a nightly reload pattern so late copies do not hide inside revenue.</li>
       </ul>
     </div>
     <div class="job">
-      <div class="job-top">
-        <h3><a href="https://haleymykellemaes-beep.github.io/nike.html">Tableau · Channel and inventory analysis</a> <span><a href="https://haleymykellemaes-beep.github.io/nike.html">haleymykellemaes-beep.github.io/nike.html</a></span></h3>
-      </div>
+      <h3><a href="https://haleymykellemaes-beep.github.io/nike.html">Tableau - Channel and inventory analysis</a> <span class="job-meta" style="font-weight:400"> | <a href="https://haleymykellemaes-beep.github.io/nike.html">https://haleymykellemaes-beep.github.io/nike.html</a></span></h3>
       <ul>
         <li>Segmented revenue (-10%) vs. flat inventory by channel: Direct -13%, Wholesale -7%. Call: clear Jordan / digital depth; hold wholesale. Analog from public filings - not an employer.</li>
       </ul>
     </div>
 
     <h2>Education</h2>
-    <div class="edu-row">
-      <div><strong>B.S., Data Analytics</strong> - Western Governors University</div>
-      <span class="when">Expected Nov 2026</span>
+    <div class="edu">
+      <strong>B.S., Data Analytics - Expected November 2026</strong>
+      <p class="edu-meta">Western Governors University  |  Online</p>
     </div>
-    <div class="edu-row">
-      <div><strong>Coursework, Computational Mathematical Sciences</strong> - Arizona State University</div>
+    <div class="edu">
+      <strong>Computational Mathematical Sciences coursework</strong>
+      <p class="edu-meta">Arizona State University</p>
     </div>
   </article>
 </body>
