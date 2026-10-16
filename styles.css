@@ -142,7 +142,7 @@ a:hover { color: var(--ink); }
   background: var(--blue);
   border-bottom-color: transparent;
   backdrop-filter: none;
-  box-shadow: 0 10px 28px rgba(41, 75, 239, 0.22);
+  box-shadow: 0 10px 28px rgba(16, 21, 40, 0.18);
 }
 .site-nav.is-past-profile .brand,
 .site-nav.is-past-profile .brand .brand-script,
@@ -2433,6 +2433,12 @@ html[data-theme="nike"] .viz-chart .bar-fill { background: var(--pink); }
 }
 
 /* Student performance: school palette, dark type on light ground */
+html[data-theme="school"] .site-nav.is-past-profile {
+  background: #1C2430;
+}
+html[data-theme="school"] .site-nav.is-past-profile .nav-links .btn {
+  color: #1C2430;
+}
 html[data-theme="school"] {
   --blue: #4D96FF;
   --pink: #D61C59;
