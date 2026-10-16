@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="sql">
+<html lang="en" data-theme="school">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SQL · Student performance &amp; early-warning study · Haley Maes</title>
   <meta name="description" content="PostgreSQL analytical study on 6,607 students × 20 features: mode imputation, window-function rankings, 19-factor driver leaderboard, and an advising triage queue for drifting high-potential students." />
-  <link rel="stylesheet" href="styles.css?v=10" />
+  <link rel="stylesheet" href="styles.css?v=11" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -274,6 +274,82 @@ ORDER BY
     END,
     attendance ASC,
     hours_studied ASC;</pre>
+
+      <h2>4 · Conclusion: structuring classrooms to close the gap</h2>
+      <p>A report is only useful if it tells a principal or academic dean what to change on Monday morning. Because a school cannot directly rewrite a student’s <code>Family_Income</code> or <code>Parental_Education_Level</code>, Section 9 of <a href="sql/student_performance_analysis.sql"><code>sql/student_performance_analysis.sql</code></a> tests which <strong>classroom-level structures</strong> offset those baseline disadvantages inside the data:</p>
+
+      <div class="pa-grid" style="margin:18px 0 24px">
+        <div class="pa">
+          <h3>1 · In-school study blocks for low-resource &amp; long-commute students</h3>
+          <p>Students with <code>Access_to_Resources = 'Low'</code> or <code>Internet_Access = 'No'</code> face a <strong>64.2% at-risk rate</strong> (mean 64.44) when left with &lt; 20 study hours and &lt; 2 tutoring sessions. Embedding a structured school-day study block (reaching ≥ 20h/wk) plus ≥ 2 monthly tutoring sessions lifts their mean score to <strong>68.24 (+3.80 pts)</strong> and cuts their at-risk rate to <strong>19.3%</strong> — outperforming the overall school average.</p>
+        </div>
+        <div class="pa">
+          <h3>2 · Peer-anchored seating &amp; collaborative pods</h3>
+          <p>Even in a classroom with <code>Teacher_Quality = 'High'</code>, students in a <code>Negative</code> peer group carry a <strong>38.2% at-risk rate</strong> (mean 66.81). Pairing high teacher quality with <code>Positive</code> peer influence drops the at-risk rate to <strong>23.5%</strong> (mean 68.15). Structuring classrooms into mixed-cohort study pods — seating <em>High-Discipline Anchors</em> (92.3% attendance) alongside <em>Drifting High-Potential</em> students — turns peer influence into an instructional lever.</p>
+        </div>
+        <div class="pa">
+          <h3>3 · Co-taught &amp; tutoring-paired rosters for learning disabilities</h3>
+          <p>Students with <code>Learning_Disabilities = 'Yes'</code> face a <strong>50.9% at-risk rate</strong> (mean 65.49) when placed in standard classrooms with &lt; 2 tutoring sessions. Intentional roster placement with a <code>High</code> quality teacher plus ≥ 2 monthly tutoring sessions raises their mean exam score to <strong>67.64 (+2.15 pts)</strong> and reduces their at-risk rate to <strong>29.3%</strong> (below the general-population risk rate of 32.3%).</p>
+        </div>
+        <div class="pa">
+          <h3>4 · Attendance-triggered tutoring reallocation</h3>
+          <p>Right now, monthly tutoring averages <strong>1.50 sessions</strong> for <em>High-Discipline Anchors</em> (who already have a 0.7% risk rate) and <strong>1.47 sessions</strong> for <em>Drifting High-Potential</em> and <em>Disengaged At-Risk</em> students. Reallocating 2+ monthly tutoring slots automatically whenever a student hits <code>vw_advising_triage_queue</code> shifts existing staff hours to the exact cohorts where an extra session cuts failure risk in half.</p>
+        </div>
+      </div>
+
+      <div class="panel" style="margin:0 0 26px">
+        <h3>SQL intervention scorecard · Section 9 query output</h3>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Target Student Group</th>
+                <th>Classroom Structure / Support Tier</th>
+                <th>Students</th>
+                <th>Mean Exam Score</th>
+                <th>At-Risk Rate (≤65)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Low Resource or No Home Internet</strong></td>
+                <td>Baseline (&lt;20h study &amp; &lt;2 tutoring/mo)</td>
+                <td>416</td>
+                <td>64.44</td>
+                <td><strong>64.2%</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Low Resource or No Home Internet</strong></td>
+                <td>In-School Study Block (20h+) + Tutoring (2+/mo)</td>
+                <td>445</td>
+                <td><strong>68.24 (+3.80)</strong></td>
+                <td><strong>19.3% (−44.9 pp)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Learning Disabilities (Yes)</strong></td>
+                <td>Baseline (Standard Teacher &amp; &lt;2 tutoring/mo)</td>
+                <td>281</td>
+                <td>65.49</td>
+                <td><strong>50.9%</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Learning Disabilities (Yes)</strong></td>
+                <td>High Teacher Quality Roster + Tutoring (2+/mo)</td>
+                <td>99</td>
+                <td><strong>67.64 (+2.15)</strong></td>
+                <td><strong>29.3% (−21.6 pp)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>High Teacher Quality Classrooms</strong></td>
+                <td>Negative Peer Influence vs. Positive Peer Pods</td>
+                <td>403 vs. 765</td>
+                <td>66.81 → <strong>68.15</strong></td>
+                <td>38.2% → <strong>23.5% (−14.7 pp)</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <h2>Limitations &amp; next steps in production</h2>
       <ul>
