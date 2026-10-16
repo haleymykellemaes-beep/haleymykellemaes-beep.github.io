@@ -1938,7 +1938,7 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
 .case-card[data-accent="nike"] .case-visual b { color: #1c1c1c; }
 .case-card[data-accent="nike"] .cv-row { color: #5c5c58; }
 .case-card[data-accent="nike"] .cv-row em { background: #ff6a00; }
-.case-card[data-accent="odds"] .case-visual { background: #ff6a00; color: #2A56F2; }
+.case-card[data-accent="odds"] .case-visual { background: #FFC48A; color: #2A56F2; }
 .case-card[data-accent="odds"] .case-no,
 .case-card[data-accent="odds"] .case-visual h3,
 .case-card[data-accent="odds"] .thumb-kpi,
