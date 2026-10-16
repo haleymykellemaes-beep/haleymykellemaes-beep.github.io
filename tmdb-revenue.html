@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TMDb movie revenue · Haley Maes</title>
   <meta name="description" content="Exploratory analysis of TMDb movies: inflation-adjusted revenue vs budget, popularity, genre, and release year." />
-  <link rel="stylesheet" href="styles.css?v=27" />
+  <link rel="stylesheet" href="styles.css?v=28" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -57,6 +57,9 @@
     <div class="article-meta">
       <a class="pill" href="index.html#work">← Work</a>
       <span class="pill">EDA</span>
+      <span class="pill">pandas</span>
+      <a class="pill" href="python/tmdb_revenue.py">python/tmdb_revenue.py</a>
+      <a class="pill" href="https://github.com/haleymykellemaes-beep/haleymykellemaes-beep.github.io/blob/main/python/tmdb_revenue.py" target="_blank" rel="noopener noreferrer">GitHub · python/tmdb_revenue.py</a>
     </div>
     <p class="article-lede">About 10,000 TMDb titles. Dependent variable: inflation-adjusted revenue. The work is association, not a recipe for a hit.</p>
 
@@ -77,7 +80,50 @@
       <p>Drama, Comedy, Thriller, and Action appear most often in this TMDb sample. Frequency is not the same as commercial performance. Among genres with ≥50 films that have known inflation-adjusted revenue, Animation’s median sits near $149M — Comedy’s near $47M. Budget and popularity move with adj. revenue; vote average and runtime are weaker.</p>
 
       <h2>Method</h2>
-      <p>Pandas + seaborn on the TMDb movie CSV. Zeros in budget and revenue treated as missing (complete-case revenue work favors better-documented films). Multi-label genres expanded, so a film can sit in more than one bar. The numbers are the notebook’s.</p>
+      <p>Pandas on the TMDb movie CSV (seaborn for the exploratory charts). Zeros in budget and revenue treated as missing (complete-case revenue work favors better-documented films). Multi-label genres expanded, so a film can sit in more than one bar. Runnable copy: <a href="python/tmdb_revenue.py"><code>python/tmdb_revenue.py</code></a>.</p>
+
+      <h2>Python</h2>
+      <p>The extract repeats one title and includes a handful of rows with no IMDb id. After those are set aside, zeros in the money columns are missing — not a budget of zero. The CSV is not in this repo.</p>
+      <pre class="code">import pandas as pd
+import numpy as np
+
+movies = pd.read_csv("data_wrangling/raw/tmdb-movies.csv")
+movies = movies.drop_duplicates()
+movies = movies.dropna(subset=["imdb_id"])
+
+for col in ("budget", "revenue", "budget_adj", "revenue_adj"):
+    movies[col] = movies[col].replace(0, np.nan)
+
+revenue = movies.dropna(subset=["revenue_adj"])
+
+# Budget and popularity move with inflation-adjusted revenue.
+# Vote average and runtime are weaker. Association, not a cause.
+assoc = revenue[
+    ["budget_adj", "popularity", "vote_average", "runtime", "revenue_adj"]
+].corr()["revenue_adj"]
+
+# Frequency is not revenue. Drama, Comedy, Thriller, and Action lead the counts.
+genre_counts = movies["genres"].dropna().str.split("|").explode().value_counts()
+
+# A film with several genres is counted in each median.
+# Keep genres with at least 50 films that have known revenue_adj.
+expanded = (
+    revenue.dropna(subset=["genres"])
+    .assign(genre=lambda frame: frame["genres"].str.split("|"))
+    .explode("genre")
+)
+genre_medians = (
+    expanded.groupby("genre")["revenue_adj"]
+    .agg(n="count", median="median")
+    .query("n &gt;= 50")
+    .sort_values("median", ascending=False)
+)
+# Animation ~$149M (n=237); Adventure ~$115M (n=843); Comedy ~$47M (n=1,771).
+
+year_counts = movies["release_year"].value_counts()
+# Peak year 2014, 699 titles.
+year_vs_popularity = movies["release_year"].corr(movies["popularity"])  # ~0.09
+year_vs_revenue = revenue["release_year"].corr(revenue["revenue_adj"])  # ~−0.10</pre>
 
       <h2>Findings</h2>
       <p><strong>Budget and popularity</strong> show the strongest positive associations with high inflation-adjusted revenue. Vote average and runtime are weaker. That is a pattern in this sample, not proof that buying a bigger budget causes a bigger box office.</p>
