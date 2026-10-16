@@ -305,7 +305,7 @@ def build() -> None:
     for c in range(1, 6):
         calc.cell(21, c).font = Font(bold=True)
 
-    calc["A23"] = "Huddle flags"
+    calc["A23"] = "Follow-up flags"
     calc["A24"] = "Patient 90+ and no next appointment (work first)"
     calc["B24"] = "=B12"
     calc["A25"] = "Open $ on those accounts"
