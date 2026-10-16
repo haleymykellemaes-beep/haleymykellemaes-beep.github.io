@@ -2791,6 +2791,7 @@ html[data-theme="home"] .home-hero {
   background: #101010;
   color: #FDFCF8;
 }
+html[data-theme="home"] .hero-title { letter-spacing: 0.04em; }
 html[data-theme="home"] .hero-title,
 html[data-theme="home"] .hero-tag { color: #FDFCF8; }
 html[data-theme="home"] .hero-person { color: rgba(253, 252, 248, 0.78); }
