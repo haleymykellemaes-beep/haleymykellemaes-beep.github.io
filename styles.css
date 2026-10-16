@@ -2839,75 +2839,75 @@ html[data-theme="home"] .work-grid .case-card:focus-visible {
 
 html[data-theme="home"] .work-grid .case-card[data-accent="ar"],
 html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .case-visual,
-html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .case-body { background: #000181; color: #FFF7EC; }
+html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .case-body { background: #161212; color: #D5D2CB; }
 html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .case-no,
-html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-kpi,
 html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-sub,
 html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .case-body h3,
 html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .card-q,
-html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .project-link { color: #FFF7EC; }
-html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-age i { background: #C6BEB5; opacity: 0.85; }
+html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .project-link { color: #D5D2CB; }
+html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-kpi { color: #C6BEB5; }
+html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-age i { background: #C6BEB5; opacity: 0.7; }
 html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-age .hot i { background: #D5D2CB; opacity: 1; }
 
 html[data-theme="home"] .work-grid .case-card[data-accent="school"],
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-visual,
-html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-body { background: #FF217F; color: #FFFFFF; }
+html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-body { background: #C6BEB5; color: #161212; }
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-no,
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-kpi,
+html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-sub,
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-pipe,
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-body h3,
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .card-q,
-html[data-theme="home"] .work-grid .case-card[data-accent="school"] .project-link { color: #FFFFFF; }
-html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-sub { color: #D0FFA4; }
-html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-pipe i { background: #D5D2CB; opacity: 1; }
+html[data-theme="home"] .work-grid .case-card[data-accent="school"] .project-link { color: #161212; }
+html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-pipe i { background: #161212; opacity: 0.85; }
 
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"],
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .case-visual,
-html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .case-body { background: #94DEFF; color: #000181; }
+html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .case-body { background: #D5D2CB; color: #161212; }
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .case-no,
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .thumb-kpi,
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .thumb-sub,
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .case-body h3,
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .card-q,
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .project-link,
-html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .cv-row { color: #000181; }
+html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .cv-row { color: #161212; }
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .cv-row em,
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .cv-row.mid em { background: #161212; }
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .cv-row.short em { background: #9C8D7C; }
 
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"],
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .case-visual,
-html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .case-body { background: #FFF7EC; color: #000181; }
+html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .case-body { background: #9C8D7C; color: #161212; }
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .case-no,
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .thumb-kpi,
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .thumb-sub,
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .case-body h3,
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .card-q,
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .project-link,
-html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .cv-row { color: #000181; }
+html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .cv-row { color: #161212; }
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .cv-row em { background: #161212; }
-html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .cv-row.mid em { background: #9C8D7C; }
+html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .cv-row.mid em { background: #D5D2CB; }
 
 html[data-theme="home"] .work-grid .case-card[data-accent="happy"],
 html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .case-visual,
-html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .case-body { background: #006EE9; color: #FFFFFF; }
+html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .case-body { background: #161212; color: #D5D2CB; }
 html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .case-no,
 html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .thumb-sub,
 html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .case-body h3,
 html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .card-q,
-html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .project-link { color: #FFFFFF; }
-html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .thumb-kpi { color: #D0FFA4; }
-html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .cv-dots i { background: #D5D2CB; }
+html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .project-link { color: #D5D2CB; }
+html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .thumb-kpi { color: #C6BEB5; }
+html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .cv-dots i { background: #C6BEB5; }
 
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"],
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-visual,
-html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-body { background: #F6C9A7; color: #000181; }
+html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-body { background: #C6BEB5; color: #161212; }
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-no,
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .thumb-kpi,
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .thumb-sub,
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-body h3,
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .card-q,
-html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .project-link { color: #000181; }
+html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .project-link { color: #161212; }
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .spread-line { background: #9C8D7C; }
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .tick { background: #161212; }
 
