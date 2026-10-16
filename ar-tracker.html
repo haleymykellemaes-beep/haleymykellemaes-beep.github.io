@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Excel · Accounts receivable tracker · Haley Maes</title>
-  <meta name="description" content="Denver-area dental practice: 90+ share of open A/R moved from 31.4% to 18.7% (~40% reduction of that share). Excel huddle / aging." />
+  <meta name="description" content="Denver-area dental practice: 90+ share of open A/R moved from 31.4% to 18.7% (~40% reduction of that share). Excel A/R tracker / morning follow-up list." />
   <link rel="stylesheet" href="styles.css?v=10" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 </head>
@@ -56,18 +56,18 @@
             <div>
               <h1 class="display">Excel · Accounts receivable tracker</h1>
               <p class="paper-rule">90+ share of open A/R: 31.4% → 18.7%. ~40% reduction of that share. Denver-area dental practice.</p>
-              <p class="role-strip">Analyst · Excel · ops huddle</p>
+              <p class="role-strip">Analyst · Excel · morning follow-up list</p>
               <div class="article-meta">
                 <a class="pill" href="index.html#work">← Work</a>
                 <span class="pill">Dental operations</span>
               </div>
-              <p class="article-lede">At a Denver-area dental practice, the 90-day pile moved from <strong>31.4%</strong> of open A/R to <strong>18.7%</strong> — about a <strong>40% reduction of the 90+ share</strong>. Those are the two dated Curve pulls I have. I built the Excel huddle so the morning can see which of the open dollars are insurance, which are patient, and how much is already 90 days old. Production rose in the same window and payer mix did not flip; I do not treat collections growth as something the workbook caused.</p>
+              <p class="article-lede">At a Denver-area dental practice, the 90-day pile moved from <strong>31.4%</strong> of open A/R to <strong>18.7%</strong> — about a <strong>40% reduction of the 90+ share</strong>. Those are the two dated Curve pulls I have. Excel A/R tracker for insurance vs patient aging so the morning can see which of the open dollars are insurance, which are patient, and how much is already 90 days old. Production rose in the same window and payer mix did not flip; I do not treat collections growth as something the workbook caused.</p>
             </div>
-            <figure class="phone" aria-label="Fictional huddle phone. Aggregated KPIs only. Sample rows are P-####. No patient names.">
+            <figure class="phone" aria-label="Fictional morning follow-up list on a phone. Aggregated KPIs only. Sample rows are P-####. No patient names.">
               <div class="phone-bezel">
                 <div class="phone-notch"></div>
                 <div class="phone-screen">
-                  <p class="ph-kicker">Huddle · today</p>
+                  <p class="ph-kicker">Morning list · today</p>
                   <p class="ph-title">A/R board</p>
                   <div class="ph-kpi hot">
                     <span>90+ share</span>
@@ -97,7 +97,7 @@
           <div class="stats">
             <div class="stat"><b>31.4% → 18.7%</b><span>Share of open A/R sitting in 90+ (two Curve pulls)</span></div>
             <div class="stat"><b>~40%</b><span>Reduction of that 90+ share (12.7 points / 31.4%)</span></div>
-            <div class="stat"><b>Ins vs pat</b><span>Huddle split — 90+ is mostly patient; 0–30 is mostly insurance</span></div>
+            <div class="stat"><b>Ins vs pat</b><span>Aging split — 90+ is mostly patient; 0–30 is mostly insurance</span></div>
           </div>
 
           <div class="polaroid-row">
@@ -141,7 +141,7 @@
             <p><strong>Who do we work first, and is this money the payer’s or the patient’s?</strong></p>
 
             <h2>Context, not a collections claim</h2>
-            <p>Posted collections were higher in 2025 than 2024. Production went up; insurance stayed about <strong>64%</strong> of collections both years and cards stayed in the low-thirties. I am not publishing the practice’s annual dollar mix by card type, and I am not saying the huddle redesign caused the collections lift. The number I own is the 90+ share of open A/R.</p>
+            <p>Posted collections were higher in 2025 than 2024. Production went up; insurance stayed about <strong>64%</strong> of collections both years and cards stayed in the low-thirties. I am not publishing the practice’s annual dollar mix by card type, and I am not saying the Excel A/R tracker caused the collections lift. The number I own is the 90+ share of open A/R.</p>
 
             <h2>Aging: two snapshots, same board</h2>
             <p>Default aging dashboard in Curve. Totals as shares only on this page — no patient names.</p>
@@ -201,8 +201,8 @@
 
             <p>The stacked insurance/patient bars tell the same story both days: <strong>0–30 is mostly insurance</strong> (ERA still in flight). <strong>90+ is mostly patient</strong> (statements, plans, collections review). Working “total A/R” as one pile would send the morning to the wrong phone.</p>
 
-            <h2>What I still build in Excel</h2>
-            <p>Curve is the source of truth. The workbook is the huddle layer: placeholder IDs (RP-100x / P-20xx), not PMS IDs; aging buckets; a follow-up queue. <strong>Most recent visit</strong> and <strong>next appointment</strong> on the public file are demo dates so the huddle workflow is visible without scheduling PHI. Dollar aging is from a 23 Sep 2026 90+ outstanding extract — labeled as 90+ only, not the full open board in the case study.</p>
+            <h2>What the Excel A/R tracker holds</h2>
+            <p>Curve is the source of truth. The workbook is the morning follow-up list: placeholder IDs (RP-100x / P-20xx), not PMS IDs; aging buckets; a follow-up queue. <strong>Most recent visit</strong> and <strong>next appointment</strong> on the public file are demo dates so the morning follow-up list is visible without scheduling PHI. Dollar aging is from a 23 Sep 2026 90+ outstanding extract — labeled as 90+ only, not the full open board in the case study.</p>
             <ul>
               <li><strong>Ledger</strong> — Responsible Party Patient ID, Patient ID, visit dates, patient vs insurance aging. Some responsible parties cover 2–3 patients.</li>
               <li><strong>Calcs / Aging pivot</strong> — live SUMIFS: mix, 90+ share, accounts with no next appointment.</li>

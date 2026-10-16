@@ -349,7 +349,7 @@ def build():
         "1. Paste or enter new claims on AR Ledger. Do not type over columns O–Q or W — those are formulas.",
         "2. Set Next follow-up when you touch a claim. Dashboard “Follow-ups due” counts rows where that date is today or past and a balance remains.",
         "3. Filter Aging bucket = 90+ and Status not closed. That is the money at risk of write-off or collections.",
-        "4. Split Insurance vs Patient A/R before the huddle. Insurance work is payer calls; patient work is statements and plans.",
+        "4. Split Insurance vs Patient A/R before the morning follow-up list. Insurance work is payer calls; patient work is statements and plans.",
         "5. When a claim pays, enter Insurance paid / Patient paid / Adjustment. Balance drops to $0 and aging goes to —.",
         "Sample patients are de-identified (P-####). Do not put real names or full member IDs in a shared file.",
     ]
