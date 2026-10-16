@@ -1952,7 +1952,7 @@ html[data-theme="sql"] .result.late {
 }
 html[data-theme="happy"] .ticker {
   background: #EEE4BB;
-  color: #253A82;
+  color: #5D84CF;
 }
 html[data-theme="happy"] a.ticker,
 html[data-theme="happy"] a.ticker:hover { color: #5D84CF; }
