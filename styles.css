@@ -2815,13 +2815,11 @@ html[data-theme="home"] .home-hero .hero-icon.is-mail:hover {
   color: #101010;
 }
 
-html[data-theme="home"] .skills .skill-group:nth-of-type(1) { background: #F3F0E9; }
-html[data-theme="home"] .skills .skill-group:nth-of-type(2) { background: #E3DBCC; }
-html[data-theme="home"] .skills .skill-group:nth-of-type(3) { background: #F3F0E9; }
+html[data-theme="home"] .skills .skill-group { background: transparent; }
 html[data-theme="home"] .skill-group h4,
 html[data-theme="home"] .skill-group p,
 html[data-theme="home"] .skill-aside { color: #101010; }
-html[data-theme="home"] .skill-aside { background: #E3DBCC; }
+html[data-theme="home"] .skill-aside { background: transparent; }
 
 html[data-theme="home"] .tech-pill {
   color: #101010;
@@ -2848,8 +2846,8 @@ html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-sub,
 html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .case-body h3,
 html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .card-q,
 html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .project-link { color: #FFF7EC; }
-html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-age i { background: #FFF7EC; opacity: 0.72; }
-html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-age .hot i { background: #94DEFF; opacity: 1; }
+html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-age i { background: #C6BEB5; opacity: 0.85; }
+html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-age .hot i { background: #D5D2CB; opacity: 1; }
 
 html[data-theme="home"] .work-grid .case-card[data-accent="school"],
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-visual,
@@ -2861,7 +2859,7 @@ html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-body h
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .card-q,
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .project-link { color: #FFFFFF; }
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-sub { color: #D0FFA4; }
-html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-pipe i { background: #FFC4DD; opacity: 1; }
+html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-pipe i { background: #D5D2CB; opacity: 1; }
 
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"],
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .case-visual,
@@ -2874,7 +2872,8 @@ html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .card-q,
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .project-link,
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .cv-row { color: #000181; }
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .cv-row em,
-html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .cv-row.mid em { background: #006EE9; }
+html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .cv-row.mid em { background: #161212; }
+html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .cv-row.short em { background: #9C8D7C; }
 
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"],
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .case-visual,
@@ -2886,8 +2885,8 @@ html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .case-body h3,
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .card-q,
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .project-link,
 html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .cv-row { color: #000181; }
-html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .cv-row em { background: #F47A1E; }
-html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .cv-row.mid em { background: #F6C9A7; }
+html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .cv-row em { background: #161212; }
+html[data-theme="home"] .work-grid .case-card[data-accent="nike"] .cv-row.mid em { background: #9C8D7C; }
 
 html[data-theme="home"] .work-grid .case-card[data-accent="happy"],
 html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .case-visual,
@@ -2898,7 +2897,7 @@ html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .case-body h3
 html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .card-q,
 html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .project-link { color: #FFFFFF; }
 html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .thumb-kpi { color: #D0FFA4; }
-html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .cv-dots i { background: #83E7FF; }
+html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .cv-dots i { background: #D5D2CB; }
 
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"],
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-visual,
@@ -2909,8 +2908,8 @@ html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .thumb-sub,
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-body h3,
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .card-q,
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .project-link { color: #000181; }
-html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .spread-line,
-html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .tick { background: #006EE9; }
+html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .spread-line { background: #9C8D7C; }
+html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .tick { background: #161212; }
 
 html[data-theme="home"] .contact-band {
   background: #F3F0E9;
