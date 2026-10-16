@@ -1916,13 +1916,13 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
 .case-card[data-accent="happy"] .thumb-viz small { color: #253A82; }
 .case-card[data-accent="happy"] .cv-dots i { color: #253A82; background: #253A82; }
 .case-card[data-accent="school"] .case-visual,
-.case-card[data-accent="school"].featured .case-visual { background: #FFD93D; color: #1C2430; }
+.case-card[data-accent="school"].featured .case-visual { background: #D61C59; color: #fff; }
 .case-card[data-accent="school"] .case-no,
 .case-card[data-accent="school"] .case-visual h3,
 .case-card[data-accent="school"] .thumb-kpi,
 .case-card[data-accent="school"] .thumb-sub,
 .case-card[data-accent="school"] .case-visual b,
-.case-card[data-accent="school"] .thumb-pipe { color: #1C2430; }
+.case-card[data-accent="school"] .thumb-pipe { color: #fff; }
 .case-card[data-accent="sql"] .case-visual,
 .case-card[data-accent="sql"].featured .case-visual { background: #9DFECB; color: #2A56F2; }
 .case-card[data-accent="sql"] .case-no,
