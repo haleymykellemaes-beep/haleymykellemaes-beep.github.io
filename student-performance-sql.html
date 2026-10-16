@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="sql">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SQL · Student performance &amp; early-warning study · Haley Maes</title>
+  <meta name="description" content="PostgreSQL analytical study on 6,607 students × 20 features: mode imputation, window-function rankings, 19-factor driver leaderboard, and an advising triage queue for drifting high-potential students." />
+  <link rel="stylesheet" href="styles.css?v=10" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img class="brand-photo" src="img/haley.png" alt="" />Haley Maes</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a class="btn" href="Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+      </div>
+      <div class="nav-social" aria-label="Contact">
+        <a class="nav-ico" href="mailto:haleymykellemaes@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4.2 7.2 12 13l7.8-5.8"/></svg>
+        </a>
+        <a class="nav-ico" href="tel:7204673584" aria-label="Phone 720-467-3584, text or call" title="720-467-3584 · text or call">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M8 3.8h2.6l1 2.5-1.8 1.1a11 11 0 0 0 5.1 5.1l1.1-1.8 2.5 1V16a1.7 1.7 0 0 1-1.8 1.7C7.9 16.6 3.4 12.1 3.3 5.6A1.7 1.7 0 0 1 5 3.8H8z"/></svg>
+        </a>
+        <a class="nav-ico" href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.54 8.96H3.27V21h3.27V8.96zM4.9 3.5a1.9 1.9 0 1 0 0 3.8 1.9 0 0 0 0-3.8zM20.73 13.16c0-3.32-1.77-4.86-4.13-4.86-1.9 0-2.75 1.05-3.22 1.78h-.05V8.96H10.1V21h3.24v-5.82c0-1.54.29-3.03 2.2-3.03 1.88 0 1.91 1.76 1.91 3.13V21h3.28v-7.84z"/></svg>
+        </a>
+        <a class="nav-ico" href="https://github.com/haleymykellemaes-beep" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49v-1.73c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.9-1.32 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="stage">
+    <div class="page-col">
+      <nav class="hang-rail" aria-label="Case studies">
+        <a class="hang-tab" href="index.html">Work</a>
+        <a class="hang-tab" href="ar-tracker.html">A/R</a>
+        <a class="hang-tab" href="nike.html">Nike</a>
+        <a class="hang-tab" href="sports-projections.html">Odds</a>
+        <a class="hang-tab" href="tmdb-revenue.html">TMDb</a>
+        <a class="hang-tab" href="happiness-gdp.html">Happiness</a>
+        <a class="hang-tab is-active" href="student-performance-sql.html">SQL</a>
+      </nav>
+      <div class="folder">
+  <main class="sheet">
+    <p class="folder-heading"><span>SQL · Student performance</span></p>
+    <h1 class="display">SQL · Student performance &amp; risk triage</h1>
+    <p class="paper-rule">6,607 students × 20 features. Window-function rankings. 4 behavioral cohorts. Advising early-warning queue.</p>
+    <p class="role-strip">Analyst · PostgreSQL · cohort segmentation &amp; reporting</p>
+    <div class="article-meta">
+      <a class="pill" href="index.html#work">← Work</a>
+      <span class="pill">PostgreSQL</span>
+      <a class="pill" href="sql/student_performance_analysis.sql">sql/student_performance_analysis.sql</a>
+      <a class="pill" href="data/StudentPerformanceFactors.csv">data/StudentPerformanceFactors.csv</a>
+      <a class="pill" href="sql/student_performance_analysis.sql">Full script</a>
+    </div>
+    <p class="article-lede">Prior exam scores look like the safest way to flag struggling students — until you query the full 6,607-student table. Nearly a third of all at-risk exam outcomes (<strong>687 of 2,131 students</strong> scoring ≤ 65) entered with a prior score of <strong>80 or higher</strong> (averaging 89.1) and slipped when attendance and weekly study hours fell. Meanwhile, monthly tutoring sessions sit flat (~1.47–1.51) across every risk band.</p>
+
+    <p class="notice"><strong>Full SQL analytical study on the public Student Performance Factors dataset</strong> (6,607 students × 20 academic, behavioral, and socioeconomic features). Built in PostgreSQL using statistical mode imputation, window functions (<code>NTILE</code>, <code>PERCENT_RANK</code>, partitioned peer averages), and operational advising views.</p>
+
+    <div class="stats">
+      <div class="stat"><b>6,607</b><span>Students audited across 20 features (235 nulls imputed, 1 score >100 capped)</span></div>
+      <div class="stat"><b>+6.02 pts</b><span>Exam score spread between Q4 and Q1 attendance (71.4% → 3.2% at-risk rate)</span></div>
+      <div class="stat"><b>1,835</b><span>“Drifting High-Potential” students (prior ≥ 80, current risk rate 37.1%)</span></div>
+    </div>
+
+    <div class="pa-grid">
+      <div class="pa">
+        <h3>Problem</h3>
+        <p>Advising teams that filter on prior scores alone miss high-capability students who disengage mid-term, while tutoring sessions are spread evenly (~1.5/mo) regardless of risk.</p>
+      </div>
+      <div class="pa">
+        <h3>Approach</h3>
+        <p>Clean and encode all 20 columns in SQL (<code>MODE() WITHIN GROUP</code>, <code>LEAST</code>), rank all 19 predictors via <code>NTILE(4)</code> and <code>CORR()</code>, and segment students into 4 cohorts.</p>
+      </div>
+      <div class="pa">
+        <h3>Insight</h3>
+        <p>Current behavior dominates baseline advantage: Q4 vs. Q1 attendance moves exam scores by +6.02 pts and study hours by +4.56 pts, compared to +0.99 pts for family income and +0.08 pts for school type.</p>
+      </div>
+      <div class="pa">
+        <h3>Impact</h3>
+        <p>Replaces static GPA cutoffs with <code>vw_advising_triage_queue</code>: an actionable roster prioritizing “Silent Slip” and low-resource students who currently receive &lt; 2 tutoring sessions.</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <h2>Interactive SQL storyboard · 19 features &amp; 4 cohorts</h2>
+      <p>Use the tabs below to inspect the exact PostgreSQL query outputs across the 6,607-student dataset: the 19-feature driver leaderboard, the 4 behavioral cohorts, and the Attendance × Study Hours risk matrix.</p>
+    </div>
+
+    <section class="viz-story" aria-label="Interactive SQL outputs">
+      <div class="viz-kpis" id="sql-kpis">
+        <div class="viz-kpi">
+          <span>Top Behavioral Driver</span>
+          <b id="kpi-1-val">+6.02 pts</b>
+          <em id="kpi-1-sub">Attendance Q4 (70.21) vs Q1 (64.20)</em>
+        </div>
+        <div class="viz-kpi">
+          <span>Top Support Driver</span>
+          <b id="kpi-2-val">+1.89 pts</b>
+          <em id="kpi-2-sub">Resources High (68.09) vs Low (66.20)</em>
+        </div>
+        <div class="viz-kpi">
+          <span>Silent Slip Cohort</span>
+          <b id="kpi-3-val">687</b>
+          <em id="kpi-3-sub">Prior ≥ 80 who scored ≤ 65 (32.2% of all at-risk)</em>
+        </div>
+        <div class="viz-kpi">
+          <span>Tutoring Allocation</span>
+          <b id="kpi-4-val">1.47 / mo</b>
+          <em id="kpi-4-sub">Disengaged At-Risk vs 1.50 in High-Discipline</em>
+        </div>
+      </div>
+
+      <div class="viz-steps" role="tablist" aria-label="SQL analytical views">
+        <button type="button" class="viz-step is-active" data-view="drivers">1 · 19-Feature Driver Leaderboard</button>
+        <button type="button" class="viz-step" data-view="cohorts">2 · 4-Cohort Segmentation &amp; Tutoring Audit</button>
+        <button type="button" class="viz-step" data-view="matrix">3 · Attendance × Study Risk Matrix</button>
+      </div>
+
+      <div class="viz-filters" id="domain-filters" aria-label="Filter features by domain">
+        <span class="viz-filter-label">Domain:</span>
+        <button type="button" class="viz-filter is-active" data-domain="all">All 19 features</button>
+        <button type="button" class="viz-filter" data-domain="Behavioral">Behavioral (4)</button>
+        <button type="button" class="viz-filter" data-domain="Socioeconomic & Support">Socioeconomic &amp; Home (5)</button>
+        <button type="button" class="viz-filter" data-domain="School Environment">School &amp; Peer (4)</button>
+        <button type="button" class="viz-filter" data-domain="Academic">Academic &amp; Health (6)</button>
+      </div>
+
+      <p class="viz-caption" id="viz-caption">Ranked by <strong>Top-to-Bottom Tier Exam Score Spread</strong> (<code>NTILE(4)</code> Q4 vs. Q1 for continuous variables; highest vs. lowest level for categoricals). At-risk is defined as <code>exam_score &lt;= 65</code> (bottom tertile, 32.3% overall).</p>
+
+      <div class="viz-chart" id="viz-chart-container">
+        <!-- Populated dynamically by inline script -->
+      </div>
+    </section>
+
+    <div class="prose">
+      <h2>1 · Data hygiene &amp; mode imputation in SQL</h2>
+      <p>Before running any aggregations, Section 2 of <a href="sql/student_performance_analysis.sql"><code>sql/student_performance_analysis.sql</code></a> audits completeness and domain bounds across all 6,607 rows:</p>
+      <ul>
+        <li><strong>Range violation (1 row):</strong> One student record carried <code>Exam_Score = 101</code> on a 100-point scale. Rather than dropping the student, <code>LEAST(GREATEST(exam_score, 0), 100)</code> caps the value cleanly at <code>100</code>.</li>
+        <li><strong>Missing categoricals (235 nulls across 3 columns):</strong> <code>Parental_Education_Level</code> (90 nulls, 1.36%), <code>Teacher_Quality</code> (78 nulls, 1.18%), and <code>Distance_from_Home</code> (67 nulls, 1.01%). A CTE computes each column’s statistical mode via PostgreSQL’s ordered-set aggregate <code>MODE() WITHIN GROUP (ORDER BY col)</code> and imputes missing values via <code>COALESCE</code> (<code>'High School'</code>, <code>'Medium'</code>, and <code>'Near'</code>).</li>
+        <li><strong>Ordinal &amp; binary encoding:</strong> Every qualitative scale (<code>Low / Medium / High</code>, <code>Negative / Neutral / Positive</code>, <code>Near / Moderate / Far</code>) is mapped to <code>0 / 1 / 2</code> alongside the human-readable label so downstream views can compute composite indices and Pearson correlations directly in SQL.</li>
+      </ul>
+
+      <pre class="code">CREATE OR REPLACE VIEW vw_student_factors_clean AS
+WITH modal_defaults AS (
+    SELECT
+        MODE() WITHIN GROUP (ORDER BY teacher_quality)          AS mode_teacher_quality,
+        MODE() WITHIN GROUP (ORDER BY parental_education_level) AS mode_parental_ed,
+        MODE() WITHIN GROUP (ORDER BY distance_from_home)       AS mode_distance
+    FROM raw_student_performance
+)
+SELECT
+    ROW_NUMBER() OVER (
+        ORDER BY r.exam_score DESC, r.attendance DESC, r.hours_studied DESC
+    )                                                           AS student_id,
+    r.hours_studied,
+    r.attendance,
+    r.previous_scores,
+    r.sleep_hours,
+    r.tutoring_sessions,
+    r.physical_activity,
+    LEAST(GREATEST(r.exam_score, 0), 100)                       AS exam_score,
+    COALESCE(r.teacher_quality, m.mode_teacher_quality)         AS teacher_quality,
+    COALESCE(r.parental_education_level, m.mode_parental_ed)    AS parental_education_level,
+    COALESCE(r.distance_from_home, m.mode_distance)             AS distance_from_home
+    -- + ordinal (0/1/2) and binary (0/1) encoded columns
+FROM raw_student_performance AS r
+CROSS JOIN modal_defaults AS m;</pre>
+
+      <h2>2 · Window functions &amp; cohort segmentation</h2>
+      <p>Instead of black-box clustering that advisors cannot audit, <code>vw_student_analytical_profile</code> segments students using transparent SQL rules and window functions that compare each student against their own <code>school_type × family_income</code> peer group:</p>
+
+      <div class="two-col">
+        <div class="panel">
+          <h3>Engineered SQL metrics</h3>
+          <table>
+            <tr><th><code>academic_momentum</code></th><td><code>0.5*prev + 0.3*att + 0.2*hours</code> (r = +0.474 with exam score)</td></tr>
+            <tr><th><code>productivity_ratio</code></th><td><code>hours_studied / (sleep_hours + 1)</code> (r = +0.378)</td></tr>
+            <tr><th><code>score_vs_peers</code></th><td><code>exam_score - AVG(exam_score) OVER (PARTITION BY school_type, family_income)</code></td></tr>
+          </table>
+        </div>
+        <div class="panel">
+          <h3>4 behavioral cohorts</h3>
+          <table>
+            <tr><th>High-Discipline Anchors</th><td><code>att &gt;= 85 AND hours &gt;= 20</code> (n = 1,342 · 0.7% at-risk)</td></tr>
+            <tr><th>Steady Middle</th><td>Moderate attendance/hours (n = 2,775 · 30.6% at-risk)</td></tr>
+            <tr><th>Drifting High-Potential</th><td><code>prev &gt;= 80</code> but <code>att &lt; 80 OR hours &lt; 18</code> (n = 1,835 · 37.1% at-risk)</td></tr>
+            <tr><th>Disengaged At-Risk</th><td><code>att &lt; 75 AND hours &lt; 20</code> (n = 655 · 90.4% at-risk)</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <h2>Interactive simulator · run the SQL triage logic</h2>
+      <p>Test how <code>vw_student_analytical_profile</code> and <code>vw_advising_triage_queue</code> classify a student row and estimate at-risk probability from the dataset’s empirical cohort cells:</p>
+    </div>
+
+    <figure class="polaroid clip-pink tilt-r">
+      <div class="polaroid-shot">
+        <div class="demo" style="margin:0;box-shadow:none;padding:4px">
+          <h3>Advising Triage &amp; Cohort Classifier</h3>
+          <p class="hint">Matches the exact SQL <code>CASE</code> rules in <code>vw_student_analytical_profile</code> and <code>vw_advising_triage_queue</code>.</p>
+          <div class="demo-grid">
+            <div>
+              <label for="sim-prev">Previous score (50–100)</label>
+              <input id="sim-prev" type="number" min="50" max="100" value="89" />
+            </div>
+            <div>
+              <label for="sim-att">Attendance % (60–100)</label>
+              <input id="sim-att" type="number" min="60" max="100" value="71" />
+            </div>
+            <div>
+              <label for="sim-hrs">Study hrs/wk (1–44)</label>
+              <input id="sim-hrs" type="number" min="1" max="44" value="14" />
+            </div>
+            <div>
+              <label for="sim-tut">Tutoring / mo (0–8)</label>
+              <input id="sim-tut" type="number" min="0" max="8" value="1" />
+            </div>
+            <button type="button" id="sim-run">Evaluate SQL Rules</button>
+          </div>
+          <div class="result late" id="sim-result" style="margin-top:14px">
+            P1: Silent Slip · Drifting High-Potential (73.4% cell risk · Momentum 73.6)
+          </div>
+        </div>
+      </div>
+      <figcaption>Live evaluation of vw_student_analytical_profile &amp; vw_advising_triage_queue</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>3 · The operational takeaway: reallocate tutoring to the “Silent Slip”</h2>
+      <p>When you group the 6,607 students by Attendance Tier × Study Hours Tier (Section 7 of the SQL script), two facts jump off the page:</p>
+      <ul>
+        <li><strong>Prior scores do not protect against disengagement:</strong> Average <code>Previous_Scores</code> sits between <strong>73.4 and 76.0</strong> in every single cell of the 3×3 Attendance × Study matrix. Yet the at-risk rate (<code>Exam_Score &lt;= 65</code>) swings from <strong>97.1%</strong> (Attendance &lt; 70%, Study &lt; 15h) down to <strong>0.2%</strong> (Attendance ≥ 85%, Study ≥ 25h).</li>
+        <li><strong>687 high-prior-score students failed the threshold:</strong> Out of 2,131 total at-risk students, 687 entered with <code>Previous_Scores &gt;= 80</code> (mean 89.1) but averaged 69.3% attendance and 16.1 study hours. Any advising filter that screens out students with strong prior grades misses nearly a third of all bad outcomes.</li>
+        <li><strong>Tutoring is untargeted:</strong> Students with 3+ monthly tutoring sessions score <strong>+1.64 points higher</strong> and cut their at-risk rate nearly in half (40.3% → 22.4%), yet average tutoring across cohorts is completely flat (<strong>1.47/mo</strong> for Disengaged At-Risk and Drifting High-Potential vs. <strong>1.50/mo</strong> for High-Discipline Anchors).</li>
+      </ul>
+
+      <pre class="code">CREATE OR REPLACE VIEW vw_advising_triage_queue AS
+SELECT
+    student_id,
+    cohort_segment,
+    CASE
+        WHEN previous_scores &gt;= 80 AND attendance &lt; 75 AND hours_studied &lt; 18
+            THEN 'P1: Silent Slip (High Prior Score, Acute Attendance/Study Drop)'
+        WHEN attendance &lt; 70 AND hours_studied &lt; 15
+            THEN 'P1: Critical Disengagement (97% Historical Risk Band)'
+        WHEN access_to_resources = 'Low' AND internet_access = 'No'
+            THEN 'P2: Resource &amp; Connectivity Barrier'
+        ELSE 'P3: Moderate Behavioral Drift'
+    END AS triage_priority,
+    previous_scores,
+    attendance,
+    hours_studied,
+    tutoring_sessions,
+    exam_score AS observed_exam_score,
+    score_vs_income_school_peers
+FROM vw_student_analytical_profile
+WHERE attendance &lt; 80
+  AND hours_studied &lt; 20
+  AND tutoring_sessions &lt; 2
+ORDER BY
+    CASE
+        WHEN previous_scores &gt;= 80 AND attendance &lt; 75 AND hours_studied &lt; 18 THEN 1
+        WHEN attendance &lt; 70 AND hours_studied &lt; 15 THEN 2
+        ELSE 3
+    END,
+    attendance ASC,
+    hours_studied ASC;</pre>
+
+      <h2>Limitations &amp; next steps in production</h2>
+      <ul>
+        <li><strong>Cross-sectional grain:</strong> Each row is one student snapshot. In a live registrar warehouse, I would join weekly LMS login and attendance deltas (Week 4 vs. Week 1) so <code>vw_advising_triage_queue</code> triggers before midterms.</li>
+        <li><strong>Self-reported study and sleep hours:</strong> Surveyed study hours can carry reporting bias, whereas registrar attendance and LMS submissions are system-logged.</li>
+        <li><strong>Closed-loop tracking:</strong> Add an <code>intervention_log</code> table to measure whether reallocating tutoring vouchers to P1/P2 queue students actually recovers exam scores.</li>
+      </ul>
+    </div>
+
+    <a class="ticker ticker-link" href="happiness-gdp.html">
+      <b>Next: Happiness and GDP</b><span>↗</span>
+      <b>Next: Happiness and GDP</b><span>↗</span>
+      <b>Next: Happiness and GDP</b><span>↗</span>
+    </a>
+    <div class="pager">
+      <a href="ar-tracker.html">← A/R tracker</a>
+      <a href="normalization-3nf.html">3NF note →</a>
+    </div>
+  </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>Haley Maes · SQL Student Performance Study</span>
+      <a href="index.html">Portfolio home</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const drivers = [
+        { rank: 1, name: "Attendance (Q4 vs Q1)", domain: "Behavioral", r: "+0.581", low: 64.20, top: 70.21, spread: 6.02, riskLow: "71.4%", riskTop: "3.2%" },
+        { rank: 2, name: "Hours_Studied (Q4 vs Q1)", domain: "Behavioral", r: "+0.446", low: 64.99, top: 69.55, spread: 4.56, riskLow: "57.3%", riskTop: "9.8%" },
+        { rank: 3, name: "Access_to_Resources (High vs Low)", domain: "Socioeconomic & Support", r: "+0.170", low: 66.20, top: 68.09, spread: 1.89, riskLow: "42.0%", riskTop: "24.1%" },
+        { rank: 4, name: "Previous_Scores (Q4 vs Q1)", domain: "Academic", r: "+0.175", low: 66.44, top: 68.24, spread: 1.80, riskLow: "41.3%", riskTop: "23.2%" },
+        { rank: 5, name: "Parental_Involvement (High vs Low)", domain: "Socioeconomic & Support", r: "+0.157", low: 66.36, top: 68.09, spread: 1.73, riskLow: "42.1%", riskTop: "24.2%" },
+        { rank: 6, name: "Tutoring_Sessions (3+ vs 0/mo)", domain: "Academic", r: "+0.156", low: 66.49, top: 68.13, spread: 1.64, riskLow: "40.3%", riskTop: "22.4%" },
+        { rank: 7, name: "Learning_Disabilities (No vs Yes)", domain: "Academic", r: "+0.109", low: 66.27, top: 67.35, spread: 1.08, riskLow: "43.0%", riskTop: "31.0%" },
+        { rank: 8, name: "Parental_Education (Postgrad vs HS)", domain: "Socioeconomic & Support", r: "+0.105", low: 66.90, top: 67.97, spread: 1.07, riskLow: "36.1%", riskTop: "24.1%" },
+        { rank: 9, name: "Peer_Influence (Positive vs Negative)", domain: "School Environment", r: "+0.100", low: 66.56, top: 67.62, spread: 1.06, riskLow: "39.4%", riskTop: "27.5%" },
+        { rank: 10, name: "Distance_from_Home (Near vs Far)", domain: "School Environment", r: "+0.089", low: 66.46, top: 67.49, spread: 1.03, riskLow: "40.9%", riskTop: "29.5%" },
+        { rank: 11, name: "Family_Income (High vs Low)", domain: "Socioeconomic & Support", r: "+0.095", low: 66.85, top: 67.84, spread: 0.99, riskLow: "36.5%", riskTop: "27.0%" },
+        { rank: 12, name: "Motivation_Level (High vs Low)", domain: "Behavioral", r: "+0.087", low: 66.75, top: 67.70, spread: 0.95, riskLow: "38.1%", riskTop: "27.2%" },
+        { rank: 13, name: "Teacher_Quality (High vs Low)", domain: "School Environment", r: "+0.076", low: 66.75, top: 67.68, spread: 0.93, riskLow: "37.8%", riskTop: "28.8%" },
+        { rank: 14, name: "Internet_Access (Yes vs No)", domain: "Socioeconomic & Support", r: "+0.051", low: 66.53, top: 67.29, spread: 0.76, riskLow: "40.3%", riskTop: "31.6%" },
+        { rank: 15, name: "Extracurricular_Activities (Yes vs No)", domain: "Behavioral", r: "+0.064", low: 66.93, top: 67.44, spread: 0.51, riskLow: "35.9%", riskTop: "29.8%" },
+        { rank: 16, name: "Physical_Activity (Q4 vs Q1)", domain: "Academic", r: "+0.028", low: 67.14, top: 67.40, spread: 0.26, riskLow: "33.4%", riskTop: "31.6%" },
+        { rank: 17, name: "School_Type (Private vs Public)", domain: "School Environment", r: "+0.009", low: 67.21, top: 67.29, spread: 0.08, riskLow: "32.6%", riskTop: "31.4%" },
+        { rank: 18, name: "Gender (Female vs Male)", domain: "Academic", r: "+0.002", low: 67.23, top: 67.24, spread: 0.01, riskLow: "32.0%", riskTop: "32.6%" },
+        { rank: 19, name: "Sleep_Hours (Q4 vs Q1)", domain: "Academic", r: "-0.017", low: 67.32, top: 67.17, spread: -0.14, riskLow: "31.8%", riskTop: "32.5%" }
+      ];
+
+      const cohorts = [
+        { name: "High-Discipline Anchors", rule: "Attendance ≥ 85% & Study ≥ 20h", n: "1,342 (20.3%)", exam: "70.96", prev: "75.2", att: "92.3%", hrs: "24.4h", tut: "1.50 / mo", risk: "0.7%" },
+        { name: "Steady Middle", rule: "Moderate attendance & study hours", n: "2,775 (42.0%)", exam: "67.03", prev: "67.8", att: "80.6%", hrs: "20.0h", tut: "1.51 / mo", risk: "30.6%" },
+        { name: "Drifting High-Potential", rule: "Prior ≥ 80, Attendance < 80% or Study < 18h", n: "1,835 (27.8%)", exam: "66.43", prev: "89.6", att: "74.7%", hrs: "18.5h", tut: "1.47 / mo", risk: "37.1%" },
+        { name: "Disengaged At-Risk", rule: "Prior < 80, Attendance < 75% & Study < 20h", n: "655 (9.9%)", exam: "62.75", prev: "64.6", att: "67.1%", hrs: "14.8h", tut: "1.47 / mo", risk: "90.4%" }
+      ];
+
+      const matrixRows = [
+        { att: "Low (<70%)", study: "Low (<15h/wk)", n: 279, prev: "75.4", exam: "61.59", risk: "97.1%" },
+        { att: "Low (<70%)", study: "Mid (15–24h/wk)", n: 947, prev: "75.7", exam: "64.07", risk: "77.8%" },
+        { att: "Low (<70%)", study: "High (25h+/wk)", n: 347, prev: "75.5", exam: "66.70", risk: "31.4%" },
+        { att: "Mid (70–84%)", study: "Low (<15h/wk)", n: 459, prev: "76.0", exam: "64.29", risk: "73.4%" },
+        { att: "Mid (70–84%)", study: "Mid (15–24h/wk)", n: 1502, prev: "74.7", exam: "66.58", risk: "33.8%" },
+        { att: "Mid (70–84%)", study: "High (25h+/wk)", n: 562, prev: "75.9", exam: "68.89", risk: "4.8%" },
+        { att: "High (85%+)", study: "Low (<15h/wk)", n: 452, prev: "73.4", exam: "67.09", risk: "23.9%" },
+        { att: "High (85%+)", study: "Mid (15–24h/wk)", n: 1506, prev: "74.5", exam: "69.52", risk: "2.3%" },
+        { att: "High (85%+)", study: "High (25h+/wk)", n: 553, prev: "75.8", exam: "72.29", risk: "0.2%" }
+      ];
+
+      let currentView = "drivers";
+      let currentDomain = "all";
+
+      const container = document.getElementById("viz-chart-container");
+      const caption = document.getElementById("viz-caption");
+      const domainFilters = document.getElementById("domain-filters");
+
+      function render() {
+        if (currentView === "drivers") {
+          domainFilters.style.display = "flex";
+          caption.innerHTML = "Ranked by <strong>Top-to-Bottom Tier Exam Score Spread</strong> (<code>NTILE(4)</code> Q4 vs. Q1 for continuous variables; highest vs. lowest level for categoricals).";
+          const filtered = currentDomain === "all"
+            ? drivers
+            : drivers.filter((d) => d.domain === currentDomain);
+
+          const barsHtml = filtered.map((d) => {
+            const pct = Math.max(4, Math.round((Math.max(0, d.spread) / 6.02) * 100));
+            const spreadStr = (d.spread >= 0 ? "+" : "") + d.spread.toFixed(2) + " pts";
+            return `
+              <div class="bar-row" style="margin:6px 0">
+                <span title="${d.domain}">#${d.rank} ${d.name}</span>
+                <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+                <span>${spreadStr} (r=${d.r})</span>
+              </div>
+            `;
+          }).join("");
+
+          container.innerHTML = `<div class="bars viz-bars">${barsHtml}</div>`;
+        } else if (currentView === "cohorts") {
+          domainFilters.style.display = "none";
+          caption.innerHTML = "Output of <strong>Section 6</strong> in <code>sql/student_performance_analysis.sql</code>: <code>Drifting High-Potential</code> students entered with an 89.6 average prior score but face a 37.1% at-risk rate, while tutoring sits flat (~1.47–1.51/mo) across all four groups.";
+          const rowsHtml = cohorts.map((c) => `
+            <tr>
+              <td><strong>${c.name}</strong><br><small style="color:var(--muted)">${c.rule}</small></td>
+              <td>${c.n}</td>
+              <td>${c.prev}</td>
+              <td><strong>${c.exam}</strong></td>
+              <td>${c.att} / ${c.hrs}</td>
+              <td>${c.tut}</td>
+              <td><strong>${c.risk}</strong></td>
+            </tr>
+          `).join("");
+          container.innerHTML = `
+            <div class="viz-table-wrap" style="overflow-x:auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cohort Segment</th>
+                    <th>Students</th>
+                    <th>Prior Score</th>
+                    <th>Exam Score</th>
+                    <th>Avg Att / Study</th>
+                    <th>Tutoring</th>
+                    <th>At-Risk (≤65)</th>
+                  </tr>
+                </thead>
+                <tbody>${rowsHtml}</tbody>
+              </table>
+            </div>
+          `;
+        } else {
+          domainFilters.style.display = "none";
+          caption.innerHTML = "Output of <strong>Section 7</strong> in <code>sql/student_performance_analysis.sql</code>: Prior scores are flat (~73.4–76.0) across every cell, while at-risk rate drops from <strong>97.1%</strong> to <strong>0.2%</strong> as attendance and study hours rise.";
+          const rowsHtml = matrixRows.map((m) => `
+            <tr>
+              <td><strong>${m.att}</strong></td>
+              <td>${m.study}</td>
+              <td>${m.n}</td>
+              <td>${m.prev}</td>
+              <td><strong>${m.exam}</strong></td>
+              <td><strong>${m.risk}</strong></td>
+            </tr>
+          `).join("");
+          container.innerHTML = `
+            <div class="viz-table-wrap" style="overflow-x:auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Attendance Tier</th>
+                    <th>Study Hours Tier</th>
+                    <th>Students</th>
+                    <th>Mean Prior Score</th>
+                    <th>Mean Exam Score</th>
+                    <th>At-Risk Rate (≤65)</th>
+                  </tr>
+                </thead>
+                <tbody>${rowsHtml}</tbody>
+              </table>
+            </div>
+          `;
+        }
+      }
+
+      document.querySelectorAll(".viz-step").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".viz-step").forEach((b) => b.classList.remove("is-active"));
+          btn.classList.add("is-active");
+          currentView = btn.getAttribute("data-view");
+          render();
+        });
+      });
+
+      document.querySelectorAll(".viz-filter").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".viz-filter").forEach((b) => b.classList.remove("is-active"));
+          btn.classList.add("is-active");
+          currentDomain = btn.getAttribute("data-domain");
+          render();
+        });
+      });
+
+      render();
+
+      // Interactive SQL Triage Simulator
+      const prevEl = document.getElementById("sim-prev");
+      const attEl = document.getElementById("sim-att");
+      const hrsEl = document.getElementById("sim-hrs");
+      const tutEl = document.getElementById("sim-tut");
+      const resEl = document.getElementById("sim-result");
+
+      function runSim() {
+        const prev = Number(prevEl.value) || 75;
+        const att = Number(attEl.value) || 80;
+        const hrs = Number(hrsEl.value) || 20;
+        const tut = Number(tutEl.value) || 0;
+
+        const momentum = (0.5 * prev + 0.3 * att + 0.2 * hrs).toFixed(1);
+
+        let cohort = "Steady Middle";
+        if (att >= 85 && hrs >= 20) cohort = "High-Discipline Anchors";
+        else if (prev >= 80 && (att < 80 || hrs < 18)) cohort = "Drifting High-Potential";
+        else if (att < 75 && hrs < 20) cohort = "Disengaged At-Risk";
+
+        let cellRisk = "33.8%";
+        if (att < 70 && hrs < 15) cellRisk = "97.1%";
+        else if (att < 70 && hrs <= 24) cellRisk = "77.8%";
+        else if (att < 70) cellRisk = "31.4%";
+        else if (att < 85 && hrs < 15) cellRisk = "73.4%";
+        else if (att < 85 && hrs <= 24) cellRisk = "33.8%";
+        else if (att < 85) cellRisk = "4.8%";
+        else if (hrs < 15) cellRisk = "23.9%";
+        else if (hrs <= 24) cellRisk = "2.3%";
+        else cellRisk = "0.2%";
+
+        let priority = "Not Queued (On Track / Supported)";
+        let cls = "ontime";
+        if (att < 80 && hrs < 20 && tut < 2) {
+          if (prev >= 80 && att < 75 && hrs < 18) {
+            priority = "P1: Silent Slip Queue";
+            cls = "late";
+          } else if (att < 70 && hrs < 15) {
+            priority = "P1: Critical Disengagement Queue";
+            cls = "late";
+          } else {
+            priority = "P3: Behavioral Drift Queue";
+            cls = "still";
+          }
+        } else if (cohort === "Drifting High-Potential" || cohort === "Disengaged At-Risk") {
+          priority = "Watchlist (" + (tut >= 2 ? "Tutoring Active" : "Monitor Attendance") + ")";
+          cls = "still";
+        }
+
+        resEl.textContent = `${priority} · ${cohort} (${cellRisk} cell risk · Momentum ${momentum})`;
+        resEl.className = "result " + cls;
+      }
+
+      document.getElementById("sim-run").addEventListener("click", runSim);
+      runSim();
+    })();
+  </script>
+</body>
+</html>
