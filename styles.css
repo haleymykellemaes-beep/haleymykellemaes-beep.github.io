@@ -48,7 +48,7 @@ html[data-theme="tmdb"] {
 html[data-theme="happy"] {
   --blue: #253A82;
   --pink: #253A82;
-  --gray: #F3FBE0;
+  --gray: #FFF6D8;
   --ink: #253A82;
   --muted: #4A5C9A;
   --shadow: 0 18px 50px rgba(37, 58, 130, 0.14);
@@ -1908,7 +1908,7 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
 .case-card[data-accent="tmdb"] .case-visual b { color: #253A82; }
 .case-card[data-accent="tmdb"] .cv-row { color: #253A82; }
 .case-card[data-accent="tmdb"] .cv-row em { background: #253A82; }
-.case-card[data-accent="happy"] .case-visual { background: #E3FC87; color: #253A82; }
+.case-card[data-accent="happy"] .case-visual { background: #F6E7A8; color: #253A82; }
 .case-card[data-accent="happy"] .case-no,
 .case-card[data-accent="happy"] .case-visual h3,
 .case-card[data-accent="happy"] .thumb-kpi,
@@ -1951,7 +1951,7 @@ html[data-theme="sql"] .result.late {
   color: #9DFECB;
 }
 html[data-theme="happy"] .ticker {
-  background: #E3FC87;
+  background: #F6E7A8;
   color: #253A82;
 }
 html[data-theme="happy"] a.ticker,
