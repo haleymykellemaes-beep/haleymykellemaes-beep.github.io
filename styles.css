@@ -88,7 +88,7 @@ html[data-theme="lulu"] {
 }
 html[data-theme="nike"] {
   --blue: #1c1c1c;
-  --pink: #E77801;
+  --pink: #ff6a00;
   --gray: #f3f2ef;
   --white: #ffffff;
   --ink: #141414;
@@ -97,7 +97,7 @@ html[data-theme="nike"] {
 }
 html[data-theme="odds"] {
   --blue: #2A56F2;
-  --pink: #E77801;
+  --pink: #ff6a00;
   --gray: #E9D9CA;
   --white: #ffffff;
   --ink: #1A2F9E;
@@ -1931,14 +1931,14 @@ html.can-type .hero-tag .hero-line.is-in { opacity: 1; }
 .case-card[data-accent="sql"] .case-visual b { color: #2A56F2; }
 .case-card[data-accent="sql"] .cv-sql ul { color: #2A56F2; }
 .case-card[data-accent="lulu"] .case-visual { background: #d45c64; color: #fff; }
-.case-card[data-accent="nike"] .case-visual { background: #E77801; color: #2A56F2; }
+.case-card[data-accent="nike"] .case-visual { background: #F4EFE4; color: #1c1c1c; }
 .case-card[data-accent="nike"] .case-no,
 .case-card[data-accent="nike"] .case-visual h3,
 .case-card[data-accent="nike"] .thumb-kpi,
-.case-card[data-accent="nike"] .case-visual b { color: #2A56F2; }
-.case-card[data-accent="nike"] .cv-row { color: #2A56F2; }
-.case-card[data-accent="nike"] .cv-row em { background: #2A56F2; }
-.case-card[data-accent="odds"] .case-visual { background: #E77801; color: #2A56F2; }
+.case-card[data-accent="nike"] .case-visual b { color: #1c1c1c; }
+.case-card[data-accent="nike"] .cv-row { color: #5c5c58; }
+.case-card[data-accent="nike"] .cv-row em { background: #ff6a00; }
+.case-card[data-accent="odds"] .case-visual { background: #ff6a00; color: #2A56F2; }
 .case-card[data-accent="odds"] .case-no,
 .case-card[data-accent="odds"] .case-visual h3,
 .case-card[data-accent="odds"] .thumb-kpi,
@@ -1963,7 +1963,7 @@ html[data-theme="tmdb"] .ticker {
 html[data-theme="tmdb"] a.ticker,
 html[data-theme="tmdb"] a.ticker:hover { color: #253A82; }
 html[data-theme="odds"] .ticker {
-  background: #E77801;
+  background: #ff6a00;
   color: #2A56F2;
 }
 html[data-theme="odds"] a.ticker,
@@ -1981,11 +1981,11 @@ html[data-theme="ar"] .ticker {
 html[data-theme="ar"] a.ticker,
 html[data-theme="ar"] a.ticker:hover { color: #F4EFE4; }
 html[data-theme="nike"] .ticker {
-  background: #E77801;
-  color: #2A56F2;
+  background: #F4EFE4;
+  color: #1c1c1c;
 }
 html[data-theme="nike"] a.ticker,
-html[data-theme="nike"] a.ticker:hover { color: #2A56F2; }
+html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
 .case-visual h3,
 .case-body h3 {
   margin: 10px 0 10px;
