@@ -2851,15 +2851,15 @@ html[data-theme="home"] .work-grid .case-card[data-accent="ar"] .thumb-age .hot 
 
 html[data-theme="home"] .work-grid .case-card[data-accent="school"],
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-visual,
-html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-body { background: #C6BEB5; color: #161212; }
+html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-body { background: #FFFFFF; color: #1C1C1B; }
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-no,
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-kpi,
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-sub,
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-pipe,
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .case-body h3,
 html[data-theme="home"] .work-grid .case-card[data-accent="school"] .card-q,
-html[data-theme="home"] .work-grid .case-card[data-accent="school"] .project-link { color: #161212; }
-html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-pipe i { background: #161212; opacity: 0.85; }
+html[data-theme="home"] .work-grid .case-card[data-accent="school"] .project-link { color: #1C1C1B; }
+html[data-theme="home"] .work-grid .case-card[data-accent="school"] .thumb-pipe i { background: #1C1C1B; opacity: 0.85; }
 
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"],
 html[data-theme="home"] .work-grid .case-card[data-accent="tmdb"] .case-visual,
@@ -2901,15 +2901,15 @@ html[data-theme="home"] .work-grid .case-card[data-accent="happy"] .cv-dots i { 
 
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"],
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-visual,
-html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-body { background: #C6BEB5; color: #161212; }
+html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-body { background: #F7F4EE; color: #1C1C1B; }
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-no,
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .thumb-kpi,
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .thumb-sub,
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .case-body h3,
 html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .card-q,
-html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .project-link { color: #161212; }
-html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .spread-line { background: #9C8D7C; }
-html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .tick { background: #161212; }
+html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .project-link { color: #1C1C1B; }
+html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .spread-line { background: #6A5D52; }
+html[data-theme="home"] .work-grid .case-card[data-accent="odds"] .tick { background: #1C1C1B; }
 
 html[data-theme="home"] .contact-band {
   background: #CCC6BD;
