@@ -2445,9 +2445,13 @@ html[data-theme="school"] {
 html[data-theme="school"] .sheet,
 html[data-theme="school"] .viz-story,
 html[data-theme="school"] .viz-chart,
-html[data-theme="school"] .pa,
-html[data-theme="school"] pre.code {
+html[data-theme="school"] .pa {
   color: #1C2430;
+}
+html[data-theme="school"] pre.code {
+  background: #fff;
+  color: #1C2430;
+  border: 1px solid rgba(28, 36, 48, 0.14);
 }
 html[data-theme="school"] .paper-rule,
 html[data-theme="school"] .folder-heading span { color: #D61C59; }
