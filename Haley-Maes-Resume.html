@@ -31,10 +31,10 @@
       padding: 0.42in 0.48in 0.32in;
       box-shadow: 0 12px 40px rgba(28, 28, 27, 0.12);
     }
-    .top {
+    .top, .cols {
       display: grid;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 22px;
+      grid-template-columns: 1.28fr 0.92fr;
+      gap: 20px;
       align-items: start;
     }
     .who, .contact, .profile, .col {
@@ -59,11 +59,12 @@
       color: var(--ink);
     }
     .contact {
-      font-size: 8.5pt;
-      line-height: 1.35;
+      font-size: 8.4pt;
+      line-height: 1.38;
       padding-top: 2px;
     }
-    .contact p { margin: 0; white-space: nowrap; }
+    .contact p { margin: 0; }
+    .contact a { white-space: nowrap; hyphens: none; }
     .creds {
       margin: 14px 0 8px;
       padding-left: 14px;
@@ -75,15 +76,15 @@
     .profile {
       margin: 0 0 12px;
     }
-    .skills { margin: 0; hyphens: manual; }
-    .cols {
-      display: grid;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 18px;
-      align-items: start;
+    .skills { margin: 0; hyphens: none; }
+    .skills li {
+      margin: 0 0 2px;
+      padding: 0;
+      list-style: none;
     }
+    .skills { list-style: none; padding: 0; }
     h2 {
-      margin: 0 0 8px;
+      margin: 11px 0 6px;
       font-size: 9pt;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -107,6 +108,11 @@
       margin: 2px 0 0;
       padding-left: 1.05em;
     }
+    ul.skills {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
     li { margin: 0 0 1px; }
     .edu { margin: 0 0 9px; }
     .edu .where { margin-bottom: 1px; }
@@ -114,8 +120,8 @@
       margin: 0;
       font-size: 9pt;
     }
-    .side h2 { margin-top: 12px; }
-    .side h2:first-child { margin-top: 0; }
+    .col > h2:first-child,
+    .side > h2:first-child { margin-top: 0; }
     .print-hint {
       text-align: center;
       font-size: 12px;
@@ -226,7 +232,16 @@
         </div>
 
         <h2>Technical Skills</h2>
-        <p class="skills">SQL (PostgreSQL) &middot; Python (pandas, NumPy) &middot; Advanced Excel (pivot tables, XLOOKUP) &middot; Tableau &middot; Power BI &middot; Google Sheets &middot; GitHub &middot; AI-assisted development (Cursor, Claude) &middot; KPI Reporting &middot; Financial Reporting &amp; Reconciliation &middot; Variance Analysis &middot; Process Improvement</p>
+        <ul class="skills">
+          <li>SQL (PostgreSQL)</li>
+          <li>Python (pandas, NumPy)</li>
+          <li>Advanced Excel (pivot tables, XLOOKUP)</li>
+          <li>Tableau · Power BI · Google Sheets</li>
+          <li>GitHub · AI-assisted development (Cursor, Claude)</li>
+          <li>KPI Reporting · Financial Reporting</li>
+          <li>Reconciliation · Variance Analysis</li>
+          <li>Process Improvement</li>
+        </ul>
       </div>
     </div>
   </article>
