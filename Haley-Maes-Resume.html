@@ -9,7 +9,7 @@
     :root {
       --ink: #1C1C1B;
       --muted: #6A5D52;
-      --rule: #1C1C1B;
+      --line: #1C1C1B;
       --gray: #EDE9DC;
       --white: #ffffff;
     }
@@ -19,8 +19,8 @@
       font-family: Calibri, "Segoe UI", Arial, Helvetica, sans-serif;
       color: var(--ink);
       background: var(--gray);
-      line-height: 1.28;
-      font-size: 9.15pt;
+      line-height: 1.22;
+      font-size: 9.2pt;
     }
     a { color: var(--ink); text-decoration: none; }
     .sheet {
@@ -28,100 +28,56 @@
       min-height: 11in;
       margin: 24px auto;
       background: var(--white);
-      padding: 0.42in 0.48in 0.32in;
+      padding: 0.42in 0.55in 0.36in;
       box-shadow: 0 12px 40px rgba(28, 28, 27, 0.12);
-    }
-    .top, .cols {
-      display: grid;
-      grid-template-columns: 1.28fr 0.92fr;
-      gap: 20px;
-      align-items: start;
-    }
-    .who, .contact, .profile, .col {
-      border-left: 2.5px solid var(--rule);
-      padding-left: 12px;
     }
     h1 {
       margin: 0;
       font-family: "Arial Narrow", "Helvetica Neue", Arial, Helvetica, sans-serif;
-      font-size: 26pt;
+      font-size: 22pt;
       line-height: 0.95;
       font-weight: 700;
-      letter-spacing: 0;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
       color: var(--ink);
     }
     .title {
-      margin: 2px 0 0;
-      font-family: "Arial Narrow", "Helvetica Neue", Arial, Helvetica, sans-serif;
-      font-size: 15pt;
-      line-height: 1.05;
+      margin: 4px 0 0;
+      font-size: 11pt;
       font-weight: 700;
-      color: var(--ink);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
     .contact {
-      font-size: 8.4pt;
-      line-height: 1.38;
-      padding-top: 2px;
+      margin: 6px 0 0;
+      font-size: 9pt;
     }
-    .contact p { margin: 0; }
-    .contact a { white-space: nowrap; hyphens: none; }
-    .creds {
-      margin: 14px 0 8px;
-      padding-left: 14px;
-      font-size: 8pt;
+    .contact span { margin-right: 16px; white-space: nowrap; }
+    h2 {
+      margin: 8px 0 2px;
+      padding-bottom: 1px;
+      border-bottom: 1.25px solid var(--line);
+      font-size: 10pt;
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
-    .profile {
-      margin: 0 0 12px;
-    }
-    .skills { margin: 0; hyphens: none; }
-    .skills li {
-      margin: 0 0 2px;
-      padding: 0;
-      list-style: none;
-    }
-    .skills { list-style: none; padding: 0; }
-    h2 {
-      margin: 11px 0 6px;
-      font-size: 9pt;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--ink);
-    }
-    .job { margin: 0 0 7px; }
-    .job:last-child { margin-bottom: 0; }
-    .where {
-      margin: 0;
-      font-size: 8.6pt;
-      color: var(--muted);
-    }
+    .profile, .skills { margin: 4px 0 0; }
+    .job { margin: 6px 0 0; }
     h3 {
-      margin: 0 0 2px;
-      font-size: 11pt;
+      margin: 0;
+      font-size: 10pt;
       font-weight: 700;
-      line-height: 1.15;
+      line-height: 1.2;
+    }
+    .where {
+      font-weight: 400;
     }
     ul {
       margin: 2px 0 0;
-      padding-left: 1.05em;
-    }
-    ul.skills {
-      margin: 0;
-      padding: 0;
-      list-style: none;
+      padding-left: 1.15em;
     }
     li { margin: 0 0 1px; }
-    .edu { margin: 0 0 9px; }
-    .edu .where { margin-bottom: 1px; }
-    .skills {
-      margin: 0;
-      font-size: 9pt;
-    }
-    .col > h2:first-child,
-    .side > h2:first-child { margin-top: 0; }
     .print-hint {
       text-align: center;
       font-size: 12px;
@@ -131,7 +87,7 @@
     .print-hint a { color: var(--ink); }
     .print-hint .dl { font-weight: 700; }
     @media print {
-      @page { size: letter; margin: 0.38in 0.42in; }
+      @page { size: letter; margin: 0.4in 0.48in; }
       html, body { margin: 0; background: #fff; }
       body { font-size: 9.1pt; }
       .print-hint { display: none !important; }
@@ -149,100 +105,78 @@
 <body>
   <p class="print-hint"><a href="index.html">&lt;- Portfolio</a> | <a class="dl" href="Haley-Maes-Resume.pdf" download="Haley-Maes-Resume.pdf">Download PDF</a></p>
   <article class="sheet">
-    <header class="top">
-      <div class="who">
-        <h1>Haley Maes</h1>
-        <p class="title">Data Analyst</p>
-      </div>
-      <div class="contact">
-        <p>Arvada, CO</p>
-        <p><a href="tel:7204673584">(720) 467-3584</a></p>
-        <p><a href="mailto:haleymykellemaes@gmail.com">haleymykellemaes@gmail.com</a></p>
-        <p><a href="https://www.linkedin.com/in/haleymmaes">linkedin.com/in/haleymmaes</a></p>
-        <p><a href="https://haleymykellemaes-beep.github.io/">haleymykellemaes-beep.github.io</a></p>
-      </div>
+    <header>
+      <h1>Haley Maes</h1>
+      <p class="title">Data Analyst</p>
+      <p class="contact">
+        <span><a href="mailto:haleymykellemaes@gmail.com">haleymykellemaes@gmail.com</a></span>
+        <span><a href="tel:7204673584">(720) 467-3584</a></span>
+        <span>Arvada, CO</span>
+        <span><a href="https://www.linkedin.com/in/haleymmaes">linkedin.com/in/haleymmaes</a></span>
+        <span><a href="https://haleymykellemaes-beep.github.io/">haleymykellemaes-beep.github.io</a></span>
+      </p>
     </header>
 
-    <p class="creds">B.S. Data Analytics, WGU &middot; Computational Mathematical Sciences, ASU</p>
+    <h2>Profile</h2>
     <p class="profile">Data analyst who turns messy, day-to-day operational data into clear reporting and decisions. Skilled in SQL, Python, and advanced Excel, with experience building reporting systems, tracking down the drivers behind the numbers, and partnering across teams to fix what the data reveals. Reduced 90+ day receivables by 40% with an Excel aging tracker. Completing a B.S. in Data Analytics at WGU (November 2026).</p>
 
-    <div class="cols">
-      <div class="col">
-        <h2>Experience</h2>
-        <div class="job">
-          <p class="where">Denver Family Dental, Denver, CO | June 2024 - Present</p>
-          <h3>Billing &amp; Operations Administrator</h3>
-          <p class="where">Financial Operations &amp; Reporting</p>
-          <ul>
-            <li>Process 100-150 insurance claims per week; pull claims, payment, and A/R from the practice management system and reshape it in Excel into reporting the owner uses to prioritize collections.</li>
-            <li>Excel A/R tracker (insurance vs patient aging, denial reason, next follow-up) used each morning to work 90+ balances first; 90+ A/R down $11K, from 31.4% of open balance to 18.7%.</li>
-            <li>Built a denial-tracking workbook that categorizes denied claims by root cause so the team can correct, resubmit, and prevent repeats.</li>
-            <li>Report collections across 10+ payment types and reconcile payments, overpayments, and refunds. Posted collections grew 14% ($388K to $443K) over the same period.</li>
-            <li>Led payment-platform rollout: card fees 2.4% to under 1%, plus remote pay. Supply spend analysis by vendor and category to cut overhead.</li>
-            <li>Connected wait times, scheduling, and staff notes to process changes that raised the practice's Google rating by nearly a full point.</li>
-          </ul>
-        </div>
-        <div class="job">
-          <p class="where">Guidepost Montessori, Dallas, TX | July 2023 - June 2024</p>
-          <h3>Assistant Head of School</h3>
-          <p class="where">Promoted from Lead Teacher</p>
-          <ul>
-            <li>Reconciled tuition billing for 100+ families, coding variable charges and tracking payment compliance across systems.</li>
-            <li>Wrote data-entry standards and trained staff, replacing conflicting record versions with one source.</li>
-          </ul>
-        </div>
-        <div class="job">
-          <p class="where">RNR Hospitality Group, Scottsdale, AZ | August 2022 - June 2023</p>
-          <h3>Guest Experience Lead</h3>
-          <ul>
-            <li>Owned daily cash reconciliation and shift-level reporting, resolving variances the same day. Cross-checked inventory to POS sales to stop recurring discrepancies.</li>
-          </ul>
-        </div>
+    <h2>Technical Skills</h2>
+    <p class="skills">SQL (PostgreSQL) &middot; Python (pandas, NumPy) &middot; Advanced Excel (pivot tables, XLOOKUP) &middot; Tableau &middot; Power BI &middot; Google Sheets &middot; GitHub &middot; AI-assisted development (Cursor, Claude) &middot; KPI Reporting &middot; Financial Reporting &amp; Reconciliation &middot; Variance Analysis &middot; Process Improvement</p>
 
-        <h2>Projects</h2>
-        <div class="job">
-          <h3><a href="https://haleymykellemaes-beep.github.io/happiness-gdp.html">Python &middot; Happiness and GDP</a></h3>
-          <ul>
-            <li>Joined World Bank GDP to the World Happiness Report (1,927 country-years). Life evaluation vs. log GDP per capita: r = 0.836. pandas / numpy - melt, merge, corr, qcut.</li>
-          </ul>
-        </div>
-        <div class="job">
-          <h3><a href="https://haleymykellemaes-beep.github.io/student-performance-sql.html">SQL &middot; Student performance triage</a></h3>
-          <ul>
-            <li>PostgreSQL study of 6,607 students and 20 factors. Attendance Q4 vs Q1 is +6.02 exam points; 687 students with prior scores of 80+ later scored 65 or below. Advising queue replaces a prior-score-only filter.</li>
-          </ul>
-        </div>
-        <div class="job">
-          <h3><a href="https://haleymykellemaes-beep.github.io/nike.html">Tableau &middot; Channel and inventory analysis</a></h3>
-          <ul>
-            <li>FY25 10-K analog: revenue -10% vs. flat inventory. Direct -13%, Wholesale -7%. Call: clear Jordan / digital depth; hold wholesale.</li>
-          </ul>
-        </div>
-      </div>
+    <h2>Experience</h2>
+    <div class="job">
+      <h3>Billing &amp; Operations Administrator <span class="where">| Denver Family Dental, Denver, CO | June 2024 - Present</span></h3>
+      <p class="where">Financial Operations &amp; Reporting</p>
+      <ul>
+        <li>Process 100-150 insurance claims per week; pull claims, payment, and A/R from the practice management system and reshape it in Excel into reporting the owner uses to prioritize collections.</li>
+        <li>Excel A/R tracker (insurance vs patient aging, denial reason, next follow-up) used each morning to work 90+ balances first; 90+ A/R down $11K, from 31.4% of open balance to 18.7%.</li>
+        <li>Built a denial-tracking workbook that categorizes denied claims by root cause so the team can correct, resubmit, and prevent repeats.</li>
+        <li>Report collections across 10+ payment types and reconcile payments, overpayments, and refunds. Posted collections grew 14% ($388K to $443K) over the same period.</li>
+        <li>Led payment-platform rollout: card fees 2.4% to under 1%, plus remote pay. Supply spend analysis by vendor and category to cut overhead.</li>
+        <li>Connected wait times, scheduling, and staff notes to process changes that raised the practice's Google rating by nearly a full point.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <h3>Assistant Head of School <span class="where">| Guidepost Montessori, Dallas, TX | July 2023 - June 2024</span></h3>
+      <p class="where">Promoted from Lead Teacher</p>
+      <ul>
+        <li>Reconciled tuition billing for 100+ families, coding variable charges and tracking payment compliance across systems.</li>
+        <li>Wrote data-entry standards and trained staff, replacing conflicting record versions with one source.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <h3>Guest Experience Lead <span class="where">| RNR Hospitality Group, Scottsdale, AZ | August 2022 - June 2023</span></h3>
+      <ul>
+        <li>Owned daily cash reconciliation and shift-level reporting, resolving variances the same day. Cross-checked inventory to POS sales to stop recurring discrepancies.</li>
+      </ul>
+    </div>
 
-      <div class="col side">
-        <h2>Education</h2>
-        <div class="edu">
-          <p class="where">Western Governors University | November 2026</p>
-          <h3>B.S., Data Analytics</h3>
-        </div>
-        <div class="edu">
-          <p class="where">Arizona State University</p>
-          <h3>Computational Mathematical Sciences</h3>
-        </div>
+    <h2>Projects</h2>
+    <div class="job">
+      <h3><a href="https://haleymykellemaes-beep.github.io/happiness-gdp.html">Python &middot; Happiness and GDP</a></h3>
+      <ul>
+        <li>Joined World Bank GDP to the World Happiness Report (1,927 country-years). Life evaluation vs. log GDP per capita: r = 0.836. pandas / numpy - melt, merge, corr, qcut.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <h3><a href="https://haleymykellemaes-beep.github.io/student-performance-sql.html">SQL &middot; Student performance triage</a></h3>
+      <ul>
+        <li>PostgreSQL study of 6,607 students and 20 factors. Attendance Q4 vs Q1 is +6.02 exam points; 687 students with prior scores of 80+ later scored 65 or below. Advising queue replaces a prior-score-only filter.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <h3><a href="https://haleymykellemaes-beep.github.io/nike.html">Tableau &middot; Channel and inventory analysis</a></h3>
+      <ul>
+        <li>FY25 10-K analog: revenue -10% vs. flat inventory. Direct -13%, Wholesale -7%. Call: clear Jordan / digital depth; hold wholesale.</li>
+      </ul>
+    </div>
 
-        <h2>Technical Skills</h2>
-        <ul class="skills">
-          <li>SQL (PostgreSQL)</li>
-          <li>Python (pandas, NumPy)</li>
-          <li>Advanced Excel (pivot tables, XLOOKUP)</li>
-          <li>Tableau · Power BI · Google Sheets</li>
-          <li>GitHub · AI-assisted development (Cursor, Claude)</li>
-          <li>KPI Reporting · Financial Reporting</li>
-          <li>Reconciliation · Variance Analysis</li>
-          <li>Process Improvement</li>
-        </ul>
-      </div>
+    <h2>Education</h2>
+    <div class="job">
+      <h3>B.S., Data Analytics <span class="where">| Western Governors University | November 2026</span></h3>
+    </div>
+    <div class="job">
+      <h3>Computational Mathematical Sciences <span class="where">| Arizona State University</span></h3>
     </div>
   </article>
 </body>
