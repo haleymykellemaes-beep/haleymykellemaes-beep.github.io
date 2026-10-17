@@ -1,6 +1,6 @@
 # Nike FY2025 analog — Tableau Public
 
-I cannot publish to Haley’s Tableau Public account from here. The extract is ready; publishing is a two-minute click on her machine.
+The workbook extract is ready to publish to Tableau Public.
 
 ## File
 
