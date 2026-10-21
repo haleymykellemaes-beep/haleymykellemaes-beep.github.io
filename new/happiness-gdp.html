@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" data-layout="study" data-theme="happy">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GDP &amp; Life Satisfaction Analysis · Haley Maes</title>
+  <meta name="description" content="Data wrangling case: World Happiness Report joined to World Bank GDP per capita on country and year. Correlation of life evaluation with log GDP is 0.836." />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="styles.css?v=52" />
+  <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img class="brand-photo" src="../img/haley.png" alt="" />Haley Maes</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a class="btn" href="../Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+      </div>
+      <div class="nav-social" aria-label="Contact">
+        <a class="nav-ico" href="mailto:haleymykellemaes@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4.2 7.2 12 13l7.8-5.8"/></svg>
+        </a>
+        <a class="nav-ico" href="tel:7204673584" aria-label="Phone 720-467-3584, text or call" title="720-467-3584 · text or call">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M8 3.8h2.6l1 2.5-1.8 1.1a11 11 0 0 0 5.1 5.1l1.1-1.8 2.5 1V16a1.7 1.7 0 0 1-1.8 1.7C7.9 16.6 3.4 12.1 3.3 5.6A1.7 1.7 0 0 1 5 3.8H8z"/></svg>
+        </a>
+        <a class="nav-ico" href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.54 8.96H3.27V21h3.27V8.96zM4.9 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.73 13.16c0-3.32-1.77-4.86-4.13-4.86-1.9 0-2.75 1.05-3.22 1.78h-.05V8.96H10.1V21h3.24v-5.82c0-1.54.29-3.03 2.2-3.03 1.88 0 1.91 1.76 1.91 3.13V21h3.28v-7.84z"/></svg>
+        </a>
+        <a class="nav-ico" href="https://github.com/haleymykellemaes-beep" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49v-1.73c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.9-1.32 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="stage">
+    <div class="page-col">
+      <nav class="hang-rail" aria-label="Case studies">
+        <a class="hang-tab" href="index.html">Work</a>
+        <a class="hang-tab" href="ar-tracker.html">A/R</a>
+        <a class="hang-tab" href="nike.html">Nike</a>
+        <a class="hang-tab" href="sports-projections.html">Odds</a>
+        <a class="hang-tab" href="tmdb-revenue.html">TMDb</a>
+        <a class="hang-tab is-active" href="happiness-gdp.html">Happiness</a>
+        <a class="hang-tab" href="student-performance-sql.html">SQL</a>
+      </nav>
+      <div class="folder">
+  <main class="sheet">
+    <p class="folder-heading"><span>Python · Happiness &amp; GDP</span></p>
+    <h1 class="display">GDP &amp; Life Satisfaction Analysis</h1>
+    <p class="case-subtitle">What's the Pricetag?</p>
+    <p class="paper-rule">Life evaluation × log GDP. r = 0.836. 1,927 country–years.</p>
+    <p class="role-strip">Analyst · Python · public data</p>
+    <div class="article-meta">
+      <a class="pill" href="index.html#work">← Work</a>
+      <span class="pill">pandas</span>
+      <span class="pill">numpy</span>
+      <span class="pill">seaborn</span>
+      <a class="pill" href="https://github.com/haleymykellemaes-beep/haleymykellemaes-beep.github.io/blob/main/python/happiness_gdp.py" target="_blank" rel="noopener noreferrer">GitHub · python/happiness_gdp.py</a>
+    </div>
+    <p class="article-lede">This is exploratory analysis: after joining happiness scores to World Bank GDP, I look at the distribution and the correlation. Life evaluation moves with log GDP (r = 0.836) on 1,927 country–years — related, not a switch.</p>
+
+    <figure class="polaroid clip-pink tilt-l">
+      <div class="polaroid-shot">
+        <div class="stats" style="margin:0">
+          <div class="stat"><b>0.836</b><span>Corr(life evaluation, log GDP per capita)</span></div>
+          <div class="stat"><b>1,927</b><span>Clean country–year rows after the join</span></div>
+          <div class="stat"><b>2</b><span>Sources: happiness scores + World Bank GDP</span></div>
+        </div>
+      </div>
+      <figcaption>The join, in three numbers</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>The question</h2>
+      <p><strong>Does reported life evaluation actually move with GDP per capita — or is a one-year chart just a pretty coincidence?</strong></p>
+      <p>A single-year scatter is easy. A 2011–2024 panel is two schemas, two gather methods, and country names that do not match. After the join: 1,927 country–years, r = 0.836 on log GDP. Related, not a switch.</p>
+
+      <h2>Method (the wrangling is the work)</h2>
+      <ol>
+        <li><strong>Gather</strong> — Happiness Report figure 2.1 (2011–2025) and World Bank GDP per capita (2011–2024), written under <code>data_wrangling/raw/</code>.</li>
+        <li><strong>Assess</strong> — Country labels, missing years, duplicate keys, GDP spanning orders of magnitude.</li>
+        <li><strong>Clean</strong> — Harmonize names, keep country–years present in both, drop unusable GDP/happiness pairs.</li>
+        <li><strong>Store</strong> — <code>cleaned_happiness_gdp_by_country_year.csv</code> (1,927 × 4).</li>
+        <li><strong>EDA</strong> — Scatter on log GDP, yearly mean life evaluation, heatmap of mean happiness by GDP quartile × year.</li>
+      </ol>
+
+      <h2>Python · tidy the World Bank file</h2>
+      <p>GDP arrives wide (one column per year). Happiness is already country–year. The work is melt, fix names that do not match, inner-join, then drop pairs you cannot plot. Runnable copy: <a href="../python/happiness_gdp.py"><code>python/happiness_gdp.py</code></a>.</p>
+      <pre class="code">import pandas as pd
+import numpy as np
+
+happy = pd.read_csv("data_wrangling/raw/happiness_2011_2025.csv")
+gdp = pd.read_csv("data_wrangling/raw/gdp_per_capita.csv")
+
+gdp_long = gdp.melt(
+    id_vars=["Country Name", "Country Code"],
+    value_vars=[str(y) for y in range(2011, 2025)],
+    var_name="year",
+    value_name="gdp_per_capita",
+)
+gdp_long["year"] = gdp_long["year"].astype(int)
+
+# World Bank labels ≠ Happiness Report labels
+aliases = {
+    "Czechia": "Czech Republic",
+    "Korea, Rep.": "South Korea",
+    "Russian Federation": "Russia",
+    "Egypt, Arab Rep.": "Egypt",
+    "Iran, Islamic Rep.": "Iran",
+    "Slovak Republic": "Slovakia",
+    "Turkiye": "Turkey",
+    "Viet Nam": "Vietnam",
+    "Hong Kong SAR, China": "Hong Kong",
+    "Kyrgyz Republic": "Kyrgyzstan",
+    "Lao PDR": "Laos",
+    "Congo, Dem. Rep.": "Congo (Kinshasa)",
+    "Congo, Rep.": "Congo (Brazzaville)",
+}
+gdp_long["country"] = gdp_long["Country Name"].replace(aliases)
+happy["country"] = happy["country"].replace(aliases)
+
+panel = happy.merge(
+    gdp_long[["country", "year", "gdp_per_capita"]],
+    on=["country", "year"],
+    how="inner",
+)
+panel = panel.dropna(subset=["life_evaluation", "gdp_per_capita"])
+panel = panel[panel["gdp_per_capita"] > 0]
+
+panel[["country", "year", "life_evaluation", "gdp_per_capita"]].to_csv(
+    "cleaned_happiness_gdp_by_country_year.csv",
+    index=False,
+)
+# 1,927 × 4</pre>
+
+      <h2>Python · the number on the thumbnail</h2>
+      <p>Incomes are skewed, so the honest x-axis is log GDP. Quartiles keep the heatmap from turning into a rainbow of every dollar.</p>
+      <pre class="code">panel["log_gdp"] = np.log(panel["gdp_per_capita"])
+r = panel["life_evaluation"].corr(panel["log_gdp"])
+# r = 0.836
+
+panel["gdp_quartile"] = pd.qcut(
+    panel["gdp_per_capita"], 4, labels=["Q1", "Q2", "Q3", "Q4"]
+)
+
+by_year = (
+    panel.groupby("year")["life_evaluation"]
+    .agg(mean_life="mean", n_countries="count")
+    .round(2)
+)
+
+heat = panel.pivot_table(
+    index="gdp_quartile",
+    columns="year",
+    values="life_evaluation",
+    aggfunc="mean",
+)
+
+# seaborn: scatter(log_gdp, life_evaluation) + heatmap(heat)</pre>
+
+      <h2>Findings</h2>
+      <p>The scatter is a positive association: higher GDP per capita, higher life evaluation. Log scale is the honest x-axis because incomes are skewed. Correlation with log GDP is <strong>0.836</strong> — moderately strong, with plenty of spread at the same income. Money is related here. It is not a perfect predictor.</p>
+      <p>Mean life evaluation in the merged sample is fairly stable from 2011–2024 (about 5.36 to 5.59). Small wiggles can be sample composition (which countries have both files that year) as well as a true global shift. No dramatic long-run jump.</p>
+
+      <figure class="polaroid clip-pink tilt-r">
+        <div class="polaroid-shot">
+          <div class="panel" style="margin:0;border:0;padding:4px 2px">
+            <h3>Mean life evaluation by year (merged sample)</h3>
+            <table>
+              <tr><th>2011</th><td>5.38 · 153 countries</td></tr>
+              <tr><th>2016</th><td>5.36 · 151</td></tr>
+              <tr><th>2020</th><td>5.54 · 146</td></tr>
+              <tr><th>2021</th><td>5.56 · 143</td></tr>
+              <tr><th>2024</th><td>5.59 · 144</td></tr>
+            </table>
+          </div>
+        </div>
+        <figcaption>Panel means · 1,927 country–years after the join</figcaption>
+      </figure>
+
+      <p>The quartile heatmap (notebook) stays the same story over time: the highest GDP quartile stays happier than the lowest. Happiness and GDP move together in the panel, not only in one cross-section.</p>
+
+      <h2>So what</h2>
+      <p>If you are briefing a non-economist: richer country–years in this merge report higher life evaluation, the relationship is clearer on log income, and average happiness did not leap across this decade. Do not sell GDP as a happiness switch.</p>
+
+      <h2>Limitations</h2>
+      <ul>
+        <li>Inner join on country–year drops places missing either file.</li>
+        <li>Yearly means mix true change with who is in the sample.</li>
+        <li>Life evaluation is a 3-year average in the source; GDP is current US$.</li>
+        <li>Association, not causation — institutions, health, and inequality sit in the residual.</li>
+      </ul>
+    </div>
+
+    <a class="ticker ticker-link" href="student-performance-sql.html">
+      <b>Next: Student performance</b><span>↗</span>
+      <b>Next: Student performance</b><span>↗</span>
+      <b>Next: Student performance</b><span>↗</span>
+    </a>
+    <div class="pager">
+      <a href="tmdb-revenue.html">← TMDb</a>
+      <a href="student-performance-sql.html">Student performance SQL →</a>
+    </div>
+  </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>Haley Maes · Happiness &amp; GDP</span>
+      <a href="index.html">Portfolio home</a>
+    </div>
+  </footer>
+<script src="../nav.js?v=1"></script>
+</body>
+</html>
