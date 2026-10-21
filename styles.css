@@ -2404,6 +2404,28 @@ html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
   .about-grid, .two-col, .stats, .pa-grid, .covers, .file-row, .work-collage, .paper-cols, .polaroid-row, .collage, .id-row.split, .news-trio, .date-row, .masthead, .section-head {
     grid-template-columns: 1fr;
   }
+  .case-hero,
+  .case-hero > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .article-meta {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .article-meta .pill {
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+  .sheet .display,
+  .paper-rule,
+  .role-strip,
+  .article-lede {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
   .home-hero { padding: 56px 0 48px; }
   .hero-stack {
     flex-direction: column;
@@ -2460,6 +2482,42 @@ html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
   .lift-stamp { margin-bottom: 4px; }
   .brand { font-size: 0.86rem; }
   .site-nav .wrap { gap: 10px; min-height: 58px; }
+  #work { scroll-margin-top: 2.5rem; }
+  .work-grid .case-card,
+  .work-grid .case-body,
+  .work-grid .case-visual {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .work-grid .case-body {
+    padding: 22px 20px 24px;
+  }
+  .work-grid .case-body h3 {
+    font-size: 1.45rem;
+    line-height: 1.05;
+    overflow-wrap: break-word;
+  }
+  .work-grid .card-q,
+  .work-grid .case-no,
+  .work-grid .thumb-sub {
+    overflow-wrap: break-word;
+  }
+  .work-grid .case-visual {
+    min-height: 240px;
+    padding: 22px 18px 16px;
+  }
+  .work-grid .thumb-kpi {
+    font-size: clamp(2.8rem, 12vw, 3.6rem);
+  }
+  .sheet .display {
+    font-size: clamp(2.15rem, 9vw, 2.8rem);
+    line-height: 1;
+  }
+  .table-wrap,
+  .viz-chart,
+  pre.code {
+    max-width: 100%;
+  }
   .nav-links { gap: 12px; }
   .section { padding: 48px 0 12px; }
   .about-panel { padding: 32px 22px 28px; }
