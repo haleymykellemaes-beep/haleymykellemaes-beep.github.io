@@ -375,6 +375,17 @@ html:not([data-theme="home"]) .nav-social,
 .case-body h3 em {
   font-style: italic;
 }
+.case-subtitle {
+  margin: -2px 0 14px;
+  max-width: 42rem;
+  font-family: var(--sans);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--muted);
+}
 
 .script-logo,
 .script-cover {
@@ -2420,6 +2431,7 @@ html[data-theme="nike"] a.ticker:hover { color: #1c1c1c; }
     text-align: center;
   }
   .sheet .display,
+  .case-subtitle,
   .paper-rule,
   .role-strip,
   .article-lede {
