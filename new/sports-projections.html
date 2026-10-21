@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" data-layout="study" data-theme="odds">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fourth-Quarter Outcome Probability · Haley Maes</title>
+  <meta name="description" content="Sportsbook pricing and win-probability study across three cases: Super Bowl LIX (PHI -3.5 vs KC -1, 14.6% hold), the Broncos' 33-point 4th quarter vs the Giants (0.2% live win prob), and the Knicks' 20-point playoff comeback streak (0.1%–2.9% live win prob)." />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="styles.css?v=52" />
+  <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img class="brand-photo" src="../img/haley.png" alt="" />Haley Maes</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a class="btn" href="../Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+      </div>
+      <div class="nav-social" aria-label="Contact">
+        <a class="nav-ico" href="mailto:haleymykellemaes@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4.2 7.2 12 13l7.8-5.8"/></svg>
+        </a>
+        <a class="nav-ico" href="tel:7204673584" aria-label="Phone 720-467-3584, text or call" title="720-467-3584 · text or call">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M8 3.8h2.6l1 2.5-1.8 1.1a11 11 0 0 0 5.1 5.1l1.1-1.8 2.5 1V16a1.7 1.7 0 0 1-1.8 1.7C7.9 16.6 3.4 12.1 3.3 5.6A1.7 1.7 0 0 1 5 3.8H8z"/></svg>
+        </a>
+        <a class="nav-ico" href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.54 8.96H3.27V21h3.27V8.96zM4.9 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.73 13.16c0-3.32-1.77-4.86-4.13-4.86-1.9 0-2.75 1.05-3.22 1.78h-.05V8.96H10.1V21h3.24v-5.82c0-1.54.29-3.03 2.2-3.03 1.88 0 1.91 1.76 1.91 3.13V21h3.28v-7.84z"/></svg>
+        </a>
+        <a class="nav-ico" href="https://github.com/haleymykellemaes-beep" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49v-1.73c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.9-1.32 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="stage">
+    <div class="page-col">
+      <nav class="hang-rail" aria-label="Case studies">
+        <a class="hang-tab" href="index.html">Work</a>
+        <a class="hang-tab" href="ar-tracker.html">A/R</a>
+        <a class="hang-tab" href="nike.html">Nike</a>
+        <a class="hang-tab is-active" href="sports-projections.html">Odds</a>
+        <a class="hang-tab" href="tmdb-revenue.html">TMDb</a>
+        <a class="hang-tab" href="happiness-gdp.html">Happiness</a>
+        <a class="hang-tab" href="student-performance-sql.html">SQL</a>
+      </nav>
+
+      <div class="folder">
+        <main class="sheet">
+          <p class="folder-heading"><span>Probability</span></p>
+          <div class="case-hero">
+            <div>
+              <h1 class="display">Fourth-Quarter Outcome Probability</h1>
+              <p class="case-subtitle">Pre-Game Close vs. Q4 Tail Risk</p>
+              <p class="paper-rule">Eagles LIX baseline (14.6% hold) · Broncos 33-pt Q4 vs. Giants (0.2% WP) · Knicks 20+ pt playoff comeback streak (0.1%–2.9% WP).</p>
+              <p class="role-strip">Analyst · probability &amp; live-pricing exposure · NFL &amp; NBA</p>
+              <div class="article-meta">
+                <a class="pill" href="index.html#work">← Work</a>
+                <span class="pill">Ops board · not a pick</span>
+                <a class="pill" href="../data/sports-win-prob-comebacks.csv">data/sports-win-prob-comebacks.csv</a>
+              </div>
+              <p class="article-lede">A sportsbook trading desk prices two completely different regimes: the <strong>pre-game closing line</strong> (where point-differential models and public narratives collide, like Super Bowl LIX) and the <strong>4th-quarter live-betting tail</strong> (where historical play-by-play models spit out <code>99.8%</code> or <code>99.9%</code> win probabilities just before a team scores 33 points in a quarter or erases four 20-point playoff deficits).</p>
+            </div>
+            <figure class="phone" aria-label="Fictional sportsbook board showing pre-game hold and in-play tail swings.">
+              <div class="phone-bezel">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                  <p class="ph-kicker">Desk · 3 Regimes</p>
+                  <p class="ph-title">Close &amp; Tail</p>
+                  <div class="ph-kpi hot">
+                    <span>Eagles · LIX Close</span>
+                    <b>PHI −3.5</b>
+                    <em>Close KC −1 · 14.6% Vegas hold</em>
+                  </div>
+                  <div class="ph-kpi">
+                    <span>Broncos · Q4 7:12</span>
+                    <b>0.2% WP</b>
+                    <em>Down 26–8 → 33-pt Q4 · Won 33–32</em>
+                  </div>
+                  <div class="ph-kpi">
+                    <span>Knicks · Q4 Streak</span>
+                    <b>0.1% / 0.4%</b>
+                    <em>vs CLE (−22) &amp; SAS (−29) · 4× 20-pt</em>
+                  </div>
+                  <div class="ph-list">
+                    <div class="ph-row"><span>DEN cover −7.5?</span><b>No (+1 margin)</b></div>
+                    <div class="ph-row"><span>NYK 20+ Q4 runs</span><b>4 in 2 postseasons</b></div>
+                    <div class="ph-row"><span>Pre-game vig</span><b>~4.55%</b></div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+          </div>
+
+          <p class="notice"><strong>Risk / pricing analog — not betting advice.</strong> Evaluates how pre-game rating models (SRS) and in-play win-probability models behave under normal conditions vs. extreme 4th-quarter variance. Built from public NFL/NBA play-by-play checkpoints, Pro-Football-Reference, ESPN Analytics / Next Gen Stats, and Nevada Gaming Control Board figures.</p>
+
+          <div class="stats">
+            <div class="stat"><b>14.6%</b><span>Vegas Super Bowl LIX hold when SRS (PHI −3.5) beat the public close (KC −1)</span></div>
+            <div class="stat"><b>0.2% → 100%</b><span>Broncos win prob down 26–8 (7:12 Q4) before scoring 33 Q4 pts vs. Giants</span></div>
+            <div class="stat"><b>0.1% &amp; 0.4%</b><span>Knicks Q4 floor in 22-pt ECF rally vs. Cavs &amp; 29-pt Finals rally vs. Spurs</span></div>
+          </div>
+
+          <div class="prose">
+            <h2>Interactive desk board · 3 projection regimes</h2>
+            <p>Switch between the three case studies below to inspect the exact checkpoint data from <a href="../data/sports-win-prob-comebacks.csv"><code>data/sports-win-prob-comebacks.csv</code></a>: the standard pre-game model vs. closing line (<strong>Eagles Super Bowl LIX</strong>), the NFL 4th-quarter live-liability whip-saw (<strong>Broncos 33–32 Giants</strong>), and the NBA 3-point variance tail (<strong>Knicks 20+ point playoff comeback streak</strong>).</p>
+          </div>
+
+          <section class="viz-story" aria-label="Interactive Sportsbook Regime Explorer">
+            <div class="viz-kpis">
+              <div class="viz-kpi">
+                <span id="regime-kpi1-label">Pre-Game Model vs Close</span>
+                <b id="regime-kpi1-val">PHI −3.5 vs KC −1</b>
+                <em id="regime-kpi1-sub">+12.7 pp probability gap toward Eagles</em>
+              </div>
+              <div class="viz-kpi">
+                <span id="regime-kpi2-label">Minimum Live Win Prob</span>
+                <b id="regime-kpi2-val">60.5% → 100%</b>
+                <em id="regime-kpi2-sub">Never trailed (led 24–0 at half, 34–0 Q3)</em>
+              </div>
+              <div class="viz-kpi">
+                <span id="regime-kpi3-label">Spread vs Moneyline</span>
+                <b id="regime-kpi3-val">Both Hit (40–22)</b>
+                <em id="regime-kpi3-sub">PHI +100 ML &amp; +1.5 spread cleared by 18</em>
+              </div>
+              <div class="viz-kpi">
+                <span id="regime-kpi4-label">Bookmaker Outcome</span>
+                <b id="regime-kpi4-val">14.6% Vegas Hold</b>
+                <em id="regime-kpi4-sub">$22.1M win on $151.6M (vs 3.7% LVIII)</em>
+              </div>
+            </div>
+
+            <div class="viz-steps" role="tablist" aria-label="Select game case study">
+              <button type="button" class="viz-step is-active" data-case="eagles">1 · Baseline: Eagles vs. Chiefs (Pre-Game Close)</button>
+              <button type="button" class="viz-step" data-case="broncos">2 · NFL Tail: Broncos 33-Pt Q4 vs. Giants (0.2% WP)</button>
+              <button type="button" class="viz-step" data-case="knicks">3 · NBA Tail: Knicks 20+ Pt Playoff Comebacks (0.1%–2.9% WP)</button>
+            </div>
+
+            <p class="viz-caption" id="regime-caption"><strong>Regime 1 (Standard Pre-Game Pricing):</strong> When a simple point-differential model (SRS: PHI −3.5) and the closing line (KC −1) diverge by ~4.8 points, the story is public dynasty bias and sportsbook hold.</p>
+
+            <div class="viz-chart" id="regime-chart">
+              <!-- Populated by inline script -->
+            </div>
+          </section>
+
+          <div class="prose">
+            <h2>Case 1 · The baseline: Eagles vs. Chiefs (Super Bowl LIX)</h2>
+            <p><strong>When an independent pre-game forecast and the market close disagree by nearly 5 points, is the posted price stale — and what happens to realized hold?</strong></p>
+            <p>In a standard pre-game environment, a trading desk starts with team rating differentials, posts an opening number, and shades the line as tickets and money come in. On Super Bowl LIX (Feb 9, 2025), 2024 Simple Rating System (SRS) numbers rated Philadelphia at <strong>7.7</strong> (+160 point differential) and Kansas City at <strong>4.2</strong> (+59 point differential) — a neutral-field projection of <strong>PHI −3.5</strong> (60.5% win probability at 3% per point).</p>
+            <p>Instead, the market closed <strong>Chiefs −1 to −1.5</strong> (moneyline KC −120 / PHI +100, de-vigged to <strong>47.8% Eagles</strong>). Philadelphia controlled every quarter (24–0 at halftime, 34–0 in the 3rd, 40–22 final). Because the public loaded up on Kansas City parlays and three-peat futures, Nevada sportsbooks held <strong>14.6%</strong> ($22.13M on $151.62M handle) — nearly four times the 3.7% hold from Super Bowl LVIII, and more than triple the 4.55% theoretical moneyline vig.</p>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Philadelphia Eagles</th>
+                    <th>Kansas City Chiefs</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2024 regular season (PFR)</td>
+                    <td>14–3 · PF 463 · PA 303 · PD +160</td>
+                    <td>15–2 · PF 385 · PA 326 · PD +59</td>
+                  </tr>
+                  <tr>
+                    <td>Simple Rating System (SRS)</td>
+                    <td><strong>7.7</strong></td>
+                    <td><strong>4.2</strong></td>
+                  </tr>
+                  <tr>
+                    <td>SRS neutral-site projection</td>
+                    <td colspan="2"><strong>PHI −3.5</strong> · Model P(PHI) = <strong>60.5%</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Market consensus close</td>
+                    <td colspan="2"><strong>KC −1 to −1.5</strong> · ML +100 / −120 · De-vig P(PHI) = <strong>47.8%</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Model vs. close residual</td>
+                    <td colspan="2"><strong>~4.8 points</strong> · <strong>+12.7 percentage points</strong> toward Philadelphia</td>
+                  </tr>
+                  <tr>
+                    <td>Final &amp; realized state hold</td>
+                    <td colspan="2"><strong>Eagles 40–22</strong> · Vegas hold <strong>14.6%</strong> · NY hold <strong>30.6%</strong> · PA hold <strong>−6.4%</strong> (home bias)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>Case 2 · The NFL 4th-quarter whip-saw: Broncos 33, Giants 32 (Oct 19, 2025)</h2>
+            <p><strong>What happens to an in-play projection when a 7.5-point favorite is shut out for 45 minutes — and why did the pre-game model still lose the spread while winning the game?</strong></p>
+            <p>If Super Bowl LIX is the textbook pre-game exception report, Week 7’s Giants-at-Broncos game is the ultimate stress test for <strong>in-play win-probability models</strong> and <strong>live sportsbook liability</strong>:</p>
+            <ul>
+              <li><strong>Pre-game baseline vs. 3-quarter reality:</strong> Denver closed as a <strong>−7.5 favorite</strong> (−424 moneyline, <strong>76.5% de-vigged win probability</strong>; model projection 27–17). Through three quarters, Denver had <strong>0 points</strong> and 111 yards across eight drives, trailing 19–0 entering the 4th.</li>
+              <li><strong>The 0.2% floor (7:12 Q4):</strong> After the Giants went up <strong>26–8</strong>, Denver faced 3rd-and-12 with 7:12 left. ESPN Analytics dropped Denver’s win probability to <strong>0.2%</strong> (and Next Gen Stats pegged 4th-and-3 at 6:38 at <strong>0.7%</strong>). Live algorithms priced Giants moneyline near −10000 and Broncos around +3500.</li>
+              <li><strong>Three lead flips in 1:51 (the whip-saw):</strong> Bo Nix ran for a TD, Justin Strnad intercepted Jaxson Dart, and RJ Harvey caught a TD to make it 26–23 at 3:51 (<strong>19.1% DEN WP</strong>). Nix’s 18-yard TD sweep at 1:51 put Denver up 30–26, spiking Broncos win probability to <strong>96.7%</strong> at 1:14. Then a pass interference penalty in the end zone set up Dart’s 1-yard TD run with <strong>0:37 left</strong> (32–30 Giants; <strong>89.3% NYG WP</strong>). Two completions later (29 yards to Marvin Mims, 23 to Courtland Sutton), Wil Lutz hit a 39-yard walk-off field goal for a <strong>33–32 Broncos win</strong> — the most 4th-quarter points (33) in NFL history by a team shut out through three quarters.</li>
+            </ul>
+
+            <div class="pa-grid" style="margin:18px 0 24px">
+              <div class="pa">
+                <h3>Why the model broke at 0.2%</h3>
+                <p>Standard NFL win-probability models treat possession count as fixed (~2.5 drives left in 7 minutes) and assume baseline offensive efficiency. They under-weight <strong>correlated state changes</strong>: hurry-up tempo, a rookie QB protecting a lead on the road (short fields via turnover), and missed extra points (which left 32–30 vulnerable to a field goal).</p>
+              </div>
+              <div class="pa">
+                <h3>The sportsbook “middle”</h3>
+                <p>Here is the desk twist: Denver pulled off a 0.2% miracle to win 33–32 — and <strong>still failed to cover −7.5</strong>. Pre-game Broncos −7.5 spread tickets lost; pre-game Giants +7.5 tickets cashed; pre-game Broncos −424 moneyline parlays survived; and live bettors who chased Giants −1600 in the 4th quarter were wiped out.</p>
+              </div>
+            </div>
+
+            <h2>Case 3 · Structural tail risk: The Knicks’ 20-point 4th-quarter comeback streak</h2>
+            <p><strong>When the same team overcomes four 20-point deficits in two postseasons (including 0.1% and 0.4% 4th-quarter win probabilities), is the tail really 1-in-1,000 — or is NBA live pricing using a stale variance parameter?</strong></p>
+            <p>A single 0.2% NFL comeback can be written off as a black swan. The 2025–2026 New York Knicks proved that in the modern NBA, <strong>4th-quarter win-probability tails are systematically fatter than historical play-by-play buckets suggest</strong>:</p>
+            <ul>
+              <li><strong>2025 ECSF Games 1 &amp; 2 at Boston (May 5 &amp; May 7, 2025):</strong> Prior to this series, NBA playoff teams trailing by 20+ points were 27–830 overall, and no team had ever erased 20-point deficits in back-to-back playoff games. New York trailed 75–55 in Game 1 (winning <strong>108–105 OT</strong> as Boston missed a playoff-record 45 threes) and trailed by 20 again in Game 2, facing a <strong>2.9% win probability</strong> with 4:46 left before closing on a 30–17 4th quarter (holding Boston to 5-for-24 FG) to win <strong>91–90</strong>.</li>
+              <li><strong>2026 ECF Game 1 vs. Cleveland (May 19, 2026 — 0.1% WP):</strong> Down <strong>93–71 with 7:49 left in the 4th quarter</strong>, ESPN Analytics gave Cleveland a <strong>99.9% win probability</strong> (0.1% Knicks). New York outscored the Cavaliers <strong>44–11</strong> over the remainder of regulation and overtime to win <strong>115–104</strong> — the first team in the play-by-play era (since 1997–98) to trail by 20+ in the 4th quarter and win by double digits.</li>
+              <li><strong>2026 NBA Finals Game 4 vs. San Antonio (June 10, 2026 — 0.4% WP):</strong> Trailing by 29 in the 3rd quarter and <strong>95–78 with 8:59 left in the 4th</strong> (where Finals teams were previously <strong>0–96</strong> since 1970–71, and playoff teams trailing by 20+ in Q4 were 4–733, or 0.5%), the Knicks rallied to win <strong>107–106</strong> on OG Anunoby’s tip-in with 1.2 seconds remaining.</li>
+            </ul>
+
+            <div class="two-col">
+              <div class="panel">
+                <h3>Why historical NBA lookup tables fail</h3>
+                <table>
+                  <tr><th>Empirical bucket</th><td>Playoff teams down 20+ in Q4 were 4–733 (0.5%) since 1998; Finals teams down 17+ inside 9:00 were 0–96.</td></tr>
+                  <tr><th>3-point regime shift</th><td>When a leading team shoots 40+ threes (like Boston’s 25-for-100 across G1–G2), possession variance doubles compared to 1998–2014 data.</td></tr>
+                  <tr><th>Clock-stop asymmetry</th><td>Offensive rebounds on missed 3s + transition threes create 8-to-10 point swings in under 75 seconds of game clock.</td></tr>
+                </table>
+              </div>
+              <div class="panel">
+                <h3>What a live trading desk must adjust</h3>
+                <table>
+                  <tr><th>Fatten the tail</th><td>Apply a dynamic volatility multiplier \(\sigma_{\text{3PA}}\) when combined 3-point attempt rate exceeds 45% of field goals.</td></tr>
+                  <tr><th>Cap extreme ML prices</th><td>Never auto-price a 17-to-22 point Q4 lead with 8 minutes left at 99.9% (−10000) when pace and 3PA variance are high.</td></tr>
+                  <tr><th>Hedge cash-out liability</th><td>Early-payout promos and live cash-out algorithms bleed hold when both sides of a game cross 90% win probability in the same quarter.</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <h2>Interactive calculators · Pre-game de-vig &amp; live tail converter</h2>
+            <p>Use the first tool to de-vig any two-way moneyline and inspect posted hold. Use the second tool to compare what a naive historical win-probability model says vs. a fat-tailed live-pricing adjustment (with sportsbook vig applied):</p>
+          </div>
+
+          <div class="demo">
+            <h3>1 · Two-way implied probability &amp; de-vig hold</h3>
+            <p class="hint">Type two American moneylines (or click a preset). Outputs raw implied probabilities, posted bookmaker overround, and de-vigged fair win probabilities.</p>
+            <div class="viz-filters" style="margin-bottom:12px">
+              <span class="viz-filter-label">Presets:</span>
+              <button type="button" class="viz-filter preset-ml" data-a="-120" data-b="100">LIX Close (KC −120 / PHI +100)</button>
+              <button type="button" class="viz-filter preset-ml" data-a="-424" data-b="322">Broncos Close (DEN −424 / NYG +322)</button>
+              <button type="button" class="viz-filter preset-ml" data-a="-2500" data-b="1200">Knicks G2 Q4 Live (BOS −2500 / NYK +1200)</button>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <label for="ml-a">Side A (e.g. −120)</label>
+                <input id="ml-a" type="number" value="-120" />
+              </div>
+              <div>
+                <label for="ml-b">Side B (e.g. +100)</label>
+                <input id="ml-b" type="number" value="100" />
+              </div>
+              <div>
+                <button type="button" id="hold-calc">De-vig</button>
+              </div>
+            </div>
+            <div class="result ontime" id="hold-out">Hold 4.55% · A 52.2% · B 47.8% (de-vig)</div>
+          </div>
+
+          <div class="demo" style="margin-top:22px">
+            <h3>2 · 4th-quarter tail risk &amp; live-odds simulator</h3>
+            <p class="hint">See why empirical play-by-play models underprice late comebacks when pace/3-point variance rises, and what fair vs. vigged live moneyline a trading desk should post.</p>
+            <div class="viz-filters" style="margin-bottom:12px">
+              <span class="viz-filter-label">Load moment:</span>
+              <button type="button" class="viz-filter preset-tail" data-wp="0.2" data-mult="3.5">Broncos Q4 7:12 (0.2% WP · Down 18)</button>
+              <button type="button" class="viz-filter preset-tail" data-wp="10.7" data-mult="2.2">Broncos Q4 0:37 (10.7% WP · Down 2)</button>
+              <button type="button" class="viz-filter preset-tail" data-wp="0.1" data-mult="5.0">Knicks vs Cavs Q4 7:49 (0.1% WP · Down 22)</button>
+              <button type="button" class="viz-filter preset-tail" data-wp="0.4" data-mult="4.5">Knicks Finals G4 Q4 8:59 (0.4% WP · Down 17)</button>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <label for="tail-wp">Model raw win prob % (0.1–50)</label>
+                <input id="tail-wp" type="number" step="0.1" min="0.1" max="50" value="0.2" />
+              </div>
+              <div>
+                <label for="tail-mult">Variance tail multiplier (1.0–6.0×)</label>
+                <input id="tail-mult" type="number" step="0.1" min="1.0" max="6.0" value="3.5" />
+              </div>
+              <div>
+                <button type="button" id="tail-calc">Price Live Line</button>
+              </div>
+            </div>
+            <div class="result late" id="tail-out" style="margin-top:14px">
+              Raw 0.20% (Fair +49900) → Tail-Adjusted 0.70% (Fair +14186 · Desk Live Offer +11000 w/ hold)
+            </div>
+          </div>
+
+          <div class="prose">
+            <h2>So what · What I would ship on a trading or analytics desk</h2>
+            <ol>
+              <li><strong>Pre-game residual flag (Eagles LIX lesson):</strong> Track the gap between point-differential projections (SRS/Elo) and the closing spread alongside ticket vs. money splits. When the public bids a 4.2 SRS team past a 7.7 SRS team, the desk does not need to “pick” the game — it needs to monitor state-by-state liability so a 14.6% Nevada windfall isn’t offset by unhedged regional concentration.</li>
+              <li><strong>In-play regime switch (Broncos vs. Giants lesson):</strong> Separate pre-game spread liability from live moneyline pricing. When a game enters hurry-up/4-down mode in the final 7 minutes, replace static possession-count decay with tempo-adjusted drive probabilities so a single turnover + TD doesn’t whip-saw win probability from 0.2% to 96.7% to 10.7% to 100%.</li>
+              <li><strong>3-point volatility floor (Knicks playoff lesson):</strong> Never price an NBA 4th-quarter deficit purely off 1998–2015 empirical records (like 0–96 or 4–733). Impose a fat-tail probability floor tied to live 3-point attempt rate and offensive rebound rate so live underdog prices and cash-out offers aren’t giving away free optionality.</li>
+            </ol>
+
+            <h2>Limitations &amp; sources</h2>
+            <ul>
+              <li><strong>Case-study selection:</strong> Broncos–Giants (Oct 19, 2025) and the Knicks’ 2025–2026 playoff comebacks were selected specifically because they sit in the extreme 0.1%–2.9% tail. To calibrate a full live model, I can swap in a full-season play-by-play CSV to compute Brier scores and calibration curves across all 272 NFL or 1,230 NBA games.</li>
+              <li><strong>Sources:</strong> Pro-Football-Reference (2024 NFL SRS), Nevada Gaming Control Board (Super Bowl LIX &amp; LVIII handle/hold), ESPN Analytics &amp; Next Gen Stats (Week 7 Broncos–Giants 0.2% / 0.7% / 96.7% / 89.3% win probabilities; Knicks–Cavaliers 99.9% and Knicks–Celtics 97.1% win probabilities), NBA.com &amp; Elias Sports Bureau historical play-by-play records.</li>
+              <li><strong>Not betting advice:</strong> Analytical portfolio case on probability calibration and bookmaker exposure.</li>
+            </ul>
+          </div>
+
+          <a class="ticker ticker-link" href="tmdb-revenue.html">
+            <b>Next: TMDb</b><span>↗</span>
+            <b>Next: TMDb</b><span>↗</span>
+            <b>Next: TMDb</b><span>↗</span>
+          </a>
+          <div class="pager">
+            <a href="nike.html">← Nike analog</a>
+            <a href="tmdb-revenue.html">TMDb revenue →</a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>Haley Maes · Sports projections &amp; tail risk</span>
+      <a href="index.html">Portfolio home</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const caseData = {
+        eagles: {
+          kpis: [
+            ["Pre-Game Model vs Close", "PHI −3.5 vs KC −1", "+12.7 pp probability gap toward Eagles"],
+            ["Minimum Live Win Prob", "60.5% → 100%", "Never trailed (led 24–0 at half, 34–0 Q3)"],
+            ["Spread vs Moneyline", "Both Hit (40–22)", "PHI +100 ML & +1.5 spread cleared by 18"],
+            ["Bookmaker Outcome", "14.6% Vegas Hold", "$22.1M win on $151.6M (vs 3.7% LVIII)"]
+          ],
+          caption: "<strong>Regime 1 (Standard Pre-Game Pricing — Super Bowl LIX):</strong> SRS rated Philadelphia 3.5 points better on a neutral field (7.7 vs 4.2), but the market closed KC −1. Philadelphia led wire-to-wire, turning public Chiefs liability into a 14.6% Nevada hold.",
+          rows: [
+            { clock: "Pre-game Close", score: "0–0", event: "SRS model projects PHI −3.5 (60.5%); market closes KC −1.25 (PHI 47.8% de-vig)", wp: 60.5, ml: "PHI +100 / KC −120" },
+            { clock: "Q1 6:15", score: "PHI 7 – KC 0", event: "Jalen Hurts 1-yd TD run caps opening drive", wp: 68.4, ml: "PHI −195 / KC +162" },
+            { clock: "Q2 7:03", score: "PHI 17 – KC 0", event: "Cooper DeJean 38-yd pick-six off Patrick Mahomes", wp: 88.2, ml: "PHI −650 / KC +460" },
+            { clock: "Halftime", score: "PHI 24 – KC 0", event: "A.J. Brown 12-yd TD; Chiefs held to 23 total 1st-half yards", wp: 96.1, ml: "PHI −2000 / KC +1000" },
+            { clock: "Q3 2:40", score: "PHI 34 – KC 0", event: "DeVonta Smith 46-yd TD bomb; live moneyline taken off board", wp: 99.9, ml: "Off Board (99.9%)" },
+            { clock: "Final", score: "PHI 40 – KC 22", event: "Eagles win by 18; Vegas books realize 14.6% hold ($22.1M win)", wp: 100.0, ml: "Settled (PHI +100 Wins)" }
+          ],
+          teamLabel: "Eagles Win Prob"
+        },
+        broncos: {
+          kpis: [
+            ["Pre-Game Close", "DEN −7.5 (−424)", "76.5% de-vigged win prob · 40.5 O/U"],
+            ["4th-Quarter Floor", "0.2% at 7:12 Q4", "Down 26–8 on 3rd & 12 (0.7% on 4th & 3)"],
+            ["Late Lead Changes", "3 in Final 1:51", "0.2% → 96.7% (1:14) → 10.7% (0:37) → 100%"],
+            ["Spread vs Moneyline", "ML Won · Spread Lost", "DEN 33–32 (+1 margin missed −7.5 by 6.5 pts)"]
+          ],
+          caption: "<strong>Regime 2 (NFL In-Play Whip-Saw — Oct 19, 2025 vs. Giants):</strong> Shut out for 45 minutes, Denver dropped to a <strong>0.2% win probability</strong> down 26–8 with 7:12 left, scored an NFL-record 33 4th-quarter points to win 33–32, yet <em>still failed to cover −7.5</em>.",
+          rows: [
+            { clock: "Pre-game Close", score: "0–0", event: "Broncos close −7.5 (−424 ML / 76.5% fair WP); model projects DEN 27–17", wp: 76.5, ml: "DEN −424 / NYG +322" },
+            { clock: "End Q3 (15:00)", score: "NYG 19 – DEN 0", event: "Broncos shut out for 3 quarters (111 yds on first 8 possessions)", wp: 6.8, ml: "DEN +950 / NYG −1600" },
+            { clock: "Q4 7:12 (3rd & 12)", score: "NYG 26 – DEN 8", event: "Giants go up 18; ESPN Analytics drops DEN to 0.2% WP (NGS 0.7% on 4th & 3)", wp: 0.2, ml: "DEN +3500 / NYG −10000" },
+            { clock: "Q4 3:51", score: "NYG 26 – DEN 23", event: "Bo Nix TD run + Strnad INT + RJ Harvey 2-yd TD cuts lead to 3", wp: 19.1, ml: "DEN +340 / NYG −450" },
+            { clock: "Q4 1:51 (1:14 peak)", score: "DEN 30 – NYG 26", event: "Bo Nix 18-yd QB sweep TD gives Denver lead; WP spikes to 96.7%", wp: 96.7, ml: "DEN −1800 / NYG +950" },
+            { clock: "Q4 0:37", score: "NYG 32 – DEN 30", event: "DPI in end zone + Jaxson Dart 1-yd TD (missed XP); NYG back to 89.3% WP", wp: 10.7, ml: "DEN +600 / NYG −900" },
+            { clock: "Q4 0:00 (Final)", score: "DEN 33 – NYG 32", event: "Nix hits Mims (29 yds) & Sutton (23 yds); Wil Lutz 39-yd FG wins it (33 Q4 pts)", wp: 100.0, ml: "DEN ML Wins / NYG +7.5 Covers" }
+          ],
+          teamLabel: "Broncos Win Prob"
+        },
+        knicks: {
+          kpis: [
+            ["20+ Pt Playoff Rallies", "4 in 2 Postseasons", "Equals the rest of the NBA combined in that span"],
+            ["ECF G1 vs Cavaliers", "0.1% WP (7:49 Q4)", "Down 93–71 (−22) → 44–11 run to win 115–104 OT"],
+            ["Finals G4 vs Spurs", "0.4% WP (8:59 Q4)", "Down 29 in Q3 & 95–78 in Q4 (0–96 Finals history) → won 107–106"],
+            ["ECSF G1 & G2 at Boston", "2.4% & 2.9% Q4 WP", "Back-to-back 20-pt comebacks (BOS 25-for-100 3PT)"]
+          ],
+          caption: "<strong>Regime 3 (NBA 3-Point Variance Tail — 2025–2026 Knicks Playoff Streak):</strong> Historical play-by-play lookup tables priced these 4th-quarter deficits between <strong>0.1% and 2.9%</strong>, ignoring how modern 3-point volume and pace inflate late-game variance.",
+          rows: [
+            { clock: "2025 ECSF G1 at BOS", score: "Down 75–55 (Q3 5:47)", event: "Celtics miss NBA playoff-record 45 threes; Knicks rally to win 108–105 in OT", wp: 2.4, ml: "Live Peak: NYK +1400" },
+            { clock: "2025 ECSF G2 at BOS", score: "Down 20 / 86–74 (4:46 Q4)", event: "BOS 97.1% WP at 4:46 Q4; Knicks 30–17 Q4 (BOS 5–24 FG) + Bridges steal wins 91–90", wp: 2.9, ml: "Live Peak: NYK +1200" },
+            { clock: "2026 ECF G1 vs CLE", score: "Down 93–71 (7:49 Q4)", event: "Cavs hit 99.9% WP up 22 in Q4; Knicks close on 44–11 run through OT to win 115–104", wp: 0.1, ml: "Live Peak: NYK +3500" },
+            { clock: "2026 Finals G4 vs SAS", score: "Down 29 / 95–78 (8:59 Q4)", event: "Teams 0–96 in Finals down 17+ in last 9 min (0.4% WP); Anunoby tip-in at 1.2s wins 107–106", wp: 0.4, ml: "Live Peak: NYK +2800" }
+          ],
+          teamLabel: "Knicks Floor Win Prob"
+        }
+      };
+
+      const chartEl = document.getElementById("regime-chart");
+      const captionEl = document.getElementById("regime-caption");
+
+      function renderCase(key) {
+        const d = caseData[key];
+        if (!d) return;
+        d.kpis.forEach((k, idx) => {
+          const i = idx + 1;
+          document.getElementById(`regime-kpi${i}-label`).textContent = k[0];
+          document.getElementById(`regime-kpi${i}-val`).textContent = k[1];
+          document.getElementById(`regime-kpi${i}-sub`).textContent = k[2];
+        });
+        captionEl.innerHTML = d.caption;
+
+        const barsHtml = d.rows.map((r) => {
+          const width = Math.max(3, Math.min(100, r.wp));
+          return `
+            <div class="bar-row" style="margin:6px 0">
+              <span><strong>${r.clock}</strong> · ${r.score}</span>
+              <div class="bar-track"><div class="bar-fill" style="width:${width}%"></div></div>
+              <span>${r.wp.toFixed(1)}% WP</span>
+            </div>
+          `;
+        }).join("");
+
+        const tableRows = d.rows.map((r) => `
+          <tr>
+            <td><strong>${r.clock}</strong></td>
+            <td>${r.score}</td>
+            <td><strong>${r.wp.toFixed(1)}%</strong></td>
+            <td>${r.ml}</td>
+            <td>${r.event}</td>
+          </tr>
+        `).join("");
+
+        chartEl.innerHTML = `
+          <div class="bars viz-bars" style="margin-bottom:16px">${barsHtml}</div>
+          <div class="viz-table-wrap" style="overflow-x:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>Checkpoint</th>
+                  <th>Score State</th>
+                  <th>${d.teamLabel}</th>
+                  <th>Market / Live Line</th>
+                  <th>Desk &amp; Play Context</th>
+                </tr>
+              </thead>
+              <tbody>${tableRows}</tbody>
+            </table>
+          </div>
+        `;
+      }
+
+      document.querySelectorAll(".viz-step").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".viz-step").forEach((b) => b.classList.remove("is-active"));
+          btn.classList.add("is-active");
+          renderCase(btn.getAttribute("data-case"));
+        });
+      });
+
+      renderCase("eagles");
+
+      // Calculator 1: Pre-game / live de-vig
+      function implied(odds) {
+        const o = Number(odds);
+        if (!Number.isFinite(o) || o === 0) return null;
+        return o < 0 ? (-o) / (-o + 100) : 100 / (o + 100);
+      }
+      function fmtPct(x, d) {
+        return (x * 100).toFixed(d) + "%";
+      }
+      function runHold() {
+        const a = implied(document.getElementById("ml-a").value);
+        const b = implied(document.getElementById("ml-b").value);
+        const out = document.getElementById("hold-out");
+        if (a == null || b == null) {
+          out.textContent = "Need two non-zero American odds.";
+          out.className = "result still";
+          return;
+        }
+        const sum = a + b;
+        const hold = sum - 1;
+        out.textContent = "Hold " + fmtPct(hold, 2) + " · A " + fmtPct(a / sum, 1) + " · B " + fmtPct(b / sum, 1) + " (de-vig)";
+        out.className = hold > 0 ? "result ontime" : "result late";
+      }
+      document.getElementById("hold-calc").addEventListener("click", runHold);
+      document.getElementById("ml-a").addEventListener("change", runHold);
+      document.getElementById("ml-b").addEventListener("change", runHold);
+      document.querySelectorAll(".preset-ml").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.getElementById("ml-a").value = btn.getAttribute("data-a");
+          document.getElementById("ml-b").value = btn.getAttribute("data-b");
+          runHold();
+        });
+      });
+      runHold();
+
+      // Calculator 2: 4th-quarter tail risk converter
+      function probToPlusOdds(p) {
+        if (p <= 0 || p >= 1) return "N/A";
+        if (p < 0.5) {
+          return "+" + Math.round(((1 - p) / p) * 100);
+        }
+        return "-" + Math.round((p / (1 - p)) * 100);
+      }
+      function runTail() {
+        const rawPct = Math.max(0.05, Math.min(95, Number(document.getElementById("tail-wp").value) || 0.2));
+        const mult = Math.max(1.0, Math.min(10.0, Number(document.getElementById("tail-mult").value) || 1.0));
+        const rawP = rawPct / 100;
+        const adjP = Math.min(0.85, rawP * mult);
+        // Desk shades live longshot by ~22% overround on the tail
+        const viggedP = Math.min(0.90, adjP * 1.25);
+
+        const rawOdds = probToPlusOdds(rawP);
+        const adjFairOdds = probToPlusOdds(adjP);
+        const deskOfferOdds = probToPlusOdds(viggedP);
+
+        const tailOut = document.getElementById("tail-out");
+        tailOut.textContent =
+          `Raw ${rawPct.toFixed(2)}% (Fair ${rawOdds}) → Tail-Adjusted ${(adjP * 100).toFixed(2)}% (Fair ${adjFairOdds} · Desk Live Offer ${deskOfferOdds} w/ hold)`;
+        tailOut.className = rawPct <= 3.0 ? "result late" : "result still";
+      }
+      document.getElementById("tail-calc").addEventListener("click", runTail);
+      document.getElementById("tail-wp").addEventListener("change", runTail);
+      document.getElementById("tail-mult").addEventListener("change", runTail);
+      document.querySelectorAll(".preset-tail").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.getElementById("tail-wp").value = btn.getAttribute("data-wp");
+          document.getElementById("tail-mult").value = btn.getAttribute("data-mult");
+          runTail();
+        });
+      });
+      runTail();
+    })();
+  </script>
+<script src="../nav.js?v=1"></script>
+</body>
+</html>
