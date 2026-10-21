@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-layout="study" data-theme="model">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Database normalization · Haley Maes</title>
+  <meta name="description" content="Normalizing a denormalized employee table to third normal form: ZIP to city/state and department to manager ID." />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="styles.css?v=52" />
+  <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img class="brand-photo" src="../img/haley.png" alt="" />Haley Maes</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a class="btn" href="../Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+      </div>
+      <div class="nav-social" aria-label="Contact">
+        <a class="nav-ico" href="mailto:haleymykellemaes@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4.2 7.2 12 13l7.8-5.8"/></svg>
+        </a>
+        <a class="nav-ico" href="tel:7204673584" aria-label="Phone 720-467-3584, text or call" title="720-467-3584 · text or call">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M8 3.8h2.6l1 2.5-1.8 1.1a11 11 0 0 0 5.1 5.1l1.1-1.8 2.5 1V16a1.7 1.7 0 0 1-1.8 1.7C7.9 16.6 3.4 12.1 3.3 5.6A1.7 1.7 0 0 1 5 3.8H8z"/></svg>
+        </a>
+        <a class="nav-ico" href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.54 8.96H3.27V21h3.27V8.96zM4.9 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.73 13.16c0-3.32-1.77-4.86-4.13-4.86-1.9 0-2.75 1.05-3.22 1.78h-.05V8.96H10.1V21h3.24v-5.82c0-1.54.29-3.03 2.2-3.03 1.88 0 1.91 1.76 1.91 3.13V21h3.28v-7.84z"/></svg>
+        </a>
+        <a class="nav-ico" href="https://github.com/haleymykellemaes-beep" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49v-1.73c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.9-1.32 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="stage">
+    <div class="page-col">
+      <nav class="hang-rail" aria-label="Case studies">
+        <a class="hang-tab" href="index.html">Work</a>
+        <a class="hang-tab" href="ar-tracker.html">A/R</a>
+        <a class="hang-tab" href="nike.html">Nike</a>
+        <a class="hang-tab" href="sports-projections.html">Odds</a>
+        <a class="hang-tab" href="tmdb-revenue.html">TMDb</a>
+        <a class="hang-tab" href="happiness-gdp.html">Happiness</a>
+        <a class="hang-tab is-active" href="student-performance-sql.html">SQL</a>
+      </nav>
+      <div class="folder">
+  <main class="sheet">
+    <p class="folder-heading"><span>A 3NF NOTE</span></p>
+    <h1 class="display">Database normalization</h1>
+    <div class="article-meta">
+      <a class="pill" href="index.html#work">← Work</a>
+      <span class="pill">Modeling</span>
+    </div>
+    <p class="paper-rule">ZIP → city, state · department → manager ID</p>
+    <p class="role-strip">Analyst · data modeling · 3NF</p>
+    <p class="article-lede">The same ZIP stored with two cities is not a data-entry quirk. It is a transitive dependency waiting to lie.</p>
+
+    <div class="prose">
+      <h2>The problem</h2>
+      <p>A single Employee table held ID, name, street, city, state, ZIP, department, manager ID, position, and salary. <code>Employee ID</code> determines the row. Two facts did not depend on the employee; they depended on another non-key column.</p>
+      <ul>
+        <li><strong>ZIP → City, State.</strong> Chain: Employee ID → ZIP → City, State. In the sample, ZIP 32829 was typed as both Anytown and Sometown. 32831 had the same contradiction.</li>
+        <li><strong>Department → Manager ID.</strong> IT always pointed at 1015; Sales at 1021. Manager is a property of the department, not of Dickens vs Poe.</li>
+      </ul>
+      <p>Position does <em>not</em> determine salary here: two Vice Presidents, two salaries. The data disproved a dependency that looked tidy on a whiteboard.</p>
+
+      <h2>What 3NF looks like</h2>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Keep on Employee</h3>
+          <p>Emp ID, name, street, ZIP (FK), Dept (FK), position, salary. One person, one row, no city typed twice.</p>
+        </div>
+        <div class="panel">
+          <h3>Split out</h3>
+          <p><strong>ZIP</strong> (ZIP, city, state). <strong>Department</strong> (department, mgr ID). Update the ZIP once; every employee in that ZIP follows.</p>
+        </div>
+      </div>
+
+      <h2>So what</h2>
+      <p>Analysts inherit 1NF dumps from HR and PMS exports. Finding the transitive dep is how you stop a dashboard from averaging two cities for one ZIP. This is the same instinct as not inventing store location on a lab rental table that does not have it.</p>
+    </div>
+
+    <a class="ticker ticker-link" href="index.html#work">
+      <b>Back to work</b><span>↗</span>
+      <b>Back to work</b><span>↗</span>
+      <b>Back to work</b><span>↗</span>
+    </a>
+    <div class="pager">
+      <a href="student-performance-sql.html">← SQL case</a>
+      <a href="index.html#work">All work →</a>
+    </div>
+  </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>Haley Maes · 3NF</span>
+      <a href="index.html">Portfolio home</a>
+    </div>
+  </footer>
+<script src="../nav.js?v=1"></script>
+</body>
+</html>

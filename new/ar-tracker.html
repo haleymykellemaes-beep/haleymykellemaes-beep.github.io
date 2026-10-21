@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-layout="study" data-theme="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accounts Receivable Aging Analysis · Haley Maes</title>
+  <meta name="description" content="Denver-area dental practice: 90+ share of open A/R moved from 31.4% to 18.7% (~40% reduction of that share). Excel A/R tracker / morning follow-up list." />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="styles.css?v=52" />
+  <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img class="brand-photo" src="../img/haley.png" alt="" />Haley Maes</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a class="btn" href="../Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+      </div>
+      <div class="nav-social" aria-label="Contact">
+        <a class="nav-ico" href="mailto:haleymykellemaes@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4.2 7.2 12 13l7.8-5.8"/></svg>
+        </a>
+        <a class="nav-ico" href="tel:7204673584" aria-label="Phone 720-467-3584, text or call" title="720-467-3584 · text or call">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M8 3.8h2.6l1 2.5-1.8 1.1a11 11 0 0 0 5.1 5.1l1.1-1.8 2.5 1V16a1.7 1.7 0 0 1-1.8 1.7C7.9 16.6 3.4 12.1 3.3 5.6A1.7 1.7 0 0 1 5 3.8H8z"/></svg>
+        </a>
+        <a class="nav-ico" href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.54 8.96H3.27V21h3.27V8.96zM4.9 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.73 13.16c0-3.32-1.77-4.86-4.13-4.86-1.9 0-2.75 1.05-3.22 1.78h-.05V8.96H10.1V21h3.24v-5.82c0-1.54.29-3.03 2.2-3.03 1.88 0 1.91 1.76 1.91 3.13V21h3.28v-7.84z"/></svg>
+        </a>
+        <a class="nav-ico" href="https://github.com/haleymykellemaes-beep" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49v-1.73c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.9-1.32 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="stage">
+    <div class="page-col">
+      <nav class="hang-rail" aria-label="Case studies">
+        <a class="hang-tab" href="index.html">Work</a>
+        <a class="hang-tab is-active" href="ar-tracker.html">A/R</a>
+        <a class="hang-tab" href="nike.html">Nike</a>
+        <a class="hang-tab" href="sports-projections.html">Odds</a>
+        <a class="hang-tab" href="tmdb-revenue.html">TMDb</a>
+        <a class="hang-tab" href="happiness-gdp.html">Happiness</a>
+        <a class="hang-tab" href="student-performance-sql.html">SQL</a>
+      </nav>
+
+      <div class="folder">
+        <main class="sheet">
+          <p class="folder-heading"><span>Excel · A/R</span></p>
+          <div class="case-hero">
+            <div>
+              <h1 class="display">Accounts Receivable Aging Analysis</h1>
+              <p class="paper-rule">Collections funnel: billed/posted → collected → still open → 90+. Drop-off I own: 90+ share 31.4% → 18.7%.</p>
+              <p class="role-strip">Analyst · Excel · morning follow-up list</p>
+              <div class="article-meta">
+                <a class="pill" href="index.html#work">← Work</a>
+                <span class="pill">Dental operations</span>
+                <a class="pill" href="https://github.com/haleymykellemaes-beep/haleymykellemaes-beep.github.io/blob/main/AR-Sample-Ledger.xlsx" target="_blank" rel="noopener noreferrer">GitHub · AR-Sample-Ledger.xlsx</a>
+              </div>
+              <p class="article-lede">Collections move as a funnel: billed/posted, collected, still open, then 90+. At a Denver-area dental practice, the drop-off I own is the last stage — 90+ share of open A/R from <strong>31.4%</strong> to <strong>18.7%</strong> (~40% reduction of that share) on two dated Curve pulls. The Excel tracker is how the morning follow-up list works that stage: insurance vs patient aging, so 90+ balances get worked first. Posted collections $388k → $443k in the same window is context; I do not treat that lift as something the workbook caused.</p>
+            </div>
+            <figure class="phone" aria-label="Fictional morning follow-up list on a phone. Aggregated KPIs only. Sample rows are P-####. No patient names.">
+              <div class="phone-bezel">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                  <p class="ph-kicker">Morning list · today</p>
+                  <p class="ph-title">A/R board</p>
+                  <div class="ph-kpi hot">
+                    <span>90+ share</span>
+                    <b>18.7%</b>
+                    <em>from 31.4% of open A/R</em>
+                  </div>
+                  <div class="ph-kpi">
+                    <span>That share</span>
+                    <b>~40%</b>
+                    <em>smaller than the first pull</em>
+                  </div>
+                  <div class="ph-kpi">
+                    <span>Split</span>
+                    <b>Insurance vs Patient</b>
+                    <em>Work the right phone</em>
+                  </div>
+                  <div class="ph-list">
+                    <div class="ph-row"><span>P-1042</span><b>90+</b></div>
+                    <div class="ph-row"><span>P-1188</span><b>Insurance</b></div>
+                    <div class="ph-row"><span>P-2310</span><b>Patient</b></div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><b>31.4% → 18.7%</b><span>Share of open A/R sitting in 90+ (two Curve pulls)</span></div>
+            <div class="stat"><b>~40%</b><span>Reduction of that 90+ share (12.7 points / 31.4%)</span></div>
+            <div class="stat"><b>Insurance vs Patient</b><span>Aging split — 90+ is mostly patient; 0–30 is mostly insurance</span></div>
+          </div>
+
+          <div class="polaroid-row">
+            <figure class="polaroid clip-pink tilt-l">
+              <span class="hw-pin" aria-hidden="true"></span>
+              <div class="polaroid-shot drop-shot">
+                <p class="drop-kicker">90+ share of open A/R</p>
+                <div class="drop-pair" role="img" aria-label="90-day A/R share dropped from 31.4 percent to 18.7 percent">
+                  <div class="drop-col was">
+                    <b>31.4%</b>
+                    <em style="height:100%"></em>
+                    <span>Nov 16</span>
+                  </div>
+                  <span class="drop-arrow" aria-hidden="true">→</span>
+                  <div class="drop-col now">
+                    <b>18.7%</b>
+                    <em style="height:60%"></em>
+                    <span>Later pull</span>
+                  </div>
+                </div>
+              </div>
+              <figcaption>31.4% → 18.7% of open A/R · dated extracts only</figcaption>
+            </figure>
+            <figure class="polaroid clip-pink tilt-r">
+              <span class="hw-pin" aria-hidden="true"></span>
+              <div class="polaroid-shot">
+                <div class="bars" style="margin:4px 0">
+                  <div class="bar-row"><span>0–30</span><div class="bar-track"><div class="bar-fill" style="width:41%"></div></div><span>~41%</span></div>
+                  <div class="bar-row"><span>31–60</span><div class="bar-track"><div class="bar-fill" style="width:19%"></div></div><span>~19%</span></div>
+                  <div class="bar-row"><span>61–90</span><div class="bar-track"><div class="bar-fill" style="width:8%"></div></div><span>~8%</span></div>
+                  <div class="bar-row"><span>90+</span><div class="bar-track"><div class="bar-fill" style="width:31%"></div></div><span>31.4%</span></div>
+                </div>
+              </div>
+              <figcaption>Nov 16, 2025 aging mix · percentages of open A/R</figcaption>
+            </figure>
+          </div>
+
+          <div class="prose">
+            <h2>The question</h2>
+            <p>I pull this from the live Curve Hero aging dashboard — not from a school dataset. Practice-management systems know the claim. The front office still needs a page that splits <strong>insurance A/R vs patient A/R</strong>, ages the open balance, and names the 90-day pile first.</p>
+            <p><strong>Who do we work first, and is this money the payer’s or the patient’s?</strong></p>
+
+            <h2>Context, not a collections claim</h2>
+            <p>Posted collections were higher in 2025 than 2024. Production went up; insurance stayed about <strong>64%</strong> of collections both years and cards stayed in the low-thirties. I am not publishing the practice’s annual dollar mix by card type, and I am not saying the Excel A/R tracker caused the collections lift. The number I own is the 90+ share of open A/R.</p>
+
+            <h2>Aging: two snapshots, same board</h2>
+            <p>Default aging dashboard in Curve. Totals as shares only on this page — no patient names.</p>
+            <div class="two-col">
+              <div class="panel">
+                <h3>Nov 16, 2025</h3>
+                <table>
+                  <tr><th>Patient A/R</th><td>71% of open</td></tr>
+                  <tr><th>Insurance A/R</th><td>29% of open</td></tr>
+                  <tr><th>90+ share</th><td>31.4%</td></tr>
+                </table>
+              </div>
+              <div class="panel">
+                <h3>Later snapshot</h3>
+                <table>
+                  <tr><th>Patient A/R</th><td>66% of open</td></tr>
+                  <tr><th>Insurance A/R</th><td>34% of open</td></tr>
+                  <tr><th>90+ share</th><td>18.7%</td></tr>
+                </table>
+              </div>
+            </div>
+            <p>Open A/R barely moved. The mix did. <strong>90+ fell from 31.4% to 18.7%</strong> on a later Curve pull. Patient average owing over 90 days went from $192 to $153. Those two pulls are the documented figures. I am not adding a third extract or rounding down to 14%.</p>
+            <p>Nov 16 aging mix of open A/R (90+ taken from the pie; other buckets scaled from the bar chart so they sum to 100%):</p>
+
+            <div class="polaroid-row">
+              <figure class="polaroid clip-pink tilt-l">
+                <div class="polaroid-shot">
+                  <div class="bars" style="margin:4px 0">
+                    <div class="bar-row"><span>0–30</span><div class="bar-track"><div class="bar-fill" style="width:41%"></div></div><span>~41%</span></div>
+                    <div class="bar-row"><span>31–60</span><div class="bar-track"><div class="bar-fill" style="width:19%"></div></div><span>~19%</span></div>
+                    <div class="bar-row"><span>61–90</span><div class="bar-track"><div class="bar-fill" style="width:8%"></div></div><span>~8%</span></div>
+                    <div class="bar-row"><span>90+</span><div class="bar-track"><div class="bar-fill" style="width:31%"></div></div><span>31.4%</span></div>
+                  </div>
+                </div>
+                <figcaption>Nov 16, 2025 · share of open A/R</figcaption>
+              </figure>
+              <figure class="polaroid clip-pink tilt-r">
+                <div class="polaroid-shot drop-shot">
+                  <p class="drop-kicker">90+ share · two looks</p>
+                  <div class="drop-pair" role="img" aria-label="90-day share from 31.4 percent to 18.7 percent">
+                    <div class="drop-col was">
+                      <b>31.4%</b>
+                      <em style="height:100%"></em>
+                      <span>Nov 16</span>
+                    </div>
+                    <span class="drop-arrow" aria-hidden="true">→</span>
+                    <div class="drop-col now">
+                      <b>18.7%</b>
+                      <em style="height:60%"></em>
+                      <span>Later</span>
+                    </div>
+                  </div>
+                </div>
+                <figcaption>31.4% → 18.7% · no third extract</figcaption>
+              </figure>
+            </div>
+
+            <p>The stacked insurance/patient bars tell the same story both days: <strong>0–30 is mostly insurance</strong> (ERA still in flight). <strong>90+ is mostly patient</strong> (statements, plans, collections review). Working “total A/R” as one pile would send the morning to the wrong phone.</p>
+
+            <h2>What the Excel A/R tracker holds</h2>
+            <p>Curve is the source of truth. The workbook is the morning follow-up list: placeholder IDs (RP-100x / P-20xx), not PMS IDs; aging buckets; a follow-up queue. <strong>Most recent visit</strong> and <strong>next appointment</strong> on the public file are demo dates so the morning follow-up list is visible without scheduling PHI. Dollar aging is from a 23 Sep 2026 90+ outstanding extract — labeled as 90+ only, not the full open board in the case study.</p>
+            <ul>
+              <li><strong>Ledger</strong> — Responsible Party Patient ID, Patient ID, visit dates, patient vs insurance aging. Some responsible parties cover 2–3 patients.</li>
+              <li><strong>Calcs / Aging pivot</strong> — live SUMIFS: mix, 90+ share, accounts with no next appointment.</li>
+              <li><strong>Aging pivot</strong> — live SUMIFS tables plus a pie: scheduled for next appointment vs not.</li>
+            </ul>
+            <p style="margin-top:18px"><a class="btn btn-dark" href="../AR-Sample-Ledger.xlsx">Download A/R tracker</a> <span style="margin-left:10px;font-size:0.85rem;color:var(--muted)">De-identified sample. IDs only. No names.</span></p>
+
+            <h2>How a morning is supposed to run</h2>
+            <ul>
+              <li>Open the aging board. If 90+ is a third of open A/R, that is the first hour — not new production.</li>
+              <li>Insurance A/R means payer calls, ERAs, denials, appeals. Patient A/R means statements, plans, collections review.</li>
+              <li>Work the follow-up queue. When you touch a claim, set a new next-follow-up date so the count is honest tomorrow.</li>
+              <li>When money posts, enter the payment. Balance hits $0 and aging goes to —.</li>
+            </ul>
+
+            <div class="two-col">
+              <div class="panel">
+                <h3>Never type over</h3>
+                <table>
+                  <tr><th>Balance</th><td>Charge − ins paid − pat paid − adj</td></tr>
+                  <tr><th>Age</th><td>Today − date billed</td></tr>
+                  <tr><th>Bucket</th><td>0–30 / 31–60 / 61–90 / 90+</td></tr>
+                  <tr><th>Needs FU</th><td>Open $ and follow-up ≤ today</td></tr>
+                </table>
+              </div>
+              <div class="panel">
+                <h3>Status language</h3>
+                <table>
+                  <tr><th>Pending insurance</th><td>Waiting on ERA / EOB</td></tr>
+                  <tr><th>Denied</th><td>Correct/resubmit or appeal</td></tr>
+                  <tr><th>Patient billed</th><td>Payer done; patient owes</td></tr>
+                  <tr><th>Collections review</th><td>90+ patient $ still open</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <h2>Limitations</h2>
+            <p>Practice is unnamed here (a Denver-area dental practice). No patient names, no chart copies from the PMS, no provider names, no annual collections mix by card type. The Nov 16, 2025 snapshot is dated in Curve (31.4% in 90+); the second aging screenshot is the same dashboard on a later pull (18.7% in 90+). The public workbook is a 90+ outstanding extract with placeholder IDs and demo visit / next-appointment dates — it is not the full open A/R mix those two percentages describe.</p>
+          </div>
+
+          <a class="ticker ticker-link" href="nike.html">
+            <b>Next: Nike analog</b><span>↗</span>
+            <b>Next: Nike analog</b><span>↗</span>
+            <b>Next: Nike analog</b><span>↗</span>
+          </a>
+          <div class="pager">
+            <a href="index.html#work">← All work</a>
+            <a href="nike.html">Nike analog →</a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>Haley Maes · Dental A/R</span>
+      <a href="index.html">Portfolio home</a>
+    </div>
+  </footer>
+<script src="../nav.js?v=1"></script>
+</body>
+</html>
