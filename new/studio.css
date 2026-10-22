@@ -1392,3 +1392,25 @@ a:focus-visible, button:focus-visible {
 /* Let the scroll-reveal wording breathe. */
 .hero-reveal h2 { line-height: 1.12; letter-spacing: -0.015em; word-spacing: 0.035em; max-width: 11ch; }
 .hero-reveal p { margin-top: 1.75rem; }
+
+/* Keep the opening field wide; restore the focused ribbon for the reveal. */
+@media (min-width: 851px) {
+  .hero-network {
+    left: calc(-8% + var(--scene-reveal, 0) * 30%);
+    width: calc(116% - var(--scene-reveal, 0) * 28%);
+  }
+}
+.hero-reveal { max-width: min(760px, 62vw); }
+.hero-reveal h2 {
+  font-size: clamp(3.2rem, 5.1vw, 5.6rem);
+  line-height: 1.18;
+  letter-spacing: 0;
+  word-spacing: 0.08em;
+  max-width: none;
+}
+.hero-reveal p { margin-top: 2rem; }
+@media (max-width: 850px) {
+  .hero-reveal { max-width: none; right: 7%; }
+  .hero-reveal h2 { font-size: clamp(2.25rem, 10.8vw, 4.6rem); line-height: 1.2; }
+  .hero-reveal p { margin-top: 1.6rem; }
+}
