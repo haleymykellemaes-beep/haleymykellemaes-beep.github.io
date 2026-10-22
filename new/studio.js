@@ -30,6 +30,10 @@
     var NS = "http://www.w3.org/2000/svg";
     var STRANDS = ["strand-a", "strand-b", "strand-c"];
     var NODE_CLS = ["", "node-b", "node-c"];
+    /* Five depth bands so threads scroll at different speeds (near → far) */
+    var DEPTHS = 5;
+    var DEPTH_DOWN = [0.48, 0.72, 1.0, 1.28, 1.55];
+    var DEPTH_RIGHT = [0.62, 0.82, 1.0, 1.22, 1.48];
     var mobile = window.innerWidth <= 850;
     var pathCount = mobile ? 82 : 128;
     var nodeCount = mobile ? 52 : 88;
@@ -39,31 +43,43 @@
       return x - Math.floor(x);
     }
 
+    var depthGroups = [];
+    var d;
+    for (d = 0; d < DEPTHS; d++) {
+      var g = document.createElementNS(NS, "g");
+      g.setAttribute("class", "strand-depth depth-" + d);
+      network.appendChild(g);
+      depthGroups.push(g);
+    }
+
     var i;
     for (i = 0; i < pathCount; i++) {
       var r0 = rnd(i + 1);
       var r1 = rnd(i + 47);
       var r2 = rnd(i + 91);
       var r3 = rnd(i + 139);
+      var r4 = rnd(i + 181);
       var t = i / Math.max(1, pathCount - 1);
       /* Flow field: strands converge through a mid band, diverge at the edges */
       var envelope = 0.42 + 0.58 * Math.sin(Math.PI * t);
       var centerY = 355 + Math.sin(t * Math.PI * 1.15 + r0 * 1.4) * 36;
       var spread = 265 * envelope;
       var y = centerY + (r0 - 0.5) * 2 * spread;
-      var y0 = y + 95 + (r1 - 0.5) * 170;
-      var c1y = y - 95 - r2 * 155;
-      var c2y = y + 125 + r0 * 115;
-      var midY = y + (r1 - 0.5) * 48;
-      var c3y = y - 70 + r3 * 105;
-      var yEnd = y + 28 + (r2 - 0.5) * 95;
-      var x0 = -90 - r0 * 70;
-      var x1 = 250 + r1 * 95;
-      var x2 = 500 + r2 * 110;
-      var xMid = 760 + (r3 - 0.5) * 70;
-      var x3 = 1080 + r0 * 90;
-      var x4 = 1520 + r1 * 50;
-      var d =
+      /* Extra per-thread wobble so curves don't read as one sheet */
+      var wobble = (r4 - 0.5) * 58;
+      var y0 = y + 95 + (r1 - 0.5) * 170 + wobble * 0.35;
+      var c1y = y - 95 - r2 * 155 + wobble * 0.6;
+      var c2y = y + 125 + r0 * 115 - wobble * 0.45;
+      var midY = y + (r1 - 0.5) * 48 + wobble * 0.25;
+      var c3y = y - 70 + r3 * 105 - wobble * 0.5;
+      var yEnd = y + 28 + (r2 - 0.5) * 95 + wobble * 0.2;
+      var x0 = -90 - r0 * 70 - r4 * 40;
+      var x1 = 250 + r1 * 95 + (r3 - 0.5) * 55;
+      var x2 = 500 + r2 * 110 + (r0 - 0.5) * 70;
+      var xMid = 760 + (r3 - 0.5) * 90;
+      var x3 = 1080 + r0 * 90 + (r1 - 0.5) * 60;
+      var x4 = 1520 + r1 * 50 + r2 * 35;
+      var pathD =
         "M " + x0.toFixed(1) + " " + y0.toFixed(1) +
         " C " + x1.toFixed(1) + " " + c1y.toFixed(1) +
         " " + x2.toFixed(1) + " " + c2y.toFixed(1) +
@@ -71,19 +87,24 @@
         " S " + x3.toFixed(1) + " " + c3y.toFixed(1) +
         " " + x4.toFixed(1) + " " + yEnd.toFixed(1);
       var path = document.createElementNS(NS, "path");
-      path.setAttribute("d", d);
+      path.setAttribute("d", pathD);
       path.setAttribute("class", STRANDS[i % 3]);
       var sw = 0.3 + r1 * 0.35;
       if (i % 19 === 0) sw = 0.62 + r2 * 0.08;
       path.setAttribute("stroke-width", sw.toFixed(2));
-      var opacity = 0.08 + r0 * 0.14;
-      if (i % 14 === 0) opacity = 0.22 + r3 * 0.08;
+      var opacity = 0.07 + r0 * 0.12 + r4 * 0.06;
+      if (i % 14 === 0) opacity = 0.2 + r3 * 0.1;
       path.style.opacity = opacity.toFixed(3);
-      var dash = 70 + r0 * 160;
-      var gap = 35 + r1 * 110;
+      var dash = 55 + r0 * 180;
+      var gap = 28 + r1 * 130;
       path.setAttribute("stroke-dasharray", dash.toFixed(1) + " " + gap.toFixed(1));
-      path.setAttribute("stroke-dashoffset", String(Math.round(r2 * 220)));
-      network.appendChild(path);
+      path.setAttribute("stroke-dashoffset", String(Math.round(r2 * 280 + r4 * 90)));
+      /* Desync continuous drift so threads don't pulse as one fabric */
+      path.style.animationDuration = (18 + r1 * 38).toFixed(1) + "s";
+      path.style.animationDelay = (-r2 * 32 - r4 * 12).toFixed(1) + "s";
+      if (r3 > 0.55) path.style.animationDirection = "reverse";
+      var depth = Math.min(DEPTHS - 1, Math.floor(r0 * DEPTHS));
+      depthGroups[depth].appendChild(path);
     }
 
     for (i = 0; i < nodeCount; i++) {
@@ -104,7 +125,8 @@
       if (spark) ncls = (ncls ? ncls + " " : "") + "spark";
       if (ncls) circle.setAttribute("class", ncls);
       circle.style.opacity = String(spark ? 0.28 + rn2 * 0.12 : 0.1 + rn * 0.16);
-      network.appendChild(circle);
+      var nodeDepth = Math.min(DEPTHS - 1, Math.floor(rn * DEPTHS));
+      depthGroups[nodeDepth].appendChild(circle);
     }
 
     if (reduce) return;
@@ -133,9 +155,16 @@
       var p = clamp(-rect.top / travel);
       var reveal = smooth(clamp((p - 0.32) / 0.17));
       var exit = smooth(clamp((p - 0.69) / 0.29));
+      var baseDown = p * 290;
+      var baseRight = exit * window.innerWidth * 1.65;
       sticky.style.setProperty("--hero-progress", String(p));
-      sticky.style.setProperty("--wave-down", Math.round(p * 290) + "px");
-      sticky.style.setProperty("--wave-right", Math.round(exit * window.innerWidth * 1.65) + "px");
+      /* Mid-depth values keep metrics aligned with the field */
+      sticky.style.setProperty("--wave-down", Math.round(baseDown) + "px");
+      sticky.style.setProperty("--wave-right", Math.round(baseRight) + "px");
+      for (d = 0; d < DEPTHS; d++) {
+        sticky.style.setProperty("--wave-down-" + d, Math.round(baseDown * DEPTH_DOWN[d]) + "px");
+        sticky.style.setProperty("--wave-right-" + d, Math.round(baseRight * DEPTH_RIGHT[d]) + "px");
+      }
       sticky.style.setProperty("--original-opacity", String(1 - smooth(clamp((p - 0.27) / 0.21))));
       sticky.style.setProperty("--original-rise", Math.round(-20 * smooth(clamp((p - 0.3) / 0.2))) + "px");
       sticky.style.setProperty("--reveal-opacity", String(reveal * (1 - exit * 0.52)));
@@ -209,7 +238,7 @@
     for (var i = 0; i < nodes.length; i++) play(nodes[i]);
   }
 
-  /* Menu */
+  /* Menu — mobile side drawer */
   var menuBtn = document.querySelector(".menu-btn");
   var navLinks = document.getElementById("nav-links");
   var label = menuBtn && menuBtn.querySelector(".menu-label");
@@ -230,6 +259,11 @@
   }
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") setNav(false);
+  });
+  document.addEventListener("click", function (e) {
+    if (!document.body.classList.contains("nav-open")) return;
+    if (e.target.closest(".nav-links") || e.target.closest(".menu-btn")) return;
+    setNav(false);
   });
 
   /* Cards draw in, including the horizontal row */
