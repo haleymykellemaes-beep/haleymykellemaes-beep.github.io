@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" />
-  <link rel="stylesheet" href="studio.css?v=24" />
+  <link rel="stylesheet" href="studio.css?v=26" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <script>
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -53,22 +53,7 @@
     <div class="hero-scrollstage" id="hero-stage">
       <div class="hero-sticky">
         <svg class="hero-network" viewBox="0 0 1440 860" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <defs>
-            <linearGradient id="waveGold" x1="0" y1="0" x2="1" y2="0">
-              <stop stop-color="#c6b18e" stop-opacity="0.08" />
-              <stop offset="0.52" stop-color="#e8dcc4" stop-opacity="0.95" />
-              <stop offset="1" stop-color="#ead8b5" stop-opacity="0.25" />
-            </linearGradient>
-            <filter id="waveGlow" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
-              <feGaussianBlur stdDeviation="2.8" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-          <g class="wave-layer wave-layer-glow" id="wave-layer-glow"></g>
-          <g class="wave-layer" id="wave-layer" filter="url(#waveGlow)"></g>
+          <g class="wave-layer" id="wave-layer"></g>
         </svg>
         <div class="hero-layout wrap">
           <div class="hero-copy cinematic-copy">
@@ -95,22 +80,22 @@
             <img class="hero-photo" src="../img/haley.png" alt="Portrait of Haley Maes" width="520" height="520" />
           </div>
         </div>
-        <ul class="hero-metrics wrap" aria-label="Selected portfolio figures">
-          <li class="metric-callout">
+        <ul class="hero-metrics" aria-label="Selected portfolio figures">
+          <li class="metric-callout metric-a">
             <span class="metric-leader" aria-hidden="true"></span>
             <div class="metric-body">
               <span class="metric-val">31.4% → 18.7%</span>
               <span class="metric-label">90+ A/R Share</span>
             </div>
           </li>
-          <li class="metric-callout">
+          <li class="metric-callout metric-b">
             <span class="metric-leader" aria-hidden="true"></span>
             <div class="metric-body">
               <span class="metric-val">6,607</span>
               <span class="metric-label">Student Records Analyzed</span>
             </div>
           </li>
-          <li class="metric-callout">
+          <li class="metric-callout metric-c">
             <span class="metric-leader" aria-hidden="true"></span>
             <div class="metric-body">
               <span class="metric-val">0.836</span>
@@ -392,6 +377,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-  <script src="studio.js?v=24"></script>
+  <script src="studio.js?v=26"></script>
 </body>
 </html>
