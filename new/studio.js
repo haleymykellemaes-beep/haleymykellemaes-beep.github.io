@@ -38,7 +38,9 @@
   if (!reduce && heroNameText && heroRoleText && tagLead && tagTurn) {
     typeLine(heroNameText, heroName, "Haley Maes", 100, function () {
       if (heroSide) heroSide.classList.add("is-in");
-      typeLine(heroRoleText, heroRole, "Data Analyst", 85, function () {
+      window.setTimeout(function () {
+        if (heroRole) heroRole.classList.add("is-active");
+        typeLine(heroRoleText, heroRole, "Data Analyst", 85, function () {
         window.setTimeout(function () {
           tagLead.classList.add("is-in");
           window.setTimeout(function () {
@@ -49,7 +51,8 @@
             }, 520);
           }, 700);
         }, 420);
-      });
+        });
+      }, 720);
     });
   }
 
