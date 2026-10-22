@@ -34,27 +34,88 @@
   var tagLead = document.querySelector(".hero-tag-lead");
   var tagTurn = document.querySelector(".hero-tag-turn");
   var heroSide = document.querySelector(".hero-side");
+  var heroMetrics = document.querySelector(".hero-metrics");
+  var heroEyebrow = document.querySelector(".hero-eyebrow");
   var heroAfterTag = document.querySelectorAll(".hero-after-tag");
+  function splitHeroName(textEl) {
+    if (!textEl) return;
+    textEl.innerHTML = "<span class=\"hero-name-row\">Haley</span><span class=\"hero-name-row\">Maes</span>";
+  }
   if (!reduce && heroNameText && heroRoleText && tagLead && tagTurn) {
-    typeLine(heroNameText, heroName, "Haley Maes", 100, function () {
+    if (heroEyebrow) heroEyebrow.classList.add("is-in");
+    typeLine(heroNameText, heroName, "Haley Maes", 95, function () {
+      splitHeroName(heroNameText);
       if (heroSide) heroSide.classList.add("is-in");
+      if (heroMetrics) heroMetrics.classList.add("is-in");
       window.setTimeout(function () {
         if (heroRole) heroRole.classList.add("is-active");
         typeLine(heroRoleText, heroRole, "Data Analyst", 85, function () {
-        window.setTimeout(function () {
-          tagLead.classList.add("is-in");
           window.setTimeout(function () {
-            tagTurn.classList.add("is-in");
+            tagLead.classList.add("is-in");
             window.setTimeout(function () {
-              var r;
-              for (r = 0; r < heroAfterTag.length; r++) heroAfterTag[r].classList.add("is-in");
-            }, 520);
-          }, 700);
-        }, 420);
+              tagTurn.classList.add("is-in");
+              window.setTimeout(function () {
+                var r;
+                for (r = 0; r < heroAfterTag.length; r++) heroAfterTag[r].classList.add("is-in");
+              }, 520);
+            }, 700);
+          }, 420);
         });
       }, 720);
     });
   }
+
+  /* Flowing node network + subtle parallax */
+  (function initHeroNetwork() {
+    var shell = document.getElementById("hero-shell");
+    var layer = document.getElementById("hero-network-layer");
+    if (!shell || !layer) return;
+    var NS = "http://www.w3.org/2000/svg";
+    var i;
+    for (i = 0; i < 20; i++) {
+      var path = document.createElementNS(NS, "path");
+      var y = 210 + i * 19;
+      path.setAttribute("d", "M -120 " + (y + 140) + " C 240 " + (y - 150) + " 520 " + (y + 200) + " 825 " + (y + 28) + " S 1240 " + (y - 120) + " 1560 " + (y + 80));
+      path.style.opacity = String(0.1 + (i % 6) * 0.08);
+      layer.appendChild(path);
+      var n;
+      for (n = 0; n < 3; n++) {
+        var x = 250 + n * 410 + (i % 4) * 28;
+        var t = x / 1560;
+        var cy = y + 140 - 140 * Math.sin(Math.PI * t * 1.85) + 24 * Math.sin(t * 8 + i * 0.2);
+        var circle = document.createElementNS(NS, "circle");
+        circle.setAttribute("cx", String(x));
+        circle.setAttribute("cy", String(cy));
+        circle.setAttribute("r", i % 5 === 0 ? "2.2" : "1.2");
+        circle.style.opacity = String(0.14 + (i % 4) * 0.1);
+        layer.appendChild(circle);
+      }
+    }
+    if (reduce || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    var targetX = 0;
+    var targetY = 0;
+    var currentX = 0;
+    var currentY = 0;
+    shell.addEventListener("mousemove", function (e) {
+      var rect = shell.getBoundingClientRect();
+      var px = (e.clientX - rect.left) / rect.width - 0.5;
+      var py = (e.clientY - rect.top) / rect.height - 0.5;
+      targetX = Math.round(px * 28);
+      targetY = Math.round(py * 18);
+    });
+    shell.addEventListener("mouseleave", function () {
+      targetX = 0;
+      targetY = 0;
+    });
+    function tickNetwork() {
+      currentX += (targetX - currentX) * 0.06;
+      currentY += (targetY - currentY) * 0.06;
+      shell.style.setProperty("--net-x", currentX.toFixed(2) + "px");
+      shell.style.setProperty("--net-y", currentY.toFixed(2) + "px");
+      requestAnimationFrame(tickNetwork);
+    }
+    requestAnimationFrame(tickNetwork);
+  })();
 
   var played = typeof WeakSet === "function" ? new WeakSet() : null;
 
