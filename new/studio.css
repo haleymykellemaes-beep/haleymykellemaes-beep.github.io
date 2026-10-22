@@ -307,7 +307,7 @@ body.nav-open::before {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.88fr);
   align-items: center;
-  gap: 0.5vw;
+  gap: 1.5vw;
   padding-top: clamp(4rem, 8vw, 5.5rem);
 }
 .cinematic-copy {
@@ -321,8 +321,8 @@ body.nav-open::before {
   background: transparent;
   position: relative;
   z-index: 3;
-  /* Pull name slightly over the portrait (~8% of photo width) */
-  margin-right: calc(-0.08 * min(36vw, 520px));
+  /* Give the portrait more breathing room beside the name. */
+  margin-right: 0;
 }
 .cinematic-copy .hero-eyebrow {
   font: 500 0.62rem/1.4 var(--sans);
@@ -342,7 +342,7 @@ body.nav-open::before {
 }
 .cinematic-copy .hero-title {
   font-family: var(--sans);
-  font-size: clamp(3.4rem, 9.8vw, 10.5rem);
+  font-size: clamp(3.4rem, 8.8vw, 9.5rem);
   line-height: 0.9;
   letter-spacing: -0.085em;
   font-weight: 500;
