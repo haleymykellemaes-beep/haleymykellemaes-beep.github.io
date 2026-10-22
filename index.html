@@ -1,400 +1,393 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="home">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
+  <script>
+    // Start at Home instead of restoring an old section or scroll position.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    history.replaceState(null, "", location.pathname + location.search + "#top");
+    function startAtHome() {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+    startAtHome();
+    window.addEventListener("load", startAtHome, { once: true });
+    window.addEventListener("pageshow", startAtHome);
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Haley Maes · Data Analyst</title>
   <meta name="description" content="Haley Maes, data analyst. SQL, Python, and Excel — reporting systems from operational data." />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Haley Maes · Data Analyst" />
-  <meta property="og:description" content="SQL, Python, and Excel — reporting systems from operational data. 90+ A/R 31.4% → 18.7%." />
-  <meta property="og:url" content="https://haleymykellemaes-beep.github.io/" />
-  <meta property="og:image" content="https://haleymykellemaes-beep.github.io/img/og.png?v=3" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="627" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="stylesheet" href="styles.css?v=45" />
-  <link rel="icon" href="favicon.svg?v=2" type="image/svg+xml" />
-
-<style>
-
-/* CINEMATIC FRAMER-INSPIRED HERO: isolated from the existing project styles */
-html[data-theme="home"] .cinematic-hero { position:relative; background:#1c1c1b; color:#ede9dc; padding:0; overflow:clip; }
-html[data-theme="home"] .hero-scrollstage {height:280svh; position:relative;}
-html[data-theme="home"] .hero-sticky {position:sticky; top:0; height:100svh; min-height:570px; overflow:hidden; isolation:isolate; background:radial-gradient(ellipse at 85% 50%,#272622 0%,#1c1c1b 66%);}
-html[data-theme="home"] .hero-network {position:absolute; inset:-8% -8% -8% -12%; width:120%; height:116%; z-index:0; pointer-events:none; opacity:.85; transform:translate3d(0,var(--wave-down,0px),0) translate3d(var(--wave-right,0px),0,0); will-change:transform,opacity;}
-html[data-theme="home"] .wave-layer path { fill:none; stroke:url(#waveGold); stroke-width:1.1; vector-effect:non-scaling-stroke; }
-html[data-theme="home"] .wave-layer circle {fill:#e9d6b3;opacity:.58}
-html[data-theme="home"] .hero-layout {height:calc(100% - 66px); position:relative; z-index:1; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.88fr); align-items:center; gap:4vw; padding-top:3vw;}
-html[data-theme="home"] .cinematic-copy {border:0; padding:2rem 0 1rem; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:0; background:transparent; z-index:3;}
-html[data-theme="home"] .cinematic-copy:after {display:none}
-html[data-theme="home"] .hero-eyebrow {font:500 .64rem/1.4 var(--sans,Arial,sans-serif); letter-spacing:.23em; color:#d4c2a2; display:flex;align-items:center;gap:12px;margin-bottom:2rem}
-html[data-theme="home"] .eyebrow-dot {width:7px;height:7px;border-radius:50%;background:#dec69b;box-shadow:0 0 0 5px #d8c6aa18}
-html[data-theme="home"] .eyebrow-no {color:#a89983}
-html[data-theme="home"] .cinematic-copy .hero-title {font-family:var(--sans,Arial,sans-serif);font-size:clamp(5rem,10vw,10.5rem);line-height:.78;letter-spacing:-.085em;font-weight:500;margin:0 0 .24em;color:#ede9dc;max-width:unset}
-html[data-theme="home"] .cinematic-copy .hero-title>span {display:block; padding-right:.13em;}
-html[data-theme="home"] .hero-title-dot {color:#cbb592}
-html[data-theme="home"] .cinematic-copy .hero-person {font-family:Georgia,serif;font-size:clamp(2.2rem,4.2vw,4.8rem);font-style:normal;margin:0;color:#ddcfb7;line-height:1.06;}
-html[data-theme="home"] .cinematic-copy .hero-person em {font-weight:400}
-html[data-theme="home"] .cinematic-copy .hero-tag {font-size:clamp(1.05rem,1.65vw,1.35rem);line-height:1.4;margin:1.7rem 0 0;color:#e2dcd0;}
-html[data-theme="home"] .cinematic-copy .hero-tag em {font-family:Georgia,serif;font-size:1.22em;color:#d4bfa0}
-html[data-theme="home"] .cinematic-copy .hero-tools {margin:1.7rem 0 0;letter-spacing:.1em;font-size:.64rem;color:#aaa395;line-height:1.8;}
-html[data-theme="home"] .cinematic-copy .hero-mail {margin-top:1rem;font-size:.9rem;}
-html[data-theme="home"] .cinematic-copy .hero-actions {display:flex;margin-top:1.4rem;gap:10px}
-html[data-theme="home"] .cinematic-art {position:relative;display:grid;place-items:center;min-width:0;padding:2rem;background:none;isolation:isolate;}
-html[data-theme="home"] .cinematic-art .hero-photo {position:relative;z-index:2;width:min(36vw,520px);height:auto;aspect-ratio:1;object-fit:cover;object-position:center 18%;border-radius:50%;border:1px solid #e4d6bd78;filter:saturate(.76) contrast(1.06);box-shadow:0 0 0 18px #d9c3a508,0 0 0 45px #d9c3a505;}
-html[data-theme="home"] .portrait-halo {position:absolute;width:min(46vw,650px);aspect-ratio:1;border:1px solid #cdbb9b24;border-radius:50%;pointer-events:none}
-html[data-theme="home"] .portrait-note {position:absolute;z-index:2;bottom:-1.4rem;width:85%;display:flex;justify-content:space-between;gap:16px;font:500 .55rem/1.5 monospace;letter-spacing:.16em;color:#c5b69d;}
-html[data-theme="home"] .hero-bottom {height:66px; position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #eee4d326;font:500 .61rem/1.3 monospace;letter-spacing:.15em;color:#bcb4a7;}
-html[data-theme="home"] .hero-bottom a {color:#e6d7ba;text-decoration:none}
-html[data-theme="home"] .hero-reveal {position:absolute;z-index:4;left:7.5%;top:52%;transform:translateY(calc(-40% + var(--reveal-rise,28px)));opacity:var(--reveal-opacity,0);pointer-events:none;max-width:900px;text-shadow:0 3px 24px #1c1c1b;}
-html[data-theme="home"] .hero-reveal .reveal-kicker {font:.68rem monospace;letter-spacing:.24em;color:#cdb893}
-html[data-theme="home"] .hero-reveal h2 {font:500 clamp(3.7rem,7.6vw,8.5rem)/.98 var(--sans,Arial,sans-serif);letter-spacing:-.065em;margin:18px 0;color:#ede9dc;}
-html[data-theme="home"] .hero-reveal h2 em {font-family:Georgia,serif;font-weight:400;color:#d7bea0;}
-html[data-theme="home"] .hero-reveal p {font-size:clamp(.95rem,1.4vw,1.15rem);line-height:1.6;color:#ded5c6;}
-html[data-theme="home"] .hero-reveal a {display:inline-block;margin-top:1.5rem;color:#e9dcc7;border-bottom:1px solid #d0b898;padding-bottom:7px;text-decoration:none;pointer-events:auto}
-html[data-theme="home"] .hero-progress {position:absolute;z-index:5;bottom:0;height:2px;width:100%;background:#e6cda00c;}
-html[data-theme="home"] .hero-progress span {display:block;width:100%;height:100%;background:#dec7a1;transform:scaleX(var(--hero-progress,0));transform-origin:left}
-html[data-theme="home"] .cinematic-copy,html[data-theme="home"] .cinematic-art {opacity:var(--original-opacity,1);transform:translateY(var(--original-rise,0px));will-change:opacity,transform;}
-html[data-theme="home"] #work {scroll-margin-top:25px;}
-@media(max-width:850px){
- html[data-theme="home"] .hero-scrollstage{height:235svh}
- html[data-theme="home"] .hero-sticky{min-height:0}
- html[data-theme="home"] .hero-layout {grid-template-columns:1fr;grid-template-rows:auto 1fr;align-content:center;gap:0;padding-top:4rem;height:calc(100% - 50px)}
- html[data-theme="home"] .cinematic-copy {padding:0;align-items:flex-start;border:0;z-index:3}
- html[data-theme="home"] .hero-eyebrow{margin:0 0 1.1rem;font-size:.52rem}
- html[data-theme="home"] .cinematic-copy .hero-title {font-size:clamp(4.4rem,15vw,7.5rem);line-height:.8;margin-bottom:.15em}
- html[data-theme="home"] .cinematic-copy .hero-person {font-size:clamp(2rem,6vw,3.2rem)}
- html[data-theme="home"] .cinematic-copy .hero-tag {font-size:.98rem;margin-top:.9rem}
- html[data-theme="home"] .cinematic-copy .hero-tools {margin-top:1rem;font-size:.55rem}
- html[data-theme="home"] .cinematic-copy .hero-mail{margin-top:.5rem;font-size:.8rem}
- html[data-theme="home"] .cinematic-copy .hero-actions{margin-top:.9rem}
- html[data-theme="home"] .cinematic-art {padding:.2rem;place-items:center}
- html[data-theme="home"] .cinematic-art .hero-photo{width:min(50vw,260px)}
- html[data-theme="home"] .portrait-halo{width:min(60vw,315px)}
- html[data-theme="home"] .portrait-note{display:none}
- html[data-theme="home"] .hero-bottom{height:50px;font-size:.48rem}
- html[data-theme="home"] .hero-reveal{left:7%;right:7%;top:45%;transform:translateY(calc(-30% + var(--reveal-rise,28px)))}
- html[data-theme="home"] .hero-reveal h2{font-size:clamp(3.5rem,11vw,6.5rem)}
-}
-@media(max-width:460px){
- html[data-theme="home"] .hero-layout {padding-top:2.5rem}
- html[data-theme="home"] .cinematic-copy .hero-title{font-size:clamp(4rem,17vw,5.5rem)}
- html[data-theme="home"] .cinematic-art .hero-photo{width:min(47vw,215px)}
- html[data-theme="home"] .hero-reveal h2{font-size:clamp(3.1rem,11vw,4.5rem)}
-}
-@media(prefers-reduced-motion:reduce){html[data-theme="home"] .hero-scrollstage{height:auto}html[data-theme="home"] .hero-sticky{position:relative;height:auto;min-height:680px}html[data-theme="home"] .hero-layout{min-height:650px}html[data-theme="home"] .hero-network{transform:none!important}html[data-theme="home"] .hero-reveal{position:relative;opacity:1;transform:none;left:auto;top:auto;padding:2rem 7%;pointer-events:auto}html[data-theme="home"] .cinematic-copy,html[data-theme="home"] .cinematic-art{opacity:1!important;transform:none!important}}
-
-</style>
+  <meta name="theme-color" content="#1c1c1b" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="/new/studio.css?v=28" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <script>
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("js");
+    }
+  </script>
 </head>
 <body>
-  <nav class="site-nav">
-    <div class="wrap">
-      <a class="brand" href="index.html"><img class="brand-photo" src="img/haley.png" alt="" />Haley Maes</a>
-      <div class="nav-links">
+  <a class="skip" href="#work">Skip to work</a>
+  <nav class="site-nav" aria-label="Primary">
+    <div class="nav-row">
+      <a class="brand" href="#top">Haley Maes</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links"><span class="menu-label">Menu</span></button>
+      <div class="nav-links" id="nav-links">
         <a href="#work">Work</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <a class="btn" href="Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a href="/Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">Resume</a>
       </div>
-      <div class="nav-social" aria-label="Contact">
-        <a class="nav-ico" href="mailto:haleymykellemaes@gmail.com" aria-label="Email" title="Email">
-          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4.2 7.2 12 13l7.8-5.8"/></svg>
-        </a>
-        <a class="nav-ico" href="tel:7204673584" aria-label="Phone 720-467-3584, text or call" title="720-467-3584 · text or call">
-          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M8 3.8h2.6l1 2.5-1.8 1.1a11 11 0 0 0 5.1 5.1l1.1-1.8 2.5 1V16a1.7 1.7 0 0 1-1.8 1.7C7.9 16.6 3.4 12.1 3.3 5.6A1.7 1.7 0 0 1 5 3.8H8z"/></svg>
-        </a>
-        <a class="nav-ico" href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.54 8.96H3.27V21h3.27V8.96zM4.9 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.73 13.16c0-3.32-1.77-4.86-4.13-4.86-1.9 0-2.75 1.05-3.22 1.78h-.05V8.96H10.1V21h3.24v-5.82c0-1.54.29-3.03 2.2-3.03 1.88 0 1.91 1.76 1.91 3.13V21h3.28v-7.84z"/></svg>
-        </a>
-        <a class="nav-ico" href="https://github.com/haleymykellemaes-beep" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49v-1.73c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.9-1.32 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
-        </a>
+      <div class="nav-end">
+        <div class="nav-social" aria-label="Contact">
+          <a class="nav-ico" href="mailto:haleymykellemaes@gmail.com" aria-label="Email" title="Email">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4.2 7.2 12 13l7.8-5.8"/></svg>
+          </a>
+          <a class="nav-ico" href="tel:7204673584" aria-label="Phone 720-467-3584" title="720-467-3584">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M8 3.8h2.6l1 2.5-1.8 1.1a11 11 0 0 0 5.1 5.1l1.1-1.8 2.5 1V16a1.7 1.7 0 0 1-1.8 1.7C7.9 16.6 3.4 12.1 3.3 5.6A1.7 1.7 0 0 1 5 3.8H8z"/></svg>
+          </a>
+          <a class="nav-ico" href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.54 8.96H3.27V21h3.27V8.96zM4.9 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.73 13.16c0-3.32-1.77-4.86-4.13-4.86-1.9 0-2.75 1.05-3.22 1.78h-.05V8.96H10.1V21h3.24v-5.82c0-1.54.29-3.03 2.2-3.03 1.88 0 1.91 1.76 1.91 3.13V21h3.28v-7.84z"/></svg>
+          </a>
+          <a class="nav-ico" href="https://github.com/haleymykellemaes-beep" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49v-1.73c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.9-1.32 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+          </a>
+        </div>
+        <a class="pill pill-nav" href="/Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">Resume <span aria-hidden="true">→</span></a>
       </div>
-
     </div>
   </nav>
 
-  <header class="home-hero cinematic-hero" id="top" aria-label="Haley Maes, Data Analyst">
+  <header class="cinematic-hero" id="top" aria-label="Haley Maes, Data Analyst">
     <div class="hero-scrollstage" id="hero-stage">
       <div class="hero-sticky">
         <svg class="hero-network" viewBox="0 0 1440 860" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <defs><linearGradient id="waveGold" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#c6b18e" stop-opacity=".05"/><stop offset=".52" stop-color="#d8c8ac" stop-opacity=".72"/><stop offset="1" stop-color="#ead8b5" stop-opacity=".2"/></linearGradient></defs>
           <g class="wave-layer" id="wave-layer"></g>
         </svg>
         <div class="hero-layout wrap">
           <div class="hero-copy cinematic-copy">
-            <span class="hero-eyebrow"><span class="eyebrow-dot"></span> ANALYTICS PORTFOLIO <span class="eyebrow-no">/ 2026</span></span>
-            <h1 class="hero-title"><span>Haley</span><span>Maes<span class="hero-title-dot">.</span></span></h1>
+            <span class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> Data Analyst</span>
+            <h1 class="hero-title">Haley Maes</h1>
             <p class="hero-person">Data <em>Analyst</em></p>
-            <p class="hero-tag">Numbers tell stories.<br><em>I translate them.</em></p>
-            <p class="hero-tools">Excel &nbsp; / &nbsp; SQL &nbsp; / &nbsp; Python &nbsp; / &nbsp; Financial Analytics</p>
-            <a class="hero-mail" href="mailto:haleymykellemaes@gmail.com">haleymykellemaes@gmail.com <span aria-hidden="true">↗</span></a>
-        <div class="hero-actions">
-          <a class="hero-icon" href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.54 8.96H3.27V21h3.27V8.96zM4.9 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.73 13.16c0-3.32-1.77-4.86-4.13-4.86-1.9 0-2.75 1.05-3.22 1.78h-.05V8.96H10.1V21h3.24v-5.82c0-1.54.29-3.03 2.2-3.03 1.88 0 1.91 1.76 1.91 3.13V21h3.28v-7.84z"/></svg>
-          </a>
-          <a class="hero-icon is-mail" href="mailto:haleymykellemaes@gmail.com" aria-label="Email" title="Email Haley">
-            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4.2 7.2 12 13l7.8-5.8"/></svg>
-          </a>
-          <a class="hero-icon" href="https://github.com/haleymykellemaes-beep" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49v-1.73c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.9-1.32 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
-          </a>
-        </div>
+            <p class="hero-tag">Numbers tell stories. <em>I translate them.</em></p>
+            <p class="hero-tools">Excel <span class="tool-sep" aria-hidden="true">•</span> SQL <span class="tool-sep" aria-hidden="true">•</span> Python <span class="tool-sep" aria-hidden="true">•</span> Tableau <span class="tool-sep" aria-hidden="true">•</span> Financial Analysis</p>
+            <a class="hero-mail" href="mailto:haleymykellemaes@gmail.com">haleymykellemaes@gmail.com</a>
+            <div class="hero-actions">
+              <a class="hero-icon" href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.54 8.96H3.27V21h3.27V8.96zM4.9 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.73 13.16c0-3.32-1.77-4.86-4.13-4.86-1.9 0-2.75 1.05-3.22 1.78h-.05V8.96H10.1V21h3.24v-5.82c0-1.54.29-3.03 2.2-3.03 1.88 0 1.91 1.76 1.91 3.13V21h3.28v-7.84z"/></svg>
+              </a>
+              <a class="hero-icon is-mail" href="mailto:haleymykellemaes@gmail.com" aria-label="Email" title="Email Haley">
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4.2 7.2 12 13l7.8-5.8"/></svg>
+              </a>
+              <a class="hero-icon" href="https://github.com/haleymykellemaes-beep" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49v-1.73c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.9-1.32 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+              </a>
+            </div>
           </div>
           <div class="hero-art cinematic-art">
-            <div class="portrait-halo"></div>
-            <img class="hero-photo" src="img/haley.png" alt="Portrait of Haley Maes" width="520" height="520" />
-            <div class="portrait-note"><span>01 / ANALYST</span><span>INSIGHT THROUGH EVIDENCE</span></div>
+            <div class="portrait-halo" aria-hidden="true"></div>
+            <img class="hero-photo" src="/img/haley.png" alt="Portrait of Haley Maes" width="520" height="520" />
           </div>
         </div>
+        <ul class="hero-metrics" aria-label="Selected portfolio figures">
+          <li class="metric-callout metric-a">
+            <span class="metric-leader" aria-hidden="true"></span>
+            <div class="metric-body">
+              <span class="metric-val">31.4% → 18.7%</span>
+              <span class="metric-label">90+ A/R Share</span>
+            </div>
+          </li>
+          <li class="metric-callout metric-b">
+            <span class="metric-leader" aria-hidden="true"></span>
+            <div class="metric-body">
+              <span class="metric-val">6,607</span>
+              <span class="metric-label">Student Records Analyzed</span>
+            </div>
+          </li>
+          <li class="metric-callout metric-c">
+            <span class="metric-leader" aria-hidden="true"></span>
+            <div class="metric-body">
+              <span class="metric-val">0.836</span>
+              <span class="metric-label">Happiness – GDP Correlation</span>
+            </div>
+          </li>
+        </ul>
+        <a class="hero-scroll-fab" href="#work" aria-label="Scroll to explore">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v12M7 14l5 5 5-5"/></svg>
+        </a>
         <div class="hero-bottom wrap"><span>INDEPENDENT ANALYTICAL PORTFOLIO</span><a href="#work">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a></div>
-        <div class="hero-reveal" aria-live="off"><span class="reveal-kicker">FROM COMPLEXITY TO CLARITY</span><h2>Finding the <em>signal</em><br>in the noise<span class="hero-title-dot">.</span></h2><p>Finding patterns. Asking better questions.<br>Turning data into decisions.</p><a href="#work">Explore selected work <span aria-hidden="true">↗</span></a></div>
+        <a class="pill pill-mobile-work" href="#work">View My Work <span aria-hidden="true">→</span></a>
+        <div class="hero-reveal" aria-live="off">
+          <h2>Finding the <em>signal</em> in the noise.</h2>
+          <p>I turn complex data into clear insights that drive better decisions.</p>
+          <a class="pill pill-hero" href="#work">View My Work <span aria-hidden="true">→</span></a>
+        </div>
         <div class="hero-progress" aria-hidden="true"><span></span></div>
       </div>
     </div>
   </header>
 
-
-
-  <section class="section" id="work">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <h2>Notable Projects</h2>
-          <p>Six projects. One question each: what decision does the data support?</p>
-          <a class="work-code" href="https://github.com/haleymykellemaes-beep/haleymykellemaes-beep.github.io" target="_blank" rel="noopener noreferrer">Code available on GitHub ↗</a>
+  <main>
+    <section class="section" id="work">
+      <div class="wrap">
+        <div class="section-head rise">
+          <p class="kicker">Selected work</p>
+          <h2>Six projects.</h2>
+          <p>The result is on the card.</p>
+          <a class="quiet" href="https://github.com/haleymykellemaes-beep/haleymykellemaes-beep.github.io" target="_blank" rel="noopener noreferrer">Code on GitHub</a>
         </div>
-      </div>
-
-      <div class="work-grid">
-        <a class="case-card rise" data-accent="ar" href="ar-tracker.html" aria-label="Accounts Receivable Aging Analysis. Collections $388k to $443k. Insurance vs patient aging, so 90+ balances get worked first.">
-          <div class="case-visual">
-            <span class="case-no">Excel · Financial Reporting</span>
-            <div class="thumb-viz cv-ar" aria-hidden="true">
-              <p class="thumb-kpi">18.7%</p>
-              <p class="thumb-sub">90+ share · from 31.4%</p>
-              <div class="thumb-age">
-                <span class="age-a"><i></i><em>’24</em></span>
-                <span class="age-b hot"><i></i><em>’25</em></span>
-                <span class="age-c"><i></i><em>90+</em></span>
-                <span class="age-d hot"><i></i><em>18.7</em></span>
+        <p class="swipe-hint"><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true" focusable="false"><path d="M0.6 6H20.2M14.6 1.4 20.4 6 14.6 10.6" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+        <ul class="bento" id="project-row">
+          <li class="span-ar">
+            <a class="card card-ar" href="/new/ar-tracker.html">
+              <div class="card-top"><span class="kicker">Excel · Financial Reporting</span><span class="index">01</span></div>
+              <p class="finding" data-count="18.7" data-decimals="1" data-suffix="%">18.7%</p>
+              <p class="finding-note">90+ share, from 31.4%</p>
+              <h3>Accounts Receivable Aging Analysis</h3>
+              <p class="desc">A/R aging, collection priorities, and overdue balances</p>
+              <div class="viz">
+                <div class="states" role="img" aria-label="Two extracts of 90+ share: 31.4 percent, then 18.7 percent. Not a trend.">
+                  <div class="state"><div class="state-col"><span class="state-bar" style="--h:100%"></span></div><b>31.4%</b><small>Earlier</small></div>
+                  <div class="state"><div class="state-col"><span class="state-bar" style="--h:59.6%"></span></div><b>18.7%</b><small>Later</small></div>
+                </div>
+                <p class="viz-note">Two extracts. Not a trend line.</p>
               </div>
-            </div>
-          </div>
-          <div class="case-body">
-            <h3>Accounts Receivable Aging Analysis</h3>
-            <p class="card-q">A/R aging, collection priorities, and overdue balances</p>
-            <span class="project-link">View case study →</span>
-          </div>
-        </a>
-
-        <a class="case-card rise" data-accent="school" href="student-performance-sql.html" aria-label="Student Performance Risk Analysis. Attendance moves exam scores more than prior scores.">
-          <div class="case-visual">
-            <span class="case-no">SQL · Risk Segmentation</span>
-            <div class="thumb-viz cv-sql" aria-hidden="true">
-              <p class="thumb-kpi">+6.02</p>
-              <p class="thumb-sub">pts · attendance Q4 vs Q1</p>
-              <ul class="thumb-pipe">
-                <li><i></i>6,607 students</li>
-                <li><i></i>687 slipped from prior 80+</li>
-                <li><i></i>queue → advise</li>
+              <span class="go">View case study <i aria-hidden="true">→</i></span>
+            </a>
+          </li>
+          <li class="span-sql">
+            <a class="card" href="/new/student-performance-sql.html">
+              <div class="card-top"><span class="kicker">SQL · Risk Segmentation</span><span class="index">02</span></div>
+              <p class="finding" data-count="6.02" data-decimals="2" data-prefix="+">+6.02</p>
+              <p class="finding-note">pts · attendance Q4 vs Q1</p>
+              <h3>Student Performance Risk Analysis</h3>
+              <p class="desc">Attendance trends and at-risk student identification</p>
+              <p class="viz-note">6,607 records</p>
+              <span class="go">View case study <i aria-hidden="true">→</i></span>
+            </a>
+          </li>
+          <li class="span-film">
+            <a class="card" href="/new/tmdb-revenue.html">
+              <div class="card-top"><span class="kicker">Python · Pandas · Revenue Analysis</span><span class="index">03</span></div>
+              <p class="finding" data-count="47" data-decimals="0" data-prefix="$" data-suffix="M">$47M</p>
+              <p class="finding-note">Comedy median, adjusted</p>
+              <h3>Film Revenue and Genre Analysis</h3>
+              <p class="desc">Genre-level revenue comparisons and distribution</p>
+              <div class="hbars viz" aria-hidden="true">
+                <div class="hbar"><span>Animation</span><b>$149M</b><i style="--w:100%"></i></div>
+                <div class="hbar"><span>Adventure</span><b>$115M</b><i style="--w:77%"></i></div>
+                <div class="hbar is-focus"><span>Comedy</span><b>$47M</b><i style="--w:31.5%"></i></div>
+              </div>
+              <p class="viz-note">Median adjusted revenue. A comparison, not a timeline.</p>
+              <span class="go">View case study <i aria-hidden="true">→</i></span>
+            </a>
+          </li>
+          <li class="span-nike">
+            <a class="card" href="/new/nike.html">
+              <div class="card-top"><span class="kicker">Tableau · Financial Performance</span><span class="index">04</span></div>
+              <p class="finding" data-count="10" data-decimals="0" data-prefix="−" data-suffix="%">−10%</p>
+              <p class="finding-note">Revenue. Inventory flat.</p>
+              <h3>Nike Revenue and Channel Performance</h3>
+              <p class="desc">Revenue trends, sales channels, and inventory</p>
+              <ul class="facts viz">
+                <li><b>−13%</b><span>Direct</span></li>
+                <li><b>−16%</b><span>Jordan</span></li>
               </ul>
-            </div>
-          </div>
-          <div class="case-body">
-            <h3>Student Performance Risk Analysis</h3>
-            <p class="card-q">Attendance trends and at-risk student identification</p>
-            <span class="project-link">View case study →</span>
-          </div>
-        </a>
-
-        <a class="case-card rise" data-accent="tmdb" href="tmdb-revenue.html" aria-label="Film Revenue and Genre Analysis. Comedy median 47 million adjusted.">
-          <div class="case-visual">
-            <span class="case-no">Python · Pandas · Revenue Analysis</span>
-            <div class="thumb-viz cv-tmdb" aria-hidden="true">
-              <p class="thumb-kpi">$47M</p>
-              <p class="thumb-sub">comedy median · adj</p>
-              <div class="thumb-bars">
-                <div class="cv-row"><em></em><span>Anim $149M</span></div>
-                <div class="cv-row short"><em></em><span>Adv $115M</span></div>
-                <div class="cv-row mid"><em></em><span>Comedy $47M</span></div>
+              <p class="viz-note">Published FY2025 figures. Not a monthly series.</p>
+              <span class="go">View case study <i aria-hidden="true">→</i></span>
+            </a>
+          </li>
+          <li class="span-gdp">
+            <a class="card" href="/new/happiness-gdp.html">
+              <div class="card-top"><span class="kicker">Python · Statistics · Correlation Analysis</span><span class="index">05</span></div>
+              <p class="finding" data-count="0.836" data-decimals="3" data-trim="1">.836</p>
+              <p class="finding-note">r · one coefficient</p>
+              <h3>GDP and Life Satisfaction Analysis</h3>
+              <p class="desc">Cross-country correlation</p>
+              <div class="arc-row viz">
+                <svg class="arc-svg" viewBox="0 0 80 80" aria-hidden="true">
+                  <circle class="arc-track" cx="40" cy="40" r="30" />
+                  <circle class="arc-value" cx="40" cy="40" r="30" style="--c:188.496; --rest:30.913" />
+                </svg>
+                <p class="viz-note">Drawn as one share of 1. Not country dots.</p>
               </div>
-            </div>
-          </div>
-          <div class="case-body">
-            <h3>Film Revenue &amp; Genre Analysis</h3>
-            <p class="card-q">Genre-level revenue comparisons and distribution</p>
-            <span class="project-link">View case study →</span>
-          </div>
-        </a>
-
-        <a class="case-card rise" data-accent="nike" href="nike.html" aria-label="Nike Revenue and Channel Performance. Revenue down 10 percent, inventory flat.">
-          <div class="case-visual">
-            <span class="case-no">Tableau · Financial Performance</span>
-            <div class="thumb-viz cv-nike" aria-hidden="true">
-              <p class="thumb-kpi">−10%</p>
-              <p class="thumb-sub">revenue · inventory flat</p>
-              <div class="thumb-bars">
-                <div class="cv-row"><em></em><span>Direct −13%</span></div>
-                <div class="cv-row mid"><em></em><span>Wholesale −7%</span></div>
+              <span class="go">View case study <i aria-hidden="true">→</i></span>
+            </a>
+          </li>
+          <li class="span-odds">
+            <a class="card" href="/new/sports-projections.html">
+              <div class="card-top"><span class="kicker">Probability · Statistical Modeling</span><span class="index">06</span></div>
+              <p class="finding" data-count="14.6" data-decimals="1" data-suffix="%">14.6%</p>
+              <p class="finding-note">Eagles hold rate</p>
+              <h3>Fourth-Quarter Outcome Probability</h3>
+              <p class="desc">Late-game probability and tail-risk assessment</p>
+              <div class="viz">
+                <div class="hold-track" role="img" aria-label="Eagles hold rate, 14.6 percent, marked once on an empty scale.">
+                  <span class="hold-mark"><b>14.6%</b></span>
+                </div>
+                <p class="viz-note">One published rate. Not a betting record.</p>
               </div>
-            </div>
-          </div>
-          <div class="case-body">
-            <h3>Nike Revenue &amp; Channel Performance</h3>
-            <p class="card-q">Revenue trends, sales channels, and inventory</p>
-            <span class="project-link">View case study →</span>
-          </div>
-        </a>
-
-        <a class="case-card rise" data-accent="happy" href="happiness-gdp.html" aria-label="GDP and Life Satisfaction Analysis. Correlation 0.836.">
-          <div class="case-visual">
-            <span class="case-no">Python · Statistics · Correlation Analysis</span>
-            <div class="thumb-viz cv-happy" aria-hidden="true">
-              <p class="thumb-kpi">.836</p>
-              <p class="thumb-sub">r · 1,927 country–years</p>
-              <div class="cv-dots">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-                <i></i><i></i><i></i><i></i><i></i>
-              </div>
-            </div>
-          </div>
-          <div class="case-body">
-            <h3>GDP &amp; Life Satisfaction Analysis</h3>
-            <p class="card-q">Cross-country economic correlation analysis</p>
-            <span class="project-link">View case study →</span>
-          </div>
-        </a>
-
-        <a class="case-card rise" data-accent="odds" href="sports-projections.html" aria-label="Fourth-Quarter Outcome Probability. Eagles Super Bowl LIX 14.6 percent hold, Broncos 0.2 percent 4th-quarter comeback vs Giants, and Knicks 20-point playoff comeback streak.">
-          <div class="case-visual">
-            <span class="case-no">Probability · Statistical Modeling</span>
-            <div class="thumb-viz cv-odds" aria-hidden="true">
-              <p class="thumb-kpi">14.6%</p>
-              <p class="thumb-sub">hold · + 0.1%–0.2% Q4 tails</p>
-              <div class="thumb-spread">
-                <span class="spread-line"></span>
-                <i class="tick phi"><em>PHI −3.5</em></i>
-                <i class="tick close"><em>0.2% Tail</em></i>
-              </div>
-            </div>
-          </div>
-          <div class="case-body">
-            <h3>Fourth-Quarter Outcome Probability</h3>
-            <p class="card-q">Late-game probability and tail-risk assessment</p>
-            <span class="project-link">View case study →</span>
-          </div>
-        </a>
-      </div>
-      <div class="more-work">
-        <h3>More technical work</h3>
-        <div class="tech-links">
-          <a class="tech-pill" href="student-performance-sql.html"><strong>Student scores</strong><span>6,607 students · 20 features</span></a>
-          <a class="tech-pill" href="normalization-3nf.html"><strong>Database normalization</strong><span>Messy employee table → normalized structure</span></a>
-          <a class="tech-pill" href="https://github.com/haleymykellemaes-beep/haleymykellemaes-beep.github.io" target="_blank" rel="noopener noreferrer"><strong>GitHub Repository ↗</strong><span>SQL · Python · Excel source files</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section about-block" id="about">
-    <div class="wrap about-panel">
-      <p class="launch-line">Profile</p>
-      <h2 class="display">About Me</h2>
-      <div class="about-copy">
-        <p class="about-lead">Data analyst with an investigator’s eye. I turn messy operational and financial data into clear decisions through Excel, SQL, Python, and visualization.</p>
-        <p>I’m especially strong in financial modeling, reporting, reconciliation, and identifying the <em>why</em> behind a number—not just the number itself. I value accuracy, practical tools, and analysis people can actually use.</p>
-        <ul class="edu-list">
-          <li><strong>B.S., Data Analytics</strong> Western Governors University</li>
-          <li><strong>Computational Mathematical Sciences</strong> Arizona State University</li>
+              <span class="go">View case study <i aria-hidden="true">→</i></span>
+            </a>
+          </li>
         </ul>
+        <div class="snap-ui" id="snap-dots" aria-label="Project position"></div>
+        <p class="more-line">Also on the site: <a href="/new/normalization-3nf.html">Database normalization</a></p>
       </div>
-      <div class="skills">
-        <h3>Technical Skills</h3>
-        <div class="skill-group">
-          <h4>Analysis</h4>
-          <p>Excel · XLOOKUP · PivotTables · SQL · Python · Google Sheets</p>
-        </div>
-        <div class="skill-group">
-          <h4>Visualization</h4>
-          <p>Tableau · Power BI</p>
-        </div>
-        <div class="skill-group">
-          <h4>Business + Workflow</h4>
-          <p>Financial Reporting · Reconciliation · Cost &amp; Variance Analysis · Process Automation · Google Workspace</p>
-        </div>
-        <p class="skill-aside">AI-assisted workflow: Cursor · Claude</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="contact-band" id="contact">
+    <section class="section impact" id="impact">
+      <div class="wrap">
+        <div class="section-head rise">
+          <p class="kicker">Impact</p>
+          <h2>Three published figures.</h2>
+          <p>90+ share, a record count, and one correlation.</p>
+        </div>
+        <div class="impact-board">
+          <div class="tabs" role="tablist" aria-label="Published figures">
+            <button type="button" role="tab" id="tab-ar" aria-controls="panel-ar" aria-selected="true" data-panel="ar">90+ share</button>
+            <button type="button" role="tab" id="tab-students" aria-controls="panel-students" aria-selected="false" tabindex="-1" data-panel="students">6,607 records</button>
+            <button type="button" role="tab" id="tab-r" aria-controls="panel-r" aria-selected="false" tabindex="-1" data-panel="r">r = 0.836</button>
+          </div>
+          <div class="panel" role="tabpanel" id="panel-ar" data-panel="ar" aria-labelledby="tab-ar">
+            <div class="pair">
+              <p><b data-count="31.4" data-decimals="1" data-suffix="%">31.4%</b><span>Earlier extract</span></p>
+              <p><b data-count="18.7" data-decimals="1" data-suffix="%">18.7%</b><span>Later extract</span></p>
+            </div>
+            <dl class="sr-only">
+              <dt>Earlier extract, 90+ share of open A/R</dt><dd>31.4%</dd>
+              <dt>Later extract, 90+ share of open A/R</dt><dd>18.7%</dd>
+            </dl>
+            <div class="chart-wrap">
+              <div class="chart-fallback" id="ar-fallback">
+                <div class="states mini-states" aria-hidden="true">
+                  <div class="state"><div class="state-col"><span class="state-bar" style="--h:100%"></span></div><b>31.4%</b><small>Earlier</small></div>
+                  <div class="state"><div class="state-col"><span class="state-bar" style="--h:59.6%"></span></div><b>18.7%</b><small>Later</small></div>
+                </div>
+              </div>
+              <div id="ar-chart" hidden></div>
+              <div class="tip" id="ar-tip" hidden></div>
+            </div>
+            <p class="viz-note">Share of open A/R in 90+. Two dated extracts, drawn as two states. Vertical scale 0–40%. Not a trend line.</p>
+          </div>
+          <div class="panel" role="tabpanel" id="panel-students" data-panel="students" aria-labelledby="tab-students" hidden>
+            <p class="giant" data-count="6607" data-commas="1">6,607</p>
+            <p class="viz-note">Student records in the performance study. One count.</p>
+          </div>
+          <div class="panel" role="tabpanel" id="panel-r" data-panel="r" aria-labelledby="tab-r" hidden>
+            <div class="coef-layout">
+              <svg class="arc-svg" viewBox="0 0 120 120" aria-hidden="true">
+                <circle class="arc-track" cx="60" cy="60" r="46" />
+                <circle class="arc-value" cx="60" cy="60" r="46" style="--c:289.027; --rest:47.400" />
+              </svg>
+              <div>
+                <p class="giant" data-count="0.836" data-decimals="3">0.836</p>
+                <p class="viz-note">Correlation of life evaluation with log GDP per capita. One coefficient, drawn as a share of 1. Not country dots.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="toolkit">
+      <div class="wrap">
+        <div class="section-head rise">
+          <p class="kicker">Toolkit</p>
+          <h2>Tools I actually use.</h2>
+        </div>
+        <div class="tool-grid">
+          <article class="rise">
+            <h3>Analysis</h3>
+            <p>Excel · XLOOKUP · PivotTables · SQL · Python · Google Sheets</p>
+          </article>
+          <article class="rise">
+            <h3>Visualization</h3>
+            <p>Tableau · Power BI</p>
+          </article>
+          <article class="rise">
+            <h3>Business + workflow</h3>
+            <p>Financial Reporting · Reconciliation · Cost &amp; Variance Analysis · Process Automation · Google Workspace</p>
+          </article>
+        </div>
+        <p class="aside">AI-assisted workflow: Cursor · Claude</p>
+      </div>
+    </section>
+
+    <section class="section" id="approach">
+      <div class="wrap">
+        <div class="section-head rise">
+          <p class="kicker">Approach</p>
+          <h2>The why behind a number.</h2>
+        </div>
+        <div class="approach-grid">
+          <article class="rise">
+            <p class="num">01</p>
+            <h3>The question</h3>
+            <p>What decision does the data support?</p>
+          </article>
+          <article class="rise">
+            <p class="num">02</p>
+            <h3>The work</h3>
+            <p>Financial modeling, reporting, reconciliation, and the <em>why</em> behind a number—not just the number itself.</p>
+          </article>
+          <article class="rise">
+            <p class="num">03</p>
+            <h3>The standard</h3>
+            <p>Accuracy, practical tools, and analysis people can actually use.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap about-panel">
+        <div class="about-intro rise">
+          <p class="kicker">Profile</p>
+          <h2>About me</h2>
+        </div>
+        <div class="about-copy rise">
+          <p class="about-lead">Data analyst with an investigator’s eye. I turn messy operational and financial data into clear decisions through Excel, SQL, Python, and visualization.</p>
+          <p>I’m especially strong in financial modeling, reporting, reconciliation, and identifying the <em>why</em> behind a number—not just the number itself. I value accuracy, practical tools, and analysis people can actually use.</p>
+          <ul class="edu-list">
+            <li><strong>B.S., Data Analytics</strong> Western Governors University</li>
+            <li><strong>Computational Mathematical Sciences</strong> Arizona State University</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="wrap">
+        <div class="rise">
+          <p class="kicker">Contact</p>
+          <h2>Let’s work together.</h2>
+          <p class="lede">Open to data analyst, financial analyst, and analytics-focused operations roles.</p>
+          <ul class="contact-links">
+            <li><a href="mailto:haleymykellemaes@gmail.com">haleymykellemaes@gmail.com</a></li>
+            <li><a href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><a href="https://github.com/haleymykellemaes-beep" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="/Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">Resume</a></li>
+          </ul>
+          <a class="phone" href="tel:7204673584">Prefer text or phone? 720-467-3584</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
     <div class="wrap">
-      <h2 class="display">Let's work together.</h2>
-      <p class="section-intro">Open to data analyst, financial analyst, and analytics-focused operations roles.</p>
-      <div class="contact-links">
-        <a href="mailto:haleymykellemaes@gmail.com">Email me →</a>
-        <a href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-        <a href="Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">View resume ↗</a>
-        <a href="https://github.com/haleymykellemaes-beep" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-      </div>
-      <a class="contact-phone" href="tel:7204673584">Prefer text or phone? 720-467-3584</a>
-    </div>
-  </section>
-
-  <footer>
-    <div class="wrap site-footer">
       <span>Haley Maes · Data Analyst</span>
-      <span class="version-links">Versions: <a href="index.html">Saved</a> · <a href="blue-pink.html">Blue &amp; pink</a> · <a href="workshop.html">Workshop</a></span>
       <span>Arvada, CO</span>
+      <a href="#top">Home</a>
     </div>
   </footer>
 
-  <script>
-  (() => {
-    const stage=document.getElementById('hero-stage');
-    const sticky=stage?.querySelector('.hero-sticky');
-    const network=document.getElementById('wave-layer');
-    if(!stage||!sticky||!network)return;
-    const NS='http://www.w3.org/2000/svg';
-    // Analytically inspired abstract contours: not observations from a dataset.
-    for(let i=0;i<22;i++){
-      const path=document.createElementNS(NS,'path');
-      const y=220+i*18;
-      path.setAttribute('d',`M -120 ${y+150} C 260 ${y-160} 520 ${y+220} 825 ${y+32} S 1250 ${y-125} 1580 ${y+90}`);
-      path.style.opacity=String(.12+(i%6)*.085);
-      network.appendChild(path);
-      for(let n=0;n<3;n++){
-        const x=260+n*420+(i%4)*32;
-        const t=x/1550, cy=y+150 - 150*Math.sin(Math.PI*t*1.85) + 26*Math.sin(t*8+i*.2);
-        const circle=document.createElementNS(NS,'circle');circle.setAttribute('cx',String(x));circle.setAttribute('cy',String(cy));circle.setAttribute('r',i%5===0?'2.3':'1.25');circle.style.opacity=String(.12+(i%4)*.11);network.appendChild(circle);
-      }
-    }
-    const reduce=matchMedia('(prefers-reduced-motion: reduce)');
-    const clamp=(n,a=0,b=1)=>Math.min(b,Math.max(a,n));
-    const smooth=t=>t*t*(3-2*t);
-    let scheduled=false;
-    function update(){scheduled=false;if(reduce.matches)return;
-      const rect=stage.getBoundingClientRect();
-      const travel=Math.max(1,stage.offsetHeight-innerHeight);
-      const p=clamp(-rect.top/travel);
-      const reveal=smooth(clamp((p-.32)/.17));
-      const exit=smooth(clamp((p-.69)/.29));
-      sticky.style.setProperty('--hero-progress',p);
-      sticky.style.setProperty('--wave-down',Math.round(p*290)+'px');
-      sticky.style.setProperty('--wave-right',Math.round(exit*innerWidth*1.65)+'px');
-      sticky.style.setProperty('--original-opacity',String(1-smooth(clamp((p-.27)/.21))));
-      sticky.style.setProperty('--original-rise',Math.round(-20*smooth(clamp((p-.3)/.2)))+'px');
-      sticky.style.setProperty('--reveal-opacity',String(reveal*(1-exit*.52)));
-      sticky.style.setProperty('--reveal-rise',Math.round((1-reveal)*28-exit*12)+'px');
-      sticky.querySelector('.hero-reveal').style.pointerEvents=reveal>.9?'auto':'none';
-      sticky.querySelector('.hero-network').style.opacity=String(.82*(1-exit));
-    }
-    function request(){if(!scheduled){scheduled=true;requestAnimationFrame(update)}}
-    addEventListener('scroll',request,{passive:true});addEventListener('resize',request);update();
-  })();
-  </script>
-  <script src="nav.js?v=1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script src="/new/studio.js?v=28"></script>
 </body>
 </html>
