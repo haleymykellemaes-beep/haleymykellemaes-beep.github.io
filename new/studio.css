@@ -177,6 +177,10 @@ em { font-style: italic; }
   text-align: left;
 }
 .hero-copy > * + * { margin-top: 14px; }
+.hero-copy > .hero-name + .hero-role { margin-top: 0.28em; }
+.hero-copy > .hero-role + .hero-tag { margin-top: 14px; }
+.hero h1.hero-name,
+.hero .hero-role { margin: 0; }
 .hero .hero-copy p { margin: 0; }
 @media (prefers-reduced-motion: no-preference) {
   .js .hero-name-text,
@@ -218,7 +222,11 @@ em { font-style: italic; }
   max-width: 100%;
 }
 .hero-name,
-.hero-role { display: inline-grid; }
+.hero-role {
+  display: grid;
+  width: fit-content;
+  max-width: 100%;
+}
 .hero-name-sizer,
 .hero-name-line,
 .hero-role-sizer,
