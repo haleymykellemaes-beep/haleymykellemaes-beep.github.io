@@ -35,7 +35,7 @@
     var DEPTH_DOWN = [0.48, 0.72, 1.0, 1.28, 1.55];
     var DEPTH_RIGHT = [0.62, 0.82, 1.0, 1.22, 1.48];
     var mobile = window.innerWidth <= 850;
-    var pathCount = mobile ? 220 : 400;
+    var pathCount = mobile ? 360 : 680;
     var nodeCount = mobile ? 230 : 520;
 
     function rnd(seed) {
@@ -74,17 +74,17 @@
       var r4 = rnd(i + 181);
       var t = i / Math.max(1, pathCount - 1);
       /* Keep luminous lead threads, with airy layers that fan out toward the end. */
-      var atmosphere = i % 3 !== 0;
+      var atmosphere = i % 2 !== 0;
       var lane = t * 2 - 1;
-      var spread = atmosphere ? lane * 430 : (r0 - 0.5) * (100 + r4 * 100);
-      var endSpread = atmosphere ? lane * 760 : spread * 1.45;
-      var wobble = (r3 - 0.5) * (atmosphere ? 105 : 62);
+      var spread = atmosphere ? lane * 470 : (r0 - 0.5) * (220 + r4 * 160);
+      var endSpread = atmosphere ? lane * 780 : spread * 1.35;
+      var wobble = (r3 - 0.5) * (atmosphere ? 110 : 80);
       var wide = [
         70 - r1 * 140, 790 + spread,
-        290, 780 + spread * 0.9, 320, 280 + spread + wobble,
-        570, 370 + spread * (atmosphere ? 0.85 : 0.45),
-        850, 760 + spread * 1.1, 1040, 480 + endSpread * 0.7,
-        1250, 170 + endSpread + wobble, 1510, 250 + endSpread
+        290, 780 + spread * 0.8, 320, 210 + spread + wobble,
+        650, 310 + spread * (atmosphere ? 0.85 : 0.65),
+        920, 760 + spread * 1.05, 1110, 480 + endSpread * 0.7,
+        1280, 170 + endSpread + wobble, 1510, 250 + endSpread
       ];
       var tightSpread = (r0 - 0.5) * (100 + r4 * 100);
       var tightWobble = (r3 - 0.5) * 62;
@@ -98,17 +98,17 @@
       var pathD = ribbonD(wide);
       var path = document.createElementNS(NS, "path");
       path.setAttribute("d", pathD);
-      var highlight = i % 6 === 0;
-      var medium = !highlight && i % 3 === 0;
+      var highlight = !atmosphere && i % 6 === 0;
+      var medium = !atmosphere && !highlight;
       path.setAttribute("class", STRANDS[i % 3] + (highlight ? " strand-highlight" : medium ? " strand-mid" : " strand-atmosphere"));
       var sw = highlight ? 0.55 + r1 * 0.15 : medium ? 0.4 + r1 * 0.15 : 0.3 + r1 * 0.15;
       path.setAttribute("stroke-width", sw.toFixed(2));
       path.setAttribute("vector-effect", "non-scaling-stroke");
-      var opacity = highlight ? 0.82 + r3 * 0.18 : medium ? 0.48 + r0 * 0.22 : 0.16 + r0 * 0.22;
+      var opacity = highlight ? 0.64 + r3 * 0.16 : medium ? 0.38 + r0 * 0.22 : 0.13 + r0 * 0.16;
       path.style.opacity = opacity.toFixed(3);
       ribbonPaths.push({ element: path, wide: wide, tight: tight, opacity: opacity, revealVisible: i < (mobile ? 140 : 240) });
-      var dash = highlight ? 260 + r0 * 360 : 55 + r0 * 180;
-      var gap = highlight ? 12 + r1 * 34 : 28 + r1 * 130;
+      var dash = highlight ? 360 + r0 * 480 : medium ? 240 + r0 * 420 : 150 + r0 * 300;
+      var gap = highlight ? 12 + r1 * 28 : medium ? 18 + r1 * 42 : 40 + r1 * 110;
       path.setAttribute("stroke-dasharray", dash.toFixed(1) + " " + gap.toFixed(1));
       path.setAttribute("stroke-dashoffset", String(Math.round(r2 * 280 + r4 * 90)));
       /* Desync continuous drift so threads don't pulse as one fabric */
@@ -200,7 +200,7 @@
       var geometry;
       try {
         sticky.style.setProperty("--scene-reveal", "0");
-        sticky.style.setProperty("--wave-bend", "0.5");
+        sticky.style.setProperty("--wave-bend", "0.82");
         sticky.style.setProperty("--original-rise", "0px");
         if (networkElement) {
           networkElement.style.setProperty("--parallax-x", "0px");
@@ -249,7 +249,7 @@
         portraitField.appendChild(group);
         groups.push(group);
       }
-      var orbitCount = window.innerWidth <= 850 ? 42 : 78;
+      var orbitCount = window.innerWidth <= 850 ? 58 : 110;
       var amount = typeof lastSceneBlend === "number" && lastSceneBlend >= 0 ? lastSceneBlend : 0;
       for (var n = 0; n < orbitCount; n++) {
         var a0 = rnd(n + 801), a1 = rnd(n + 937), a2 = rnd(n + 1109);
@@ -274,7 +274,7 @@
         path.setAttribute("vector-effect", "non-scaling-stroke");
         path.setAttribute("stroke-width", (0.3 + a2 * 0.4).toFixed(2));
         path.setAttribute("stroke-dasharray", (95 + a1 * 230).toFixed(1) + " " + (20 + a0 * 70).toFixed(1));
-        path.style.opacity = String(n % 9 === 0 ? 0.66 : 0.18 + a0 * 0.3);
+        path.style.opacity = String(n % 9 === 0 ? 0.72 : 0.28 + a0 * 0.28);
         path.style.animationDuration = (28 + a1 * 34).toFixed(1) + "s";
         path.style.animationDelay = (-a2 * 48).toFixed(1) + "s";
         var filament = { element: path, points: points, wave: wave, join: 0.36 + a1 * 0.32 };
@@ -373,7 +373,7 @@
       var baseRight = exit * window.innerWidth * 1.65;
       sticky.style.setProperty("--hero-progress", String(p));
       /* Open with a shallow ribbon, then deepen its curve with the reveal. */
-      sticky.style.setProperty("--wave-bend", String(0.5 + reveal * 0.5));
+      sticky.style.setProperty("--wave-bend", String(0.82 + reveal * 0.18));
       /* Mid-depth values keep metrics aligned with the field */
       sticky.style.setProperty("--wave-down", Math.round(baseDown) + "px");
       sticky.style.setProperty("--wave-right", Math.round(baseRight) + "px");
