@@ -170,7 +170,7 @@
       .attr("transform", "translate(" + margin.left + ",0)")
       .call(d3.axisLeft(y).tickValues([0, 20, 40]).tickFormat(function (d) { return d + "%"; }).tickSize(0))
       .call(function (g) { g.select(".domain").remove(); })
-      .selectAll("text").attr("font-size", 12);
+      .selectAll("text").attr("font-size", 12).attr("fill", "#F4F1EA");
 
     var grow = animate && !reduce;
     var bars = svg.selectAll("rect").data(data).join("rect")
@@ -178,15 +178,15 @@
       .attr("width", band)
       .attr("y", grow ? y(0) : function (d) { return y(d.value); })
       .attr("height", grow ? 0 : function (d) { return y(0) - y(d.value); })
-      .attr("fill", "#1C1C1B")
+      .attr("fill", "#F4F1EA")
       .attr("tabindex", "0")
       .style("cursor", "default");
 
     svg.append("g")
       .attr("transform", "translate(0," + (height - margin.bottom) + ")")
       .call(d3.axisBottom(x).tickSize(0))
-      .call(function (g) { g.select(".domain").attr("stroke", "#1C1C1B").attr("stroke-opacity", 0.35); })
-      .selectAll("text").attr("font-size", 13).attr("dy", "1.2em");
+      .call(function (g) { g.select(".domain").attr("stroke", "#F4F1EA").attr("stroke-opacity", 0.35); })
+      .selectAll("text").attr("font-size", 13).attr("fill", "#F4F1EA").attr("dy", "1.2em");
 
     function show(event, d) {
       if (!arTip) return;
