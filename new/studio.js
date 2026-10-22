@@ -74,15 +74,15 @@
         " 1510 " + (250 + spread * 0.7).toFixed(1);
       var path = document.createElementNS(NS, "path");
       path.setAttribute("d", pathD);
-      path.setAttribute("class", STRANDS[i % 3]);
-      var sw = 0.3 + r1 * 0.35;
-      if (i % 19 === 0) sw = 0.62 + r2 * 0.08;
+      var highlight = i % 6 === 0;
+      var medium = !highlight && i % 3 === 0;
+      path.setAttribute("class", STRANDS[i % 3] + (highlight ? " strand-highlight" : medium ? " strand-mid" : ""));
+      var sw = highlight ? 0.75 + r1 * 0.25 : medium ? 0.5 + r1 * 0.2 : 0.3 + r1 * 0.3;
       path.setAttribute("stroke-width", sw.toFixed(2));
-      var opacity = 0.15 + r0 * 0.22 + r4 * 0.1;
-      if (i % 14 === 0) opacity = 0.32 + r3 * 0.12;
+      var opacity = highlight ? 0.82 + r3 * 0.18 : medium ? 0.48 + r0 * 0.22 : 0.16 + r0 * 0.22;
       path.style.opacity = opacity.toFixed(3);
-      var dash = 55 + r0 * 180;
-      var gap = 28 + r1 * 130;
+      var dash = highlight ? 260 + r0 * 360 : 55 + r0 * 180;
+      var gap = highlight ? 12 + r1 * 34 : 28 + r1 * 130;
       path.setAttribute("stroke-dasharray", dash.toFixed(1) + " " + gap.toFixed(1));
       path.setAttribute("stroke-dashoffset", String(Math.round(r2 * 280 + r4 * 90)));
       /* Desync continuous drift so threads don't pulse as one fabric */
@@ -110,7 +110,7 @@
       var ncls = NODE_CLS[i % 3];
       if (spark) ncls = (ncls ? ncls + " " : "") + "spark";
       if (ncls) circle.setAttribute("class", ncls);
-      circle.style.opacity = String(spark ? 0.28 + rn2 * 0.12 : 0.1 + rn * 0.16);
+      circle.style.opacity = String(spark ? 0.72 + rn2 * 0.25 : 0.22 + rn * 0.32);
       var nodeDepth = Math.min(DEPTHS - 1, Math.floor(rn * DEPTHS));
       depthGroups[nodeDepth].appendChild(circle);
     }
@@ -164,7 +164,7 @@
       var mobileAction = sticky.querySelector(".pill-mobile-work");
       if (introCopy) introCopy.inert = p > 0.48;
       if (mobileAction) mobileAction.inert = p > 0.48;
-      if (networkEl) networkEl.style.opacity = String((0.4 + reveal * 0.6) * (1 - exit * 0.85));
+      if (networkEl) networkEl.style.opacity = String((0.82 + reveal * 0.18) * (1 - exit * 0.85));
       if (metricsEl) metricsEl.setAttribute("aria-hidden", reveal < 0.08 ? "true" : "false");
     }
     function request() {
