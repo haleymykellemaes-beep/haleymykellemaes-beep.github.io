@@ -36,7 +36,7 @@
     var DEPTH_RIGHT = [0.62, 0.82, 1.0, 1.22, 1.48];
     var mobile = window.innerWidth <= 850;
     var pathCount = mobile ? 82 : 128;
-    var nodeCount = mobile ? 52 : 88;
+    var nodeCount = mobile ? 130 : 280;
 
     function rnd(seed) {
       var x = Math.sin(seed * 127.1 + 311.7) * 43758.5453123;
@@ -60,39 +60,25 @@
       var r3 = rnd(i + 139);
       var r4 = rnd(i + 181);
       var t = i / Math.max(1, pathCount - 1);
-      /* Flow field: strands converge through a mid band, diverge at the edges */
-      var envelope = 0.42 + 0.58 * Math.sin(Math.PI * t);
-      var centerY = 355 + Math.sin(t * Math.PI * 1.15 + r0 * 1.4) * 36;
-      var spread = 265 * envelope;
-      var y = centerY + (r0 - 0.5) * 2 * spread;
-      /* Extra per-thread wobble so curves don't read as one sheet */
-      var wobble = (r4 - 0.5) * 58;
-      var y0 = y + 95 + (r1 - 0.5) * 170 + wobble * 0.35;
-      var c1y = y - 95 - r2 * 155 + wobble * 0.6;
-      var c2y = y + 125 + r0 * 115 - wobble * 0.45;
-      var midY = y + (r1 - 0.5) * 48 + wobble * 0.25;
-      var c3y = y - 70 + r3 * 105 - wobble * 0.5;
-      var yEnd = y + 28 + (r2 - 0.5) * 95 + wobble * 0.2;
-      var x0 = -90 - r0 * 70 - r4 * 40;
-      var x1 = 250 + r1 * 95 + (r3 - 0.5) * 55;
-      var x2 = 500 + r2 * 110 + (r0 - 0.5) * 70;
-      var xMid = 760 + (r3 - 0.5) * 90;
-      var x3 = 1080 + r0 * 90 + (r1 - 0.5) * 60;
-      var x4 = 1520 + r1 * 50 + r2 * 35;
+      /* A loose, rising ribbon: fine strands gather and separate around two bends. */
+      var spread = (r0 - 0.5) * (100 + r4 * 100);
+      var wobble = (r3 - 0.5) * 62;
       var pathD =
-        "M " + x0.toFixed(1) + " " + y0.toFixed(1) +
-        " C " + x1.toFixed(1) + " " + c1y.toFixed(1) +
-        " " + x2.toFixed(1) + " " + c2y.toFixed(1) +
-        " " + xMid.toFixed(1) + " " + midY.toFixed(1) +
-        " S " + x3.toFixed(1) + " " + c3y.toFixed(1) +
-        " " + x4.toFixed(1) + " " + yEnd.toFixed(1);
+        "M " + (70 - r1 * 140).toFixed(1) + " " + (790 + spread).toFixed(1) +
+        " C 290 " + (780 + spread).toFixed(1) +
+        " 320 " + (280 + spread + wobble).toFixed(1) +
+        " 570 " + (370 + spread * 0.45).toFixed(1) +
+        " S 850 " + (760 + spread).toFixed(1) +
+        " 1040 " + (480 + spread * 0.45).toFixed(1) +
+        " S 1250 " + (170 + spread + wobble).toFixed(1) +
+        " 1510 " + (250 + spread * 0.7).toFixed(1);
       var path = document.createElementNS(NS, "path");
       path.setAttribute("d", pathD);
       path.setAttribute("class", STRANDS[i % 3]);
       var sw = 0.3 + r1 * 0.35;
       if (i % 19 === 0) sw = 0.62 + r2 * 0.08;
       path.setAttribute("stroke-width", sw.toFixed(2));
-      var opacity = 0.07 + r0 * 0.12 + r4 * 0.06;
+      var opacity = 0.12 + r0 * 0.18 + r4 * 0.08;
       if (i % 14 === 0) opacity = 0.2 + r3 * 0.1;
       path.style.opacity = opacity.toFixed(3);
       var dash = 55 + r0 * 180;
@@ -112,8 +98,8 @@
       var rn2 = rnd(i + 340);
       var rn3 = rnd(i + 460);
       var cx = 60 + rn * 1320;
-      var flowY = 340 + Math.sin(cx / 210 + rn2 * 2) * 95;
-      var cy = flowY + (rn2 - 0.5) * 240 * (0.5 + 0.5 * Math.sin((cx / 1440) * Math.PI));
+      var flowY = 540 - 190 * Math.sin((cx - 250) / 175);
+      var cy = flowY + (rn2 - 0.5) * 145;
       var circle = document.createElementNS(NS, "circle");
       circle.setAttribute("cx", cx.toFixed(1));
       circle.setAttribute("cy", cy.toFixed(1));
@@ -155,7 +141,7 @@
       var p = clamp(-rect.top / travel);
       var reveal = smooth(clamp((p - 0.32) / 0.17));
       var exit = smooth(clamp((p - 0.69) / 0.29));
-      var baseDown = p * 290;
+      var baseDown = p * 55;
       var baseRight = exit * window.innerWidth * 1.65;
       sticky.style.setProperty("--hero-progress", String(p));
       /* Mid-depth values keep metrics aligned with the field */
@@ -173,7 +159,12 @@
       sticky.style.setProperty("--metrics-opacity", String(reveal * (1 - exit)));
       sticky.style.setProperty("--metrics-rise", Math.round((1 - reveal) * 18 - exit * 8) + "px");
       if (revealEl) revealEl.style.pointerEvents = reveal > 0.9 ? "auto" : "none";
-      if (networkEl) networkEl.style.opacity = String(0.9 * (1 - exit * 0.85));
+      if (revealEl) revealEl.inert = reveal < 0.9;
+      var introCopy = sticky.querySelector(".cinematic-copy");
+      var mobileAction = sticky.querySelector(".pill-mobile-work");
+      if (introCopy) introCopy.inert = p > 0.48;
+      if (mobileAction) mobileAction.inert = p > 0.48;
+      if (networkEl) networkEl.style.opacity = String((0.4 + reveal * 0.6) * (1 - exit * 0.85));
       if (metricsEl) metricsEl.setAttribute("aria-hidden", reveal < 0.08 ? "true" : "false");
     }
     function request() {
@@ -482,3 +473,4 @@
     }).observe(arHost);
   }
 })();
+
