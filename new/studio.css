@@ -182,7 +182,41 @@ body.nav-open::before {
   border: 1px solid transparent;
 }
 .pill:hover { background: #fff; }
-.pill-nav { color: var(--ink); white-space: nowrap; }
+.site-nav .pill-nav,
+.site-nav .nav-resume {
+  color: var(--ink);
+  background: var(--champagne);
+  border: 1px solid var(--gold-muted);
+  white-space: nowrap;
+  min-height: 44px;
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.site-nav .pill-nav:hover,
+.site-nav .nav-resume:hover {
+  color: var(--ink);
+  background: #e0cfb2;
+  box-shadow: 0 3px 14px rgba(212, 194, 162, 0.14);
+  transform: translateY(-1px);
+}
+.site-nav .pill-nav:focus-visible,
+.site-nav .nav-resume:focus-visible {
+  outline: 2px solid var(--ivory);
+  outline-offset: 4px;
+}
+@media (min-width: 861px) {
+  .site-nav .nav-resume {
+    min-height: auto;
+    background: transparent;
+    border: 0;
+    color: rgba(244, 241, 234, 0.78);
+  }
+  .site-nav .nav-resume:hover {
+    color: var(--ivory);
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+}
 
 /* Cinematic scroll hero */
 .cinematic-hero {
@@ -217,6 +251,9 @@ body.nav-open::before {
   /* Pointer parallax only — scroll motion lives on .strand-depth groups */
   transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
   will-change: transform, opacity;
+  /* Feather the SVG boundary; strand transforms and hairline strokes stay intact. */
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 35%, rgba(0, 0, 0, 0.85) 55%, rgba(0, 0, 0, 0.3) 76%, transparent 96%);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 35%, rgba(0, 0, 0, 0.85) 55%, rgba(0, 0, 0, 0.3) 76%, transparent 96%);
 }
 .strand-depth {
   will-change: transform;
@@ -820,10 +857,10 @@ html.js .cinematic-copy .hero-person.is-in {
   transform-origin: bottom center;
   transition: transform 0.9s cubic-bezier(.2, .7, .2, 1);
 }
-/* Featured A/R card: keep bars readable on the wide span-7 tile */
-.card-ar .states { gap: 44px; min-height: 230px; }
+/* Use more of the existing plot area without increasing the card height. */
+.card-ar .states { gap: clamp(16px, 4vw, 44px); min-height: 230px; justify-content: space-evenly; }
 .card-ar .state-col { height: 188px; }
-.card-ar .state-bar { width: 52px; }
+.card-ar .state-bar { width: clamp(64px, 8vw, 104px); }
 .card-ar .state b { font-size: 1.4rem; }
 .card-ar .state small { font-size: 0.82rem; }
 .state:nth-child(2) .state-bar { transition-delay: 0.12s; }
@@ -1105,9 +1142,11 @@ a:focus-visible, button:focus-visible {
 }
 
 @media (max-width: 860px) {
-  .nav-row { grid-template-columns: 1fr auto; width: min(1440px, calc(100% - 28px)); }
-  .menu-btn { display: inline-flex; align-items: center; justify-content: center; justify-self: end; grid-column: 2; }
-  .nav-end { display: none; }
+  .nav-row { grid-template-columns: minmax(0, 1fr) auto auto; width: min(1440px, calc(100% - 28px)); gap: 8px; }
+  .menu-btn { display: inline-flex; align-items: center; justify-content: center; justify-self: end; grid-column: 3; grid-row: 1; }
+  .nav-end { display: flex; grid-column: 2; grid-row: 1; }
+  .nav-social { display: none; }
+  .site-nav .pill-nav { padding-inline: 14px; font-size: 0.8rem; }
   /* Right-side drawer — keeps portrait clear when closed/open */
   .nav-links {
     display: flex;
@@ -1147,6 +1186,7 @@ a:focus-visible, button:focus-visible {
     border-bottom: 1px solid rgba(244, 241, 234, 0.08);
   }
   .nav-links a:last-child { border-bottom: 0; }
+  .site-nav .nav-resume { justify-content: center; border-radius: 999px; margin-top: 14px; }
   .hero-layout { grid-template-columns: minmax(0, 1fr); }
   .hero-visual { width: min(44vw, 160px); }
   .hero-tag { white-space: normal; }
@@ -1210,3 +1250,4 @@ a:focus-visible, button:focus-visible {
   .state-bar, .hbar i, .hold-mark { transform: none !important; }
   .arc-value { stroke-dashoffset: var(--rest) !important; }
 }
+
