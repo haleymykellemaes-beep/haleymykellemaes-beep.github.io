@@ -2045,20 +2045,20 @@ a:focus-visible, button:focus-visible {
       var endSpread = atmosphere ? lane * 780 : spread * 1.35;
       var wobble = (r3 - 0.5) * (atmosphere ? 110 : 80);
       var wide = [
-        70 - r1 * 140, 790 + spread,
-        290, 780 + spread * 0.8, 320, 210 + spread + wobble,
-        650, 310 + spread * (atmosphere ? 0.85 : 0.65),
-        920, 760 + spread * 1.05, 1110, 480 + endSpread * 0.7,
-        1280, 170 + endSpread + wobble, 1510, 250 + endSpread
+        70 - r1 * 140, 680 + spread,
+        290, 680 + spread * 0.8, 320, 250 + spread + wobble,
+        650, 340 + spread * (atmosphere ? 0.85 : 0.65),
+        920, 700 + spread * 1.05, 1110, 485 + endSpread * 0.7,
+        1280, 260 + endSpread + wobble, 1510, 360 + endSpread
       ];
       var tightSpread = (r0 - 0.5) * (100 + r4 * 100);
       var tightWobble = (r3 - 0.5) * 62;
       var tight = [
-        70 - r1 * 140, 790 + tightSpread,
-        290, 780 + tightSpread, 320, 280 + tightSpread + tightWobble,
-        570, 370 + tightSpread * 0.45,
-        850, 760 + tightSpread, 1040, 480 + tightSpread * 0.45,
-        1250, 170 + tightSpread + tightWobble, 1510, 250 + tightSpread * 0.7
+        70 - r1 * 140, 750 + tightSpread,
+        290, 740 + tightSpread, 320, 305 + tightSpread + tightWobble,
+        570, 385 + tightSpread * 0.45,
+        850, 730 + tightSpread, 1040, 490 + tightSpread * 0.45,
+        1250, 210 + tightSpread + tightWobble, 1510, 290 + tightSpread * 0.7
       ];
       var pathD = ribbonD(wide);
       var path = document.createElementNS(NS, "path");
@@ -2136,7 +2136,7 @@ a:focus-visible, button:focus-visible {
       if (filament.wave) {
         var source = cubicPoint(blendRibbon(filament.wave.wide, filament.wave.tight, amount), filament.join);
         var length = Math.max(1, Math.hypot(source.dx, source.dy));
-        var reach = Math.min(110, Math.hypot(first.x - source.x, first.y - source.y) * 0.42);
+        var reach = Math.min(130, Math.hypot(first.x - source.x, first.y - source.y) * 0.46);
         var next = points[1];
         result = "M " + source.x.toFixed(1) + " " + source.y.toFixed(1) +
           " C " + (source.x + source.dx / length * reach).toFixed(1) + " " + (source.y + source.dy / length * reach).toFixed(1) +
