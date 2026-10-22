@@ -757,15 +757,14 @@ html.js .cinematic-copy .hero-person.is-in {
 .go {
   margin-top: auto;
   padding-top: 18px;
-}
-.viz ~ .go {
-  margin-top: 16px;
-  padding-top: 0;
-}
   font-size: 0.92rem;
   text-decoration: underline;
   text-underline-offset: 0.28em;
   text-decoration-thickness: 1px;
+}
+.viz ~ .go {
+  margin-top: 16px;
+  padding-top: 0;
 }
 .go i {
   display: inline-block;
@@ -774,18 +773,25 @@ html.js .cinematic-copy .hero-person.is-in {
 .card:active { border-color: var(--lavender); }
 .card.is-touch { border-color: var(--lavender); }
 
-.states { display: flex; gap: 28px; align-items: flex-end; min-height: 150px; }
-.state { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.state-col { height: 120px; display: flex; align-items: flex-end; }
+.states { display: flex; gap: 36px; align-items: flex-end; min-height: 200px; }
+.state { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: none; }
+.state-col { height: 168px; display: flex; align-items: flex-end; }
 .state-bar {
   display: block;
-  width: 28px;
+  width: 40px;
   height: var(--h);
+  flex: none;
   background: currentColor;
   transform: scaleY(0);
   transform-origin: bottom center;
   transition: transform 0.9s cubic-bezier(.2, .7, .2, 1);
 }
+/* Featured A/R card: keep bars readable on the wide span-7 tile */
+.card-ar .states { gap: 44px; min-height: 230px; }
+.card-ar .state-col { height: 188px; }
+.card-ar .state-bar { width: 52px; }
+.card-ar .state b { font-size: 1.4rem; }
+.card-ar .state small { font-size: 0.82rem; }
 .state:nth-child(2) .state-bar { transition-delay: 0.12s; }
 .card.is-in .state-bar { transform: scaleY(1); }
 .state b { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; }
