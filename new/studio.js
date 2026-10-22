@@ -35,7 +35,7 @@
     var DEPTH_DOWN = [0.48, 0.72, 1.0, 1.28, 1.55];
     var DEPTH_RIGHT = [0.62, 0.82, 1.0, 1.22, 1.48];
     var mobile = window.innerWidth <= 850;
-    var pathCount = mobile ? 140 : 240;
+    var pathCount = mobile ? 220 : 400;
     var nodeCount = mobile ? 230 : 520;
 
     function rnd(seed) {
@@ -60,23 +60,26 @@
       var r3 = rnd(i + 139);
       var r4 = rnd(i + 181);
       var t = i / Math.max(1, pathCount - 1);
-      /* A loose, rising ribbon: fine strands gather and separate around two bends. */
-      var spread = (r0 - 0.5) * (100 + r4 * 100);
-      var wobble = (r3 - 0.5) * 62;
+      /* Keep luminous lead threads, with airy layers that fan out toward the end. */
+      var atmosphere = i % 3 !== 0;
+      var lane = t * 2 - 1;
+      var spread = atmosphere ? lane * 430 : (r0 - 0.5) * (100 + r4 * 100);
+      var endSpread = atmosphere ? lane * 760 : spread * 1.45;
+      var wobble = (r3 - 0.5) * (atmosphere ? 105 : 62);
       var pathD =
         "M " + (70 - r1 * 140).toFixed(1) + " " + (790 + spread).toFixed(1) +
-        " C 290 " + (780 + spread).toFixed(1) +
+        " C 290 " + (780 + spread * 0.9).toFixed(1) +
         " 320 " + (280 + spread + wobble).toFixed(1) +
-        " 570 " + (370 + spread * 0.45).toFixed(1) +
-        " S 850 " + (760 + spread).toFixed(1) +
-        " 1040 " + (480 + spread * 0.45).toFixed(1) +
-        " S 1250 " + (170 + spread + wobble).toFixed(1) +
-        " 1510 " + (250 + spread * 0.7).toFixed(1);
+        " 570 " + (370 + spread * (atmosphere ? 0.85 : 0.45)).toFixed(1) +
+        " S 850 " + (760 + spread * 1.1).toFixed(1) +
+        " 1040 " + (480 + endSpread * 0.7).toFixed(1) +
+        " S 1250 " + (170 + endSpread + wobble).toFixed(1) +
+        " 1510 " + (250 + endSpread).toFixed(1);
       var path = document.createElementNS(NS, "path");
       path.setAttribute("d", pathD);
       var highlight = i % 6 === 0;
       var medium = !highlight && i % 3 === 0;
-      path.setAttribute("class", STRANDS[i % 3] + (highlight ? " strand-highlight" : medium ? " strand-mid" : ""));
+      path.setAttribute("class", STRANDS[i % 3] + (highlight ? " strand-highlight" : medium ? " strand-mid" : " strand-atmosphere"));
       var sw = highlight ? 0.75 + r1 * 0.25 : medium ? 0.5 + r1 * 0.2 : 0.3 + r1 * 0.3;
       path.setAttribute("stroke-width", sw.toFixed(2));
       var opacity = highlight ? 0.82 + r3 * 0.18 : medium ? 0.48 + r0 * 0.22 : 0.16 + r0 * 0.22;
@@ -99,7 +102,7 @@
       var rn3 = rnd(i + 460);
       var cx = 60 + rn * 1320;
       var flowY = 540 - 190 * Math.sin((cx - 250) / 175);
-      var cy = flowY + (rn2 - 0.5) * 145;
+      var cy = flowY + (rn2 - 0.5) * (145 + cx / 1440 * 300);
       var circle = document.createElementNS(NS, "circle");
       circle.setAttribute("cx", cx.toFixed(1));
       circle.setAttribute("cy", cy.toFixed(1));
