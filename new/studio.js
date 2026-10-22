@@ -2,6 +2,57 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduce) document.documentElement.classList.add("js");
 
+  /* Once: name, title, fade the rest, then the tagline in two beats. */
+  function typeLine(textEl, host, full, step, done) {
+    var caret = document.createElement("span");
+    var i = 0;
+    textEl.textContent = "";
+    caret.className = "hero-caret";
+    caret.setAttribute("aria-hidden", "true");
+    textEl.parentNode.appendChild(caret);
+    if (host) host.classList.add("is-typing");
+    (function tick() {
+      i += 1;
+      textEl.textContent = full.slice(0, i);
+      if (i < full.length) {
+        window.setTimeout(tick, step);
+      } else {
+        caret.remove();
+        if (host) {
+          host.classList.remove("is-typing");
+          host.classList.add("is-typed");
+        }
+        window.setTimeout(done, 180);
+      }
+    })();
+  }
+
+  var heroName = document.querySelector(".hero-name");
+  var heroNameText = heroName && heroName.querySelector(".hero-name-text");
+  var heroRole = document.querySelector(".hero-role");
+  var heroRoleText = heroRole && heroRole.querySelector(".hero-role-text");
+  var tagLead = document.querySelector(".hero-tag-lead");
+  var tagTurn = document.querySelector(".hero-tag-turn");
+  var heroSide = document.querySelector(".hero-side");
+  var heroAfterTag = document.querySelectorAll(".hero-after-tag");
+  if (!reduce && heroNameText && heroRoleText && tagLead && tagTurn) {
+    typeLine(heroNameText, heroName, "Haley Maes", 100, function () {
+      if (heroSide) heroSide.classList.add("is-in");
+      typeLine(heroRoleText, heroRole, "Data Analyst", 85, function () {
+        window.setTimeout(function () {
+          tagLead.classList.add("is-in");
+          window.setTimeout(function () {
+            tagTurn.classList.add("is-in");
+            window.setTimeout(function () {
+              var r;
+              for (r = 0; r < heroAfterTag.length; r++) heroAfterTag[r].classList.add("is-in");
+            }, 520);
+          }, 700);
+        }, 420);
+      });
+    });
+  }
+
   var played = typeof WeakSet === "function" ? new WeakSet() : null;
 
   function fmt(el, v) {
