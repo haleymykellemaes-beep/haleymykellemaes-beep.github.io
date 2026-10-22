@@ -1285,8 +1285,8 @@ a:focus-visible, button:focus-visible {
 .portrait-orbits path { stroke-opacity: 0.55; }
 .portrait-orbits .orbit-nodes { fill: #d4c2a2; stroke: none; }
 .hero-network {
-  inset: 0 auto auto 22%;
-  width: 88%;
+  inset: 0 auto auto -8%;
+  width: 116%;
   max-width: none;
   height: 100%;
 }
@@ -1387,3 +1387,7 @@ a:focus-visible, button:focus-visible {
 .wave-layer path.strand-highlight { stroke: #f0d4a2; }
 .wave-layer path.strand-mid { stroke: #ddc18e; }
 .wave-layer circle.spark { fill: #f3dab0; }
+
+/* Let the scroll-reveal wording breathe. */
+.hero-reveal h2 { line-height: 1.12; letter-spacing: -0.015em; word-spacing: 0.035em; max-width: 11ch; }
+.hero-reveal p { margin-top: 1.75rem; }
