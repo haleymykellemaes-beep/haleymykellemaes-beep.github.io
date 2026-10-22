@@ -80,20 +80,20 @@
       var endSpread = atmosphere ? lane * 780 : spread * 1.35;
       var wobble = (r3 - 0.5) * (atmosphere ? 110 : 80);
       var wide = [
-        70 - r1 * 140, 680 + spread,
-        290, 680 + spread * 0.8, 320, 250 + spread + wobble,
-        650, 340 + spread * (atmosphere ? 0.85 : 0.65),
-        920, 700 + spread * 1.05, 1110, 485 + endSpread * 0.7,
-        1280, 260 + endSpread + wobble, 1510, 360 + endSpread
+        70 - r1 * 140, 440 + spread,
+        270, 440 + spread * 0.95, 430, 345 + spread + wobble * 0.45,
+        650, 375 + spread * (atmosphere ? 0.9 : 0.8),
+        920, 475 + spread, 1110, 425 + endSpread * 0.9,
+        1320, 345 + endSpread + wobble * 0.45, 1510, 425 + endSpread
       ];
       var tightSpread = (r0 - 0.5) * (100 + r4 * 100);
       var tightWobble = (r3 - 0.5) * 62;
       var tight = [
-        70 - r1 * 140, 750 + tightSpread,
-        290, 740 + tightSpread, 320, 305 + tightSpread + tightWobble,
-        570, 385 + tightSpread * 0.45,
-        850, 730 + tightSpread, 1040, 490 + tightSpread * 0.45,
-        1250, 210 + tightSpread + tightWobble, 1510, 290 + tightSpread * 0.7
+        70 - r1 * 140, 455 + tightSpread,
+        270, 455 + tightSpread, 430, 355 + tightSpread + tightWobble * 0.45,
+        570, 390 + tightSpread * 0.8,
+        850, 490 + tightSpread, 1040, 440 + tightSpread * 0.9,
+        1250, 360 + tightSpread + tightWobble * 0.45, 1510, 435 + tightSpread
       ];
       var pathD = ribbonD(wide);
       var path = document.createElementNS(NS, "path");
@@ -151,11 +151,13 @@
     var portraitField = null;
     var orbitResizePending = false;
 
-    function cubicPoint(points, t) {
+    function cubicPoint(points, t, segment) {
       var u = 1 - t;
-      var x0 = points[6], y0 = points[7];
-      var x1 = 2 * x0 - points[4], y1 = 2 * y0 - points[5];
-      var x2 = points[8], y2 = points[9], x3 = points[10], y3 = points[11];
+      var first = segment === 0;
+      var x0 = first ? points[0] : points[6], y0 = first ? points[1] : points[7];
+      var x1 = first ? points[2] : 2 * x0 - points[4], y1 = first ? points[3] : 2 * y0 - points[5];
+      var x2 = first ? points[4] : points[8], y2 = first ? points[5] : points[9];
+      var x3 = first ? points[6] : points[10], y3 = first ? points[7] : points[11];
       return {
         x: u * u * u * x0 + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t * x3,
         y: u * u * u * y0 + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t * t * t * y3,
@@ -164,12 +166,47 @@
       };
     }
 
+    function ribbonEntry(values, x) {
+      var segment = x < values[6] ? 0 : 1;
+      var low = 0, high = 1;
+      for (var search = 0; search < 12; search++) {
+        var middle = (low + high) / 2;
+        if (cubicPoint(values, middle, segment).x < x) low = middle;
+        else high = middle;
+      }
+      return segment + (low + high) / 2;
+    }
+
+    function portraitConnection(point, seed) {
+      var targetX = point.x - 75 - rnd(seed + 1401) * 40;
+      var best = null, score = Infinity;
+      var candidates = window.innerWidth <= 850 ? 48 : 64;
+      var stride = Math.max(1, Math.floor(ribbonPaths.length / candidates));
+      if (stride % 2 === 0) stride++;
+      for (var candidate = 0; candidate < candidates; candidate++) {
+        var wave = ribbonPaths[(seed * 13 + candidate * stride) % ribbonPaths.length];
+        var entry = ribbonEntry(wave.wide, targetX);
+        var segment = entry < 1 ? 0 : 1;
+        var sample = cubicPoint(wave.wide, entry - segment, segment);
+        var horizontal = point.x - sample.x;
+        var error = Math.abs(sample.y - point.y) / Math.max(35, horizontal) * 100 + Math.abs(sample.x - targetX) * 0.2;
+        if (horizontal < 35) error += 1000 + (35 - horizontal) * 5;
+        if (error < score) {
+          score = error;
+          best = { wave: wave, wide: entry, tight: ribbonEntry(wave.tight, targetX) };
+        }
+      }
+      return best;
+    }
+
     function filamentD(filament, amount) {
       var points = filament.points;
       var first = points[0];
       var result = "";
       if (filament.wave) {
-        var source = cubicPoint(blendRibbon(filament.wave.wide, filament.wave.tight, amount), filament.join);
+        var progress = filament.entryWide + (filament.entryTight - filament.entryWide) * amount;
+        var segment = progress < 1 ? 0 : 1;
+        var source = cubicPoint(blendRibbon(filament.wave.wide, filament.wave.tight, amount), progress - segment, segment);
         var length = Math.max(1, Math.hypot(source.dx, source.dy));
         var reach = Math.min(130, Math.hypot(first.x - source.x, first.y - source.y) * 0.46);
         var next = points[1];
@@ -254,7 +291,7 @@
       for (var n = 0; n < orbitCount; n++) {
         var a0 = rnd(n + 801), a1 = rnd(n + 937), a2 = rnd(n + 1109);
         var connected = n % 3 === 0;
-        var start = connected ? 2.1 + a0 * 0.8 : a0 * Math.PI * 2;
+        var start = connected ? Math.PI + (a0 - 0.5) * 0.34 : a0 * Math.PI * 2;
         var sweep = (1.5 + a1 * 3.4) * (n % 2 ? 1 : -1);
         var scale = 1.04 + a2 * 0.2;
         var points = [];
@@ -267,7 +304,8 @@
             y: geometry.y + geometry.ry * (scale + (a0 - 0.5) * 0.075) * ripple * Math.sin(angle)
           });
         }
-        var wave = connected ? ribbonPaths[(n * 7 + 12) % Math.min(ribbonPaths.length, 140)] : null;
+        var connection = connected ? portraitConnection(points[0], n) : null;
+        var wave = connection ? connection.wave : null;
         var depth = wave ? wave.depth : n % DEPTHS;
         var path = document.createElementNS(NS, "path");
         path.setAttribute("class", "portrait-silk");
@@ -277,7 +315,7 @@
         path.style.opacity = String(n % 9 === 0 ? 0.72 : 0.28 + a0 * 0.28);
         path.style.animationDuration = (28 + a1 * 34).toFixed(1) + "s";
         path.style.animationDelay = (-a2 * 48).toFixed(1) + "s";
-        var filament = { element: path, points: points, wave: wave, join: 0.36 + a1 * 0.32 };
+        var filament = { element: path, points: points, wave: wave, entryWide: connection ? connection.wide : 0, entryTight: connection ? connection.tight : 0 };
         path.setAttribute("d", filamentD(filament, amount));
         portraitFilaments.push(filament);
         groups[depth].appendChild(path);
