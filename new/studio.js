@@ -2,119 +2,106 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduce) document.documentElement.classList.add("js");
 
-  /* Once: name, title, fade the rest, then the tagline in two beats. */
-  function typeLine(textEl, host, full, step, done) {
-    var caret = document.createElement("span");
-    var i = 0;
-    textEl.textContent = "";
-    caret.className = "hero-caret";
-    caret.setAttribute("aria-hidden", "true");
-    textEl.parentNode.appendChild(caret);
-    if (host) host.classList.add("is-typing");
-    (function tick() {
-      i += 1;
-      textEl.textContent = full.slice(0, i);
-      if (i < full.length) {
-        window.setTimeout(tick, step);
-      } else {
-        caret.remove();
-        if (host) {
-          host.classList.remove("is-typing");
-          host.classList.add("is-typed");
-        }
-        window.setTimeout(done, 180);
-      }
-    })();
-  }
-
-  var heroName = document.querySelector(".hero-name");
-  var heroNameText = heroName && heroName.querySelector(".hero-name-text");
-  var heroRole = document.querySelector(".hero-role");
-  var heroRoleText = heroRole && heroRole.querySelector(".hero-role-text");
-  var tagLead = document.querySelector(".hero-tag-lead");
-  var tagTurn = document.querySelector(".hero-tag-turn");
-  var heroSide = document.querySelector(".hero-side");
-  var heroMetrics = document.querySelector(".hero-metrics");
-  var heroEyebrow = document.querySelector(".hero-eyebrow");
-  var heroAfterTag = document.querySelectorAll(".hero-after-tag");
-  function splitHeroName(textEl) {
-    if (!textEl) return;
-    textEl.innerHTML = "<span class=\"hero-name-row\">Haley</span><span class=\"hero-name-row\">Maes</span>";
-  }
-  if (!reduce && heroNameText && heroRoleText && tagLead && tagTurn) {
-    if (heroEyebrow) heroEyebrow.classList.add("is-in");
-    typeLine(heroNameText, heroName, "Haley Maes", 95, function () {
-      splitHeroName(heroNameText);
-      if (heroSide) heroSide.classList.add("is-in");
-      if (heroMetrics) heroMetrics.classList.add("is-in");
-      window.setTimeout(function () {
-        if (heroRole) heroRole.classList.add("is-active");
-        typeLine(heroRoleText, heroRole, "Data Analyst", 85, function () {
+  /* Soft hero heading fade-in (title, then person) — skipped when reduce */
+  (function initHeroTitleFade() {
+    if (reduce) return;
+    var title = document.querySelector(".cinematic-copy .hero-title");
+    var person = document.querySelector(".cinematic-copy .hero-person");
+    if (!title) return;
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        title.classList.add("is-in");
+        if (person) {
           window.setTimeout(function () {
-            tagLead.classList.add("is-in");
-            window.setTimeout(function () {
-              tagTurn.classList.add("is-in");
-              window.setTimeout(function () {
-                var r;
-                for (r = 0; r < heroAfterTag.length; r++) heroAfterTag[r].classList.add("is-in");
-              }, 520);
-            }, 700);
-          }, 420);
-        });
-      }, 720);
+            person.classList.add("is-in");
+          }, 180);
+        }
+      });
     });
-  }
+  })();
 
-  /* Flowing node network + subtle parallax */
-  (function initHeroNetwork() {
-    var shell = document.getElementById("hero-shell");
-    var layer = document.getElementById("hero-network-layer");
-    if (!shell || !layer) return;
+  /* Cinematic scroll hero: wave network + scroll-driven reveal */
+  (function initCinematicHero() {
+    var stage = document.getElementById("hero-stage");
+    if (!stage) return;
+    var sticky = stage.querySelector(".hero-sticky");
+    var network = document.getElementById("wave-layer");
+    var networkGlow = document.getElementById("wave-layer-glow");
+    if (!sticky || !network) return;
     var NS = "http://www.w3.org/2000/svg";
     var i;
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < 26; i++) {
+      var y = 210 + i * 17;
+      var d = "M -120 " + (y + 150) + " C 260 " + (y - 160) + " 520 " + (y + 220) + " 825 " + (y + 32) + " S 1250 " + (y - 125) + " 1580 " + (y + 90);
       var path = document.createElementNS(NS, "path");
-      var y = 210 + i * 19;
-      path.setAttribute("d", "M -120 " + (y + 140) + " C 240 " + (y - 150) + " 520 " + (y + 200) + " 825 " + (y + 28) + " S 1240 " + (y - 120) + " 1560 " + (y + 80));
-      path.style.opacity = String(0.1 + (i % 6) * 0.08);
-      layer.appendChild(path);
+      path.setAttribute("d", d);
+      path.style.opacity = String(0.14 + (i % 6) * 0.09);
+      network.appendChild(path);
+      if (networkGlow) {
+        var glowPath = document.createElementNS(NS, "path");
+        glowPath.setAttribute("d", d);
+        glowPath.style.opacity = String(0.06 + (i % 5) * 0.025);
+        networkGlow.appendChild(glowPath);
+      }
       var n;
-      for (n = 0; n < 3; n++) {
-        var x = 250 + n * 410 + (i % 4) * 28;
-        var t = x / 1560;
-        var cy = y + 140 - 140 * Math.sin(Math.PI * t * 1.85) + 24 * Math.sin(t * 8 + i * 0.2);
+      for (n = 0; n < 4; n++) {
+        var x = 240 + n * 360 + (i % 4) * 28;
+        var t = x / 1550;
+        var cy = y + 150 - 150 * Math.sin(Math.PI * t * 1.85) + 26 * Math.sin(t * 8 + i * 0.2);
         var circle = document.createElementNS(NS, "circle");
         circle.setAttribute("cx", String(x));
         circle.setAttribute("cy", String(cy));
-        circle.setAttribute("r", i % 5 === 0 ? "2.2" : "1.2");
-        circle.style.opacity = String(0.14 + (i % 4) * 0.1);
-        layer.appendChild(circle);
+        var big = i % 5 === 0 || n === 1;
+        circle.setAttribute("r", big ? "2.6" : "1.35");
+        if (big) circle.setAttribute("class", "spark");
+        circle.style.opacity = String(0.18 + (i % 4) * 0.12);
+        network.appendChild(circle);
       }
     }
-    if (reduce || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    var targetX = 0;
-    var targetY = 0;
-    var currentX = 0;
-    var currentY = 0;
-    shell.addEventListener("mousemove", function (e) {
-      var rect = shell.getBoundingClientRect();
-      var px = (e.clientX - rect.left) / rect.width - 0.5;
-      var py = (e.clientY - rect.top) / rect.height - 0.5;
-      targetX = Math.round(px * 28);
-      targetY = Math.round(py * 18);
-    });
-    shell.addEventListener("mouseleave", function () {
-      targetX = 0;
-      targetY = 0;
-    });
-    function tickNetwork() {
-      currentX += (targetX - currentX) * 0.06;
-      currentY += (targetY - currentY) * 0.06;
-      shell.style.setProperty("--net-x", currentX.toFixed(2) + "px");
-      shell.style.setProperty("--net-y", currentY.toFixed(2) + "px");
-      requestAnimationFrame(tickNetwork);
+    if (reduce) return;
+    var clamp = function (n, a, b) {
+      a = a === undefined ? 0 : a;
+      b = b === undefined ? 1 : b;
+      return Math.min(b, Math.max(a, n));
+    };
+    var smooth = function (t) {
+      return t * t * (3 - 2 * t);
+    };
+    var scheduled = false;
+    var revealEl = sticky.querySelector(".hero-reveal");
+    var networkEl = sticky.querySelector(".hero-network");
+    var metricsEl = sticky.querySelector(".hero-metrics");
+    function update() {
+      scheduled = false;
+      var rect = stage.getBoundingClientRect();
+      var travel = Math.max(1, stage.offsetHeight - window.innerHeight);
+      var p = clamp(-rect.top / travel);
+      var reveal = smooth(clamp((p - 0.32) / 0.17));
+      var exit = smooth(clamp((p - 0.69) / 0.29));
+      sticky.style.setProperty("--hero-progress", String(p));
+      sticky.style.setProperty("--wave-down", Math.round(p * 290) + "px");
+      sticky.style.setProperty("--wave-right", Math.round(exit * window.innerWidth * 1.65) + "px");
+      sticky.style.setProperty("--original-opacity", String(1 - smooth(clamp((p - 0.27) / 0.21))));
+      sticky.style.setProperty("--original-rise", Math.round(-20 * smooth(clamp((p - 0.3) / 0.2))) + "px");
+      sticky.style.setProperty("--reveal-opacity", String(reveal * (1 - exit * 0.52)));
+      sticky.style.setProperty("--reveal-rise", Math.round((1 - reveal) * 28 - exit * 12) + "px");
+      sticky.style.setProperty("--metrics-shift", Math.round(reveal * 18 - exit * 24) + "px");
+      sticky.style.setProperty("--metrics-opacity", String(1 - exit * 0.35));
+      if (revealEl) revealEl.style.pointerEvents = reveal > 0.9 ? "auto" : "none";
+      if (networkEl) networkEl.style.opacity = String(0.92 * (1 - exit * 0.85));
+      if (metricsEl && window.matchMedia("(min-width: 851px)").matches) {
+        metricsEl.style.opacity = String(1 - exit * 0.35);
+      }
     }
-    requestAnimationFrame(tickNetwork);
+    function request() {
+      if (!scheduled) {
+        scheduled = true;
+        requestAnimationFrame(update);
+      }
+    }
+    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", request);
+    update();
   })();
 
   var played = typeof WeakSet === "function" ? new WeakSet() : null;
