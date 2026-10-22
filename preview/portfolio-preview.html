@@ -285,12 +285,12 @@ body.nav-open::before {
   pointer-events: none;
   opacity: 0.88;
   /* Pointer parallax only — scroll motion lives on .strand-depth groups */
-  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scaleY(var(--wave-bend, 0.5));
+  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scaleY(var(--wave-bend, 0.82));
   transform-origin: center;
   will-change: transform, opacity;
   /* Feather the SVG boundary; strand transforms and hairline strokes stay intact. */
-  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 35%, rgba(0, 0, 0, 0.85) 55%, rgba(0, 0, 0, 0.3) 76%, transparent 96%);
-  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 35%, rgba(0, 0, 0, 0.85) 55%, rgba(0, 0, 0, 0.3) 76%, transparent 96%);
+  -webkit-mask-image: radial-gradient(ellipse 58% 60% at 55% 54%, #000 38%, rgba(0, 0, 0, 0.9) 62%, rgba(0, 0, 0, 0.35) 85%, transparent 100%);
+  mask-image: radial-gradient(ellipse 58% 60% at 55% 54%, #000 38%, rgba(0, 0, 0, 0.9) 62%, rgba(0, 0, 0, 0.35) 85%, transparent 100%);
 }
 .strand-depth {
   will-change: transform;
@@ -1459,11 +1459,11 @@ a:focus-visible, button:focus-visible {
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(90deg,
-    rgba(28, 28, 27, 0.96) 0%,
-    rgba(28, 28, 27, 0.86) 28%,
-    rgba(28, 28, 27, 0.58) 43%,
-    rgba(28, 28, 27, 0.16) 57%,
-    transparent 72%);
+    rgba(28, 28, 27, 0.95) 0%,
+    rgba(28, 28, 27, 0.9) 26%,
+    rgba(28, 28, 27, 0.66) 36%,
+    rgba(28, 28, 27, 0.22) 47%,
+    transparent 62%);
 }
 .hero-layout { z-index: 2; }
 .hero-network {
@@ -1471,12 +1471,12 @@ a:focus-visible, button:focus-visible {
   translate: calc(3vw - var(--scene-reveal, 0) * 3vw)
              calc(3vh - var(--scene-reveal, 0) * 3vh);
   -webkit-mask-image:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.36) 28%, rgba(0, 0, 0, 0.75) 46%, #000 60%),
-    radial-gradient(ellipse 50% 50% at 50% 50%, #000 35%, rgba(0, 0, 0, 0.85) 55%, rgba(0, 0, 0, 0.3) 76%, transparent 96%);
+    linear-gradient(90deg, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.32) 26%, rgba(0, 0, 0, 0.62) 40%, #000 55%),
+    radial-gradient(ellipse 58% 60% at 55% 54%, #000 38%, rgba(0, 0, 0, 0.9) 62%, rgba(0, 0, 0, 0.35) 85%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.36) 28%, rgba(0, 0, 0, 0.75) 46%, #000 60%),
-    radial-gradient(ellipse 50% 50% at 50% 50%, #000 35%, rgba(0, 0, 0, 0.85) 55%, rgba(0, 0, 0, 0.3) 76%, transparent 96%);
+    linear-gradient(90deg, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.32) 26%, rgba(0, 0, 0, 0.62) 40%, #000 55%),
+    radial-gradient(ellipse 58% 60% at 55% 54%, #000 38%, rgba(0, 0, 0, 0.9) 62%, rgba(0, 0, 0, 0.35) 85%, transparent 100%);
   mask-composite: intersect;
 }
 .cinematic-copy .hero-tools { color: #c8c1b4; }
@@ -1653,6 +1653,7 @@ a:focus-visible, button:focus-visible {
   .nav-end { display: none; }
   .menu-btn { grid-column: 2; }
 }
+
 </style>
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%20%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22%231c1c1b%22/%3E%0A%20%20%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%2258%22%20height%3D%2258%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23d4c2a2%22%20stroke-opacity%3D%22.65%22/%3E%0A%20%20%3Cpath%20d%3D%22M15%2021v23m13-23v23M15%2032h13%22%20fill%3D%22none%22%20stroke%3D%22%23ede9dc%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22square%22/%3E%0A%20%20%3Cpath%20d%3D%22M36%2044V21l7%2012%207-12v23%22%20fill%3D%22none%22%20stroke%3D%22%23d4c2a2%22%20stroke-width%3D%223%22%20stroke-linejoin%3D%22round%22/%3E%0A%3C/svg%3E%0A" type="image/svg+xml" />
   <script>
@@ -1999,7 +2000,7 @@ a:focus-visible, button:focus-visible {
     var DEPTH_DOWN = [0.48, 0.72, 1.0, 1.28, 1.55];
     var DEPTH_RIGHT = [0.62, 0.82, 1.0, 1.22, 1.48];
     var mobile = window.innerWidth <= 850;
-    var pathCount = mobile ? 220 : 400;
+    var pathCount = mobile ? 360 : 680;
     var nodeCount = mobile ? 230 : 520;
 
     function rnd(seed) {
@@ -2038,17 +2039,17 @@ a:focus-visible, button:focus-visible {
       var r4 = rnd(i + 181);
       var t = i / Math.max(1, pathCount - 1);
       /* Keep luminous lead threads, with airy layers that fan out toward the end. */
-      var atmosphere = i % 3 !== 0;
+      var atmosphere = i % 2 !== 0;
       var lane = t * 2 - 1;
-      var spread = atmosphere ? lane * 430 : (r0 - 0.5) * (100 + r4 * 100);
-      var endSpread = atmosphere ? lane * 760 : spread * 1.45;
-      var wobble = (r3 - 0.5) * (atmosphere ? 105 : 62);
+      var spread = atmosphere ? lane * 470 : (r0 - 0.5) * (220 + r4 * 160);
+      var endSpread = atmosphere ? lane * 780 : spread * 1.35;
+      var wobble = (r3 - 0.5) * (atmosphere ? 110 : 80);
       var wide = [
         70 - r1 * 140, 790 + spread,
-        290, 780 + spread * 0.9, 320, 280 + spread + wobble,
-        570, 370 + spread * (atmosphere ? 0.85 : 0.45),
-        850, 760 + spread * 1.1, 1040, 480 + endSpread * 0.7,
-        1250, 170 + endSpread + wobble, 1510, 250 + endSpread
+        290, 780 + spread * 0.8, 320, 210 + spread + wobble,
+        650, 310 + spread * (atmosphere ? 0.85 : 0.65),
+        920, 760 + spread * 1.05, 1110, 480 + endSpread * 0.7,
+        1280, 170 + endSpread + wobble, 1510, 250 + endSpread
       ];
       var tightSpread = (r0 - 0.5) * (100 + r4 * 100);
       var tightWobble = (r3 - 0.5) * 62;
@@ -2062,17 +2063,17 @@ a:focus-visible, button:focus-visible {
       var pathD = ribbonD(wide);
       var path = document.createElementNS(NS, "path");
       path.setAttribute("d", pathD);
-      var highlight = i % 6 === 0;
-      var medium = !highlight && i % 3 === 0;
+      var highlight = !atmosphere && i % 6 === 0;
+      var medium = !atmosphere && !highlight;
       path.setAttribute("class", STRANDS[i % 3] + (highlight ? " strand-highlight" : medium ? " strand-mid" : " strand-atmosphere"));
       var sw = highlight ? 0.55 + r1 * 0.15 : medium ? 0.4 + r1 * 0.15 : 0.3 + r1 * 0.15;
       path.setAttribute("stroke-width", sw.toFixed(2));
       path.setAttribute("vector-effect", "non-scaling-stroke");
-      var opacity = highlight ? 0.82 + r3 * 0.18 : medium ? 0.48 + r0 * 0.22 : 0.16 + r0 * 0.22;
+      var opacity = highlight ? 0.64 + r3 * 0.16 : medium ? 0.38 + r0 * 0.22 : 0.13 + r0 * 0.16;
       path.style.opacity = opacity.toFixed(3);
       ribbonPaths.push({ element: path, wide: wide, tight: tight, opacity: opacity, revealVisible: i < (mobile ? 140 : 240) });
-      var dash = highlight ? 260 + r0 * 360 : 55 + r0 * 180;
-      var gap = highlight ? 12 + r1 * 34 : 28 + r1 * 130;
+      var dash = highlight ? 360 + r0 * 480 : medium ? 240 + r0 * 420 : 150 + r0 * 300;
+      var gap = highlight ? 12 + r1 * 28 : medium ? 18 + r1 * 42 : 40 + r1 * 110;
       path.setAttribute("stroke-dasharray", dash.toFixed(1) + " " + gap.toFixed(1));
       path.setAttribute("stroke-dashoffset", String(Math.round(r2 * 280 + r4 * 90)));
       /* Desync continuous drift so threads don't pulse as one fabric */
@@ -2164,7 +2165,7 @@ a:focus-visible, button:focus-visible {
       var geometry;
       try {
         sticky.style.setProperty("--scene-reveal", "0");
-        sticky.style.setProperty("--wave-bend", "0.5");
+        sticky.style.setProperty("--wave-bend", "0.82");
         sticky.style.setProperty("--original-rise", "0px");
         if (networkElement) {
           networkElement.style.setProperty("--parallax-x", "0px");
@@ -2213,7 +2214,7 @@ a:focus-visible, button:focus-visible {
         portraitField.appendChild(group);
         groups.push(group);
       }
-      var orbitCount = window.innerWidth <= 850 ? 42 : 78;
+      var orbitCount = window.innerWidth <= 850 ? 58 : 110;
       var amount = typeof lastSceneBlend === "number" && lastSceneBlend >= 0 ? lastSceneBlend : 0;
       for (var n = 0; n < orbitCount; n++) {
         var a0 = rnd(n + 801), a1 = rnd(n + 937), a2 = rnd(n + 1109);
@@ -2238,7 +2239,7 @@ a:focus-visible, button:focus-visible {
         path.setAttribute("vector-effect", "non-scaling-stroke");
         path.setAttribute("stroke-width", (0.3 + a2 * 0.4).toFixed(2));
         path.setAttribute("stroke-dasharray", (95 + a1 * 230).toFixed(1) + " " + (20 + a0 * 70).toFixed(1));
-        path.style.opacity = String(n % 9 === 0 ? 0.66 : 0.18 + a0 * 0.3);
+        path.style.opacity = String(n % 9 === 0 ? 0.72 : 0.28 + a0 * 0.28);
         path.style.animationDuration = (28 + a1 * 34).toFixed(1) + "s";
         path.style.animationDelay = (-a2 * 48).toFixed(1) + "s";
         var filament = { element: path, points: points, wave: wave, join: 0.36 + a1 * 0.32 };
@@ -2337,7 +2338,7 @@ a:focus-visible, button:focus-visible {
       var baseRight = exit * window.innerWidth * 1.65;
       sticky.style.setProperty("--hero-progress", String(p));
       /* Open with a shallow ribbon, then deepen its curve with the reveal. */
-      sticky.style.setProperty("--wave-bend", String(0.5 + reveal * 0.5));
+      sticky.style.setProperty("--wave-bend", String(0.82 + reveal * 0.18));
       /* Mid-depth values keep metrics aligned with the field */
       sticky.style.setProperty("--wave-down", Math.round(baseDown) + "px");
       sticky.style.setProperty("--wave-right", Math.round(baseRight) + "px");
@@ -2671,6 +2672,7 @@ a:focus-visible, button:focus-visible {
     }).observe(arHost);
   }
 })();
+
 
 </script>
 </body>
