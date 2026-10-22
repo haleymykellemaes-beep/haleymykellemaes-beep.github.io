@@ -35,7 +35,7 @@
     var DEPTH_DOWN = [0.48, 0.72, 1.0, 1.28, 1.55];
     var DEPTH_RIGHT = [0.62, 0.82, 1.0, 1.22, 1.48];
     var mobile = window.innerWidth <= 850;
-    var pathCount = mobile ? 82 : 128;
+    var pathCount = mobile ? 140 : 240;
     var nodeCount = mobile ? 130 : 280;
 
     function rnd(seed) {
@@ -78,8 +78,8 @@
       var sw = 0.3 + r1 * 0.35;
       if (i % 19 === 0) sw = 0.62 + r2 * 0.08;
       path.setAttribute("stroke-width", sw.toFixed(2));
-      var opacity = 0.12 + r0 * 0.18 + r4 * 0.08;
-      if (i % 14 === 0) opacity = 0.2 + r3 * 0.1;
+      var opacity = 0.15 + r0 * 0.22 + r4 * 0.1;
+      if (i % 14 === 0) opacity = 0.32 + r3 * 0.12;
       path.style.opacity = opacity.toFixed(3);
       var dash = 55 + r0 * 180;
       var gap = 28 + r1 * 130;
