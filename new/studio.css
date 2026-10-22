@@ -1382,3 +1382,8 @@ a:focus-visible, button:focus-visible {
   .metric-c { top: 77%; }
 }
 
+
+/* Luminous lead strands sit among the quieter champagne threads. */
+.wave-layer path.strand-highlight { stroke: #f0d4a2; }
+.wave-layer path.strand-mid { stroke: #ddc18e; }
+.wave-layer circle.spark { fill: #f3dab0; }
