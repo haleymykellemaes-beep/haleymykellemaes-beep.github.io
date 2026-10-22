@@ -2,6 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <script>
+    // Start at Home instead of restoring an old section or scroll position.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    history.replaceState(null, "", location.pathname + location.search + "#top");
+    function startAtHome() {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+    startAtHome();
+    window.addEventListener("load", startAtHome, { once: true });
+    window.addEventListener("pageshow", startAtHome);
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Haley Maes · Data Analyst</title>
   <meta name="description" content="Haley Maes, data analyst. SQL, Python, and Excel — reporting systems from operational data." />
