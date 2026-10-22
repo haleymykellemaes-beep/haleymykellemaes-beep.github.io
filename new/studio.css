@@ -185,6 +185,9 @@ em { font-style: italic; }
 @media (prefers-reduced-motion: no-preference) {
   .js .hero-name-text,
   .js .hero-role-text { color: transparent; }
+  .js .hero-role:not(.is-active) {
+    display: none;
+  }
   .js .hero-name.is-typing .hero-name-text,
   .js .hero-role.is-typing .hero-role-text,
   .js .hero-name.is-typed .hero-name-text,
