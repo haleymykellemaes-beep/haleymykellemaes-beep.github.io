@@ -156,7 +156,7 @@ em { font-style: italic; }
 .pill:hover { background: #fff; }
 .nav-end .pill { color: var(--ink); }
 
-/* Charcoal hero. Types once: name, title, then the rest, then the tagline. */
+/* Charcoal hero. The name falls in once, like the Framer headline. */
 .hero {
   background: #1C1C1B;
   color: #EDE9DC;
@@ -178,23 +178,14 @@ em { font-style: italic; }
 }
 .hero-copy > * + * { margin-top: 14px; }
 @media (prefers-reduced-motion: no-preference) {
-  .js .hero-name-text,
-  .js .hero-role-text { color: transparent; }
-  .js .hero-name.is-typing .hero-name-text,
-  .js .hero-role.is-typing .hero-role-text,
-  .js .hero-name.is-typed .hero-name-text,
-  .js .hero-role.is-typed .hero-role-text { color: #EDE9DC; }
-  .js .hero-tag-lead,
-  .js .hero-tag-turn,
-  .js .hero-pending {
-    opacity: 0;
-    transition: opacity 0.7s ease;
+  .hero-name span {
+    display: inline-block;
+    animation: name-fall 1.5s cubic-bezier(.16, 1, .3, 1) both;
   }
-  .js .hero-tag-lead { transition-duration: 0.4s; }
-  .js .hero-tag-turn { transition-duration: 0.55s; }
-  .js .hero-tag-lead.is-in,
-  .js .hero-tag-turn.is-in,
-  .js .hero-pending.is-in { opacity: 1; }
+  .hero-name span:last-child { animation-delay: 0.12s; }
+}
+@keyframes name-fall {
+  from { opacity: 0; transform: translateY(-60px) scaleY(2.6); filter: blur(10px); }
 }
 .hero h1 {
   font-family: var(--serif);
@@ -205,30 +196,6 @@ em { font-style: italic; }
   color: #EDE9DC;
   white-space: nowrap;
   max-width: 100%;
-}
-.hero-name,
-.hero-role { display: inline-grid; }
-.hero-name-sizer,
-.hero-name-line,
-.hero-role-sizer,
-.hero-role-line { grid-area: 1 / 1; }
-.hero-name-sizer,
-.hero-role-sizer { visibility: hidden; }
-.hero-name-sizer::after,
-.hero-role-sizer::after {
-  content: "";
-  display: inline-block;
-  width: 0.12em;
-}
-.hero-name.is-typed .hero-name-sizer::after,
-.hero-role.is-typed .hero-role-sizer::after { content: none; }
-.hero-caret {
-  display: inline-block;
-  width: 1px;
-  height: 0.72em;
-  margin-left: 0.08em;
-  background: currentColor;
-  vertical-align: -0.05em;
 }
 .hero-role {
   font-family: var(--serif);
