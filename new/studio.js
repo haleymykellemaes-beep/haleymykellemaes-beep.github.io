@@ -101,8 +101,9 @@
       var highlight = i % 6 === 0;
       var medium = !highlight && i % 3 === 0;
       path.setAttribute("class", STRANDS[i % 3] + (highlight ? " strand-highlight" : medium ? " strand-mid" : " strand-atmosphere"));
-      var sw = highlight ? 0.75 + r1 * 0.25 : medium ? 0.5 + r1 * 0.2 : 0.3 + r1 * 0.3;
+      var sw = highlight ? 0.55 + r1 * 0.15 : medium ? 0.4 + r1 * 0.15 : 0.3 + r1 * 0.15;
       path.setAttribute("stroke-width", sw.toFixed(2));
+      path.setAttribute("vector-effect", "non-scaling-stroke");
       var opacity = highlight ? 0.82 + r3 * 0.18 : medium ? 0.48 + r0 * 0.22 : 0.16 + r0 * 0.22;
       path.style.opacity = opacity.toFixed(3);
       ribbonPaths.push({ element: path, wide: wide, tight: tight, opacity: opacity, revealVisible: i < (mobile ? 140 : 240) });
@@ -115,6 +116,7 @@
       path.style.animationDelay = (-r2 * 32 - r4 * 12).toFixed(1) + "s";
       if (r3 > 0.55) path.style.animationDirection = "reverse";
       var depth = Math.min(DEPTHS - 1, Math.floor(r0 * DEPTHS));
+      ribbonPaths[ribbonPaths.length - 1].depth = depth;
       depthGroups[depth].appendChild(path);
     }
 
@@ -129,9 +131,9 @@
       circle.setAttribute("cx", cx.toFixed(1));
       circle.setAttribute("cy", cy.toFixed(1));
       ribbonNodes.push({ element: circle, wide: cy, tight: flowY + (rn2 - 0.5) * 145 });
-      var rad = 0.7 + rn3 * 0.9;
+      var rad = 0.45 + rn3 * 0.65;
       var spark = i % 12 === 0;
-      if (spark) rad = 1.5 + rn * 0.5;
+      if (spark) rad = 0.95 + rn * 0.35;
       circle.setAttribute("r", rad.toFixed(2));
       var ncls = NODE_CLS[i % 3];
       if (spark) ncls = (ncls ? ncls + " " : "") + "spark";
@@ -139,6 +141,190 @@
       circle.style.opacity = String(spark ? 0.72 + rn2 * 0.25 : 0.22 + rn * 0.32);
       var nodeDepth = Math.min(DEPTHS - 1, Math.floor(rn * DEPTHS));
       depthGroups[nodeDepth].appendChild(circle);
+    }
+
+    // Portrait filaments share the wave's SVG, depth groups and coordinate space.
+    // Geometry is measured only on resize; scrolling reuses cached control points.
+    var portraitFilaments = [];
+    var portraitRoot = network.ownerSVGElement;
+    var portraitPhoto = sticky.querySelector(".hero-photo");
+    var portraitField = null;
+    var orbitResizePending = false;
+
+    function cubicPoint(points, t) {
+      var u = 1 - t;
+      var x0 = points[6], y0 = points[7];
+      var x1 = 2 * x0 - points[4], y1 = 2 * y0 - points[5];
+      var x2 = points[8], y2 = points[9], x3 = points[10], y3 = points[11];
+      return {
+        x: u * u * u * x0 + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t * x3,
+        y: u * u * u * y0 + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t * t * t * y3,
+        dx: 3 * u * u * (x1 - x0) + 6 * u * t * (x2 - x1) + 3 * t * t * (x3 - x2),
+        dy: 3 * u * u * (y1 - y0) + 6 * u * t * (y2 - y1) + 3 * t * t * (y3 - y2)
+      };
+    }
+
+    function filamentD(filament, amount) {
+      var points = filament.points;
+      var first = points[0];
+      var result = "";
+      if (filament.wave) {
+        var source = cubicPoint(blendRibbon(filament.wave.wide, filament.wave.tight, amount), filament.join);
+        var length = Math.max(1, Math.hypot(source.dx, source.dy));
+        var reach = Math.min(110, Math.hypot(first.x - source.x, first.y - source.y) * 0.42);
+        var next = points[1];
+        result = "M " + source.x.toFixed(1) + " " + source.y.toFixed(1) +
+          " C " + (source.x + source.dx / length * reach).toFixed(1) + " " + (source.y + source.dy / length * reach).toFixed(1) +
+          " " + (first.x - (next.x - first.x) * 0.6).toFixed(1) + " " + (first.y - (next.y - first.y) * 0.6).toFixed(1) +
+          " " + first.x.toFixed(1) + " " + first.y.toFixed(1);
+      } else {
+        result = "M " + first.x.toFixed(1) + " " + first.y.toFixed(1);
+      }
+      for (var j = 0; j < points.length - 1; j++) {
+        var before = points[Math.max(0, j - 1)];
+        var a = points[j], b = points[j + 1];
+        var after = points[Math.min(points.length - 1, j + 2)];
+        result += " C " + (a.x + (b.x - before.x) / 6).toFixed(1) + " " + (a.y + (b.y - before.y) / 6).toFixed(1) +
+          " " + (b.x - (after.x - a.x) / 6).toFixed(1) + " " + (b.y - (after.y - a.y) / 6).toFixed(1) +
+          " " + b.x.toFixed(1) + " " + b.y.toFixed(1);
+      }
+      return result;
+    }
+
+    function buildPortraitFilaments() {
+      if (!portraitRoot || !portraitPhoto || !portraitRoot.getScreenCTM) return;
+      var properties = ["--scene-reveal", "--wave-bend", "--original-rise", "--parallax-x", "--parallax-y"];
+      var saved = properties.map(function (name) { return sticky.style.getPropertyValue(name); });
+      var networkElement = sticky.querySelector(".hero-network");
+      var savedPointer = networkElement ? ["--parallax-x", "--parallax-y"].map(function (name) { return networkElement.style.getPropertyValue(name); }) : [];
+      var geometry;
+      try {
+        sticky.style.setProperty("--scene-reveal", "0");
+        sticky.style.setProperty("--wave-bend", "0.5");
+        sticky.style.setProperty("--original-rise", "0px");
+        if (networkElement) {
+          networkElement.style.setProperty("--parallax-x", "0px");
+          networkElement.style.setProperty("--parallax-y", "0px");
+        }
+        var matrix = portraitRoot.getScreenCTM();
+        if (!matrix) return;
+        var inverse = matrix.inverse();
+        var rect = portraitPhoto.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        function project(x, y) {
+          var point = portraitRoot.createSVGPoint();
+          point.x = x; point.y = y;
+          return point.matrixTransform(inverse);
+        }
+        var center = project(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        var right = project(rect.right, rect.top + rect.height / 2);
+        var bottom = project(rect.left + rect.width / 2, rect.bottom);
+        geometry = {
+          x: center.x, y: center.y,
+          rx: Math.abs(right.x - center.x), ry: Math.abs(bottom.y - center.y),
+          unitX: Math.abs(inverse.a), unitY: Math.abs(inverse.d)
+        };
+      } catch (error) {
+        geometry = null;
+      } finally {
+        properties.forEach(function (name, index) {
+          if (saved[index]) sticky.style.setProperty(name, saved[index]);
+          else sticky.style.removeProperty(name);
+        });
+        if (networkElement) ["--parallax-x", "--parallax-y"].forEach(function (name, index) {
+          if (savedPointer[index]) networkElement.style.setProperty(name, savedPointer[index]);
+          else networkElement.style.removeProperty(name);
+        });
+      }
+      if (!geometry) return;
+      if (portraitField) portraitField.remove();
+      portraitField = document.createElementNS(NS, "g");
+      portraitField.setAttribute("class", "portrait-filament-network");
+      portraitRoot.appendChild(portraitField);
+      portraitFilaments = [];
+      var groups = [];
+      for (var layer = 0; layer < DEPTHS; layer++) {
+        var group = document.createElementNS(NS, "g");
+        group.setAttribute("class", "strand-depth depth-" + layer);
+        portraitField.appendChild(group);
+        groups.push(group);
+      }
+      var orbitCount = window.innerWidth <= 850 ? 42 : 78;
+      var amount = typeof lastSceneBlend === "number" && lastSceneBlend >= 0 ? lastSceneBlend : 0;
+      for (var n = 0; n < orbitCount; n++) {
+        var a0 = rnd(n + 801), a1 = rnd(n + 937), a2 = rnd(n + 1109);
+        var connected = n % 3 === 0;
+        var start = connected ? 2.1 + a0 * 0.8 : a0 * Math.PI * 2;
+        var sweep = (1.5 + a1 * 3.4) * (n % 2 ? 1 : -1);
+        var scale = 1.04 + a2 * 0.2;
+        var points = [];
+        var steps = 10;
+        for (var step = 0; step <= steps; step++) {
+          var angle = start + sweep * step / steps;
+          var ripple = 1 + 0.018 * Math.sin(angle * 3 + n * 0.37) + 0.009 * Math.cos(angle * 7 + a1 * 5);
+          points.push({
+            x: geometry.x + geometry.rx * scale * ripple * Math.cos(angle),
+            y: geometry.y + geometry.ry * (scale + (a0 - 0.5) * 0.075) * ripple * Math.sin(angle)
+          });
+        }
+        var wave = connected ? ribbonPaths[(n * 7 + 12) % Math.min(ribbonPaths.length, 140)] : null;
+        var depth = wave ? wave.depth : n % DEPTHS;
+        var path = document.createElementNS(NS, "path");
+        path.setAttribute("class", "portrait-silk");
+        path.setAttribute("vector-effect", "non-scaling-stroke");
+        path.setAttribute("stroke-width", (0.3 + a2 * 0.4).toFixed(2));
+        path.setAttribute("stroke-dasharray", (95 + a1 * 230).toFixed(1) + " " + (20 + a0 * 70).toFixed(1));
+        path.style.opacity = String(n % 9 === 0 ? 0.66 : 0.18 + a0 * 0.3);
+        path.style.animationDuration = (28 + a1 * 34).toFixed(1) + "s";
+        path.style.animationDelay = (-a2 * 48).toFixed(1) + "s";
+        var filament = { element: path, points: points, wave: wave, join: 0.36 + a1 * 0.32 };
+        path.setAttribute("d", filamentD(filament, amount));
+        portraitFilaments.push(filament);
+        groups[depth].appendChild(path);
+        if (n % 3 === 0) {
+          var location = points[2 + Math.floor(a1 * 7)];
+          var dot = document.createElementNS(NS, "ellipse");
+          var radius = n % 12 === 0 ? 1.05 : 0.45 + a2 * 0.35;
+          dot.setAttribute("cx", location.x.toFixed(1));
+          dot.setAttribute("cy", location.y.toFixed(1));
+          dot.setAttribute("rx", (radius * geometry.unitX).toFixed(2));
+          dot.setAttribute("ry", (radius * geometry.unitY).toFixed(2));
+          dot.setAttribute("class", "portrait-silk-node" + (n % 12 === 0 ? " is-glint" : ""));
+          dot.style.opacity = String(0.25 + a1 * 0.42);
+          groups[depth].appendChild(dot);
+        }
+      }
+    }
+
+    if (portraitRoot && portraitPhoto) {
+      var defs = document.createElementNS(NS, "defs");
+      var fade = document.createElementNS(NS, "linearGradient");
+      fade.setAttribute("id", "portrait-thread-fade");
+      fade.setAttribute("x1", "0%"); fade.setAttribute("y1", "15%");
+      fade.setAttribute("x2", "100%"); fade.setAttribute("y2", "85%");
+      [[0, 0], [0.15, 0.45], [0.36, 1], [0.65, 0.65], [0.88, 0.24], [1, 0]].forEach(function (value) {
+        var stop = document.createElementNS(NS, "stop");
+        stop.setAttribute("offset", String(value[0]));
+        stop.setAttribute("stop-color", "#d4c2a2");
+        stop.setAttribute("stop-opacity", String(value[1]));
+        fade.appendChild(stop);
+      });
+      defs.appendChild(fade);
+      portraitRoot.appendChild(defs);
+      buildPortraitFilaments();
+      var requestPortraitLayout = function () {
+        if (orbitResizePending) return;
+        orbitResizePending = true;
+        requestAnimationFrame(function () {
+          orbitResizePending = false;
+          buildPortraitFilaments();
+        });
+      };
+      window.addEventListener("resize", requestPortraitLayout);
+      if ("ResizeObserver" in window) {
+        var portraitObserver = new ResizeObserver(requestPortraitLayout);
+        portraitObserver.observe(portraitPhoto);
+      }
     }
 
     if (reduce) return;
@@ -176,6 +362,9 @@
         });
         ribbonNodes.forEach(function (node) {
           node.element.setAttribute("cy", (node.wide + (node.tight - node.wide) * reveal).toFixed(1));
+        });
+        portraitFilaments.forEach(function (filament) {
+          if (filament.wave) filament.element.setAttribute("d", filamentD(filament, reveal));
         });
         lastSceneBlend = reveal;
       }
@@ -296,6 +485,10 @@
     if (!document.body.classList.contains("nav-open")) return;
     if (e.target.closest(".nav-links") || e.target.closest(".menu-btn")) return;
     setNav(false);
+  });
+
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 1100 && document.body.classList.contains("nav-open")) setNav(false);
   });
 
   /* Cards draw in, including the horizontal row */

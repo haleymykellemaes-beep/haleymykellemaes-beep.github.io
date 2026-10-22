@@ -1492,3 +1492,128 @@ a:focus-visible, button:focus-visible {
       transparent);
   }
 }
+
+/* Organic portrait threads share the wave's masked SVG and depth motion. */
+.portrait-filament-network { opacity: var(--original-opacity, 1); pointer-events: none; }
+.portrait-silk {
+  fill: none;
+  stroke: url(#portrait-thread-fade);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  animation: strand-drift 40s linear infinite;
+}
+.portrait-silk-node { fill: #d4c2a2; }
+.portrait-silk-node.is-glint { filter: drop-shadow(0 0 0.8px rgba(212, 194, 162, 0.3)); }
+.hero-network .wave-layer circle.spark { filter: drop-shadow(0 0 1px rgba(222, 198, 155, 0.35)); }
+
+/* Resume leads; links follow; social targets remain quiet and accessible. */
+.site-nav { top: calc(env(safe-area-inset-top, 0px) + 22px); }
+.nav-row {
+  width: min(1440px, calc(100% - clamp(40px, 7vw, 112px)));
+  min-height: 52px;
+  grid-template-columns: minmax(110px, 1fr) auto max-content;
+  gap: clamp(20px, 2.4vw, 36px);
+}
+.site-nav .nav-links { gap: clamp(22px, 2vw, 32px); }
+.site-nav .nav-links a {
+  font-size: 0.90625rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+.nav-end { gap: 20px; }
+.site-nav .nav-social { gap: 8px; }
+.site-nav .nav-ico { width: 40px; height: 40px; border-color: rgba(212, 194, 162, 0.28); }
+.nav-ico svg { width: 17px; height: 17px; }
+.site-nav .pill-nav {
+  min-height: 48px;
+  padding-inline: 22px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: var(--champagne);
+  color: var(--ink);
+  border-radius: 999px;
+  flex: none;
+}
+@media (max-width: 1100px) {
+  .nav-row { width: calc(100% - 40px); grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; }
+  .menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 3;
+    grid-row: 1;
+    min-width: 60px;
+    min-height: 48px;
+    padding-inline: 14px;
+    font-size: 0.875rem;
+    z-index: 26;
+    background: rgba(28, 28, 27, 0.82);
+    border-color: rgba(212, 194, 162, 0.4);
+  }
+  .nav-end { display: flex; grid-column: 2; grid-row: 1; }
+  .site-nav .nav-end .nav-social { display: none; }
+  .site-nav .nav-links {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    z-index: 24;
+    justify-self: auto;
+    width: min(340px, 86vw);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    margin: 0;
+    padding: calc(env(safe-area-inset-top, 0px) + 6.5rem) 1.75rem 2rem;
+    background: rgba(28, 28, 27, 0.98);
+    border: 0;
+    border-left: 1px solid var(--line);
+    border-radius: 0;
+    transform: translateX(104%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.34s cubic-bezier(.22, .7, .2, 1), visibility 0.34s;
+  }
+  .site-nav .nav-links a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 52px;
+    font-size: 0.9375rem;
+    border-bottom: 1px solid rgba(244, 241, 234, 0.08);
+  }
+  .site-nav .nav-links a:last-child { border-bottom: 0; }
+  .site-nav .nav-links .nav-resume {
+    justify-content: center;
+    margin-top: 18px;
+    min-height: 48px;
+    color: var(--ink);
+    background: var(--champagne);
+    border: 1px solid var(--gold-muted);
+    border-radius: 999px;
+  }
+  .nav-open .nav-links { transform: translateX(0); visibility: visible; pointer-events: auto; }
+}
+@media (max-width: 480px) {
+  .site-nav { top: calc(env(safe-area-inset-top, 0px) + 20px); }
+  .nav-row { width: calc(100% - 32px); gap: 8px; min-height: 48px; }
+  .site-nav .pill-nav { min-height: 44px; padding-inline: 14px; }
+  .menu-btn { min-width: 54px; min-height: 44px; padding-inline: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portrait-silk { animation: none; }
+  .site-nav .nav-links { transition: none; }
+}
+
+@media (max-width: 1100px) {
+  .site-nav .nav-links { overflow-y: auto; overscroll-behavior: contain; }
+  .site-nav .nav-links .nav-resume:hover { background: #e0cfb2; }
+}
+@media (max-width: 360px) {
+  .nav-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .nav-end { display: none; }
+  .menu-btn { grid-column: 2; }
+}
