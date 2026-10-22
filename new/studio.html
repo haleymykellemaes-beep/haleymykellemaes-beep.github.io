@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" />
-  <link rel="stylesheet" href="studio.css?v=7" />
+  <link rel="stylesheet" href="studio.css?v=9" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -31,12 +31,18 @@
   <header class="hero" id="top">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <h1>Haley Maes</h1>
-        <p class="hero-role">Data Analyst</p>
-        <p class="hero-tag">Numbers tell stories. <em>I translate them.</em></p>
-        <p class="hero-tools">Excel · SQL · Python · Tableau · Financial Analysis</p>
-        <a class="hero-mail" href="mailto:haleymykellemaes@gmail.com">haleymykellemaes@gmail.com</a>
-        <ul class="hero-social">
+        <h1 class="hero-name" aria-label="Haley Maes">
+          <span class="hero-name-sizer" aria-hidden="true">Haley Maes</span>
+          <span class="hero-name-line"><span class="hero-name-text">Haley Maes</span></span>
+        </h1>
+        <p class="hero-role" aria-label="Data Analyst">
+          <span class="hero-role-sizer" aria-hidden="true">Data Analyst</span>
+          <span class="hero-role-line"><span class="hero-role-text">Data Analyst</span></span>
+        </p>
+        <p class="hero-tag"><span class="hero-tag-lead">Numbers tell stories.</span> <em class="hero-tag-turn">I translate them.</em></p>
+        <p class="hero-tools hero-pending">Excel · SQL · Python · Tableau · Financial Analysis</p>
+        <a class="hero-mail hero-pending" href="mailto:haleymykellemaes@gmail.com">haleymykellemaes@gmail.com</a>
+        <ul class="hero-social hero-pending">
           <li>
             <a href="https://www.linkedin.com/in/haleymmaes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M4.7 3.2a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6zM3.1 8.7h3.2V21H3.1V8.7zm5.3 0h3.1v1.7h.1c.4-.8 1.5-1.7 3.1-1.7 3.3 0 3.9 2.2 3.9 5v7.3h-3.2v-6.5c0-1.5 0-3.5-2.1-3.5s-2.5 1.7-2.5 3.4V21H8.4V8.7z"/></svg>
@@ -54,7 +60,7 @@
           </li>
         </ul>
       </div>
-      <div class="hero-side">
+      <div class="hero-side hero-pending">
         <div class="hero-visual">
           <svg class="hero-arcs" viewBox="0 0 480 480" aria-hidden="true">
             <path d="M86 300c-28-78 8-168 92-206" fill="none" stroke="#EDE9DC" stroke-opacity="0.28" stroke-width="1.25" />
@@ -326,6 +332,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-  <script src="studio.js?v=4"></script>
+  <script src="studio.js?v=6"></script>
 </body>
 </html>
