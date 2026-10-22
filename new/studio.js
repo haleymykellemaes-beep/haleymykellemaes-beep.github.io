@@ -20,44 +20,93 @@
     });
   })();
 
-  /* Cinematic scroll hero: wave network + scroll-driven reveal */
+  /* Cinematic scroll hero: silk champagne strands + scroll-driven reveal */
   (function initCinematicHero() {
     var stage = document.getElementById("hero-stage");
     if (!stage) return;
     var sticky = stage.querySelector(".hero-sticky");
     var network = document.getElementById("wave-layer");
-    var networkGlow = document.getElementById("wave-layer-glow");
     if (!sticky || !network) return;
     var NS = "http://www.w3.org/2000/svg";
+    var STRANDS = ["strand-a", "strand-b", "strand-c"];
+    var NODE_CLS = ["", "node-b", "node-c"];
+    var mobile = window.innerWidth <= 850;
+    var pathCount = mobile ? 82 : 128;
+    var nodeCount = mobile ? 52 : 88;
+
+    function rnd(seed) {
+      var x = Math.sin(seed * 127.1 + 311.7) * 43758.5453123;
+      return x - Math.floor(x);
+    }
+
     var i;
-    for (i = 0; i < 26; i++) {
-      var y = 210 + i * 17;
-      var d = "M -120 " + (y + 150) + " C 260 " + (y - 160) + " 520 " + (y + 220) + " 825 " + (y + 32) + " S 1250 " + (y - 125) + " 1580 " + (y + 90);
+    for (i = 0; i < pathCount; i++) {
+      var r0 = rnd(i + 1);
+      var r1 = rnd(i + 47);
+      var r2 = rnd(i + 91);
+      var r3 = rnd(i + 139);
+      var t = i / Math.max(1, pathCount - 1);
+      /* Flow field: strands converge through a mid band, diverge at the edges */
+      var envelope = 0.42 + 0.58 * Math.sin(Math.PI * t);
+      var centerY = 355 + Math.sin(t * Math.PI * 1.15 + r0 * 1.4) * 36;
+      var spread = 265 * envelope;
+      var y = centerY + (r0 - 0.5) * 2 * spread;
+      var y0 = y + 95 + (r1 - 0.5) * 170;
+      var c1y = y - 95 - r2 * 155;
+      var c2y = y + 125 + r0 * 115;
+      var midY = y + (r1 - 0.5) * 48;
+      var c3y = y - 70 + r3 * 105;
+      var yEnd = y + 28 + (r2 - 0.5) * 95;
+      var x0 = -90 - r0 * 70;
+      var x1 = 250 + r1 * 95;
+      var x2 = 500 + r2 * 110;
+      var xMid = 760 + (r3 - 0.5) * 70;
+      var x3 = 1080 + r0 * 90;
+      var x4 = 1520 + r1 * 50;
+      var d =
+        "M " + x0.toFixed(1) + " " + y0.toFixed(1) +
+        " C " + x1.toFixed(1) + " " + c1y.toFixed(1) +
+        " " + x2.toFixed(1) + " " + c2y.toFixed(1) +
+        " " + xMid.toFixed(1) + " " + midY.toFixed(1) +
+        " S " + x3.toFixed(1) + " " + c3y.toFixed(1) +
+        " " + x4.toFixed(1) + " " + yEnd.toFixed(1);
       var path = document.createElementNS(NS, "path");
       path.setAttribute("d", d);
-      path.style.opacity = String(0.14 + (i % 6) * 0.09);
+      path.setAttribute("class", STRANDS[i % 3]);
+      var sw = 0.3 + r1 * 0.35;
+      if (i % 19 === 0) sw = 0.62 + r2 * 0.08;
+      path.setAttribute("stroke-width", sw.toFixed(2));
+      var opacity = 0.08 + r0 * 0.14;
+      if (i % 14 === 0) opacity = 0.22 + r3 * 0.08;
+      path.style.opacity = opacity.toFixed(3);
+      var dash = 70 + r0 * 160;
+      var gap = 35 + r1 * 110;
+      path.setAttribute("stroke-dasharray", dash.toFixed(1) + " " + gap.toFixed(1));
+      path.setAttribute("stroke-dashoffset", String(Math.round(r2 * 220)));
       network.appendChild(path);
-      if (networkGlow) {
-        var glowPath = document.createElementNS(NS, "path");
-        glowPath.setAttribute("d", d);
-        glowPath.style.opacity = String(0.06 + (i % 5) * 0.025);
-        networkGlow.appendChild(glowPath);
-      }
-      var n;
-      for (n = 0; n < 4; n++) {
-        var x = 240 + n * 360 + (i % 4) * 28;
-        var t = x / 1550;
-        var cy = y + 150 - 150 * Math.sin(Math.PI * t * 1.85) + 26 * Math.sin(t * 8 + i * 0.2);
-        var circle = document.createElementNS(NS, "circle");
-        circle.setAttribute("cx", String(x));
-        circle.setAttribute("cy", String(cy));
-        var big = i % 5 === 0 || n === 1;
-        circle.setAttribute("r", big ? "2.6" : "1.35");
-        if (big) circle.setAttribute("class", "spark");
-        circle.style.opacity = String(0.18 + (i % 4) * 0.12);
-        network.appendChild(circle);
-      }
     }
+
+    for (i = 0; i < nodeCount; i++) {
+      var rn = rnd(i + 220);
+      var rn2 = rnd(i + 340);
+      var rn3 = rnd(i + 460);
+      var cx = 60 + rn * 1320;
+      var flowY = 340 + Math.sin(cx / 210 + rn2 * 2) * 95;
+      var cy = flowY + (rn2 - 0.5) * 240 * (0.5 + 0.5 * Math.sin((cx / 1440) * Math.PI));
+      var circle = document.createElementNS(NS, "circle");
+      circle.setAttribute("cx", cx.toFixed(1));
+      circle.setAttribute("cy", cy.toFixed(1));
+      var rad = 0.7 + rn3 * 0.9;
+      var spark = i % 12 === 0;
+      if (spark) rad = 1.5 + rn * 0.5;
+      circle.setAttribute("r", rad.toFixed(2));
+      var ncls = NODE_CLS[i % 3];
+      if (spark) ncls = (ncls ? ncls + " " : "") + "spark";
+      if (ncls) circle.setAttribute("class", ncls);
+      circle.style.opacity = String(spark ? 0.28 + rn2 * 0.12 : 0.1 + rn * 0.16);
+      network.appendChild(circle);
+    }
+
     if (reduce) return;
     var clamp = function (n, a, b) {
       a = a === undefined ? 0 : a;
@@ -71,6 +120,12 @@
     var revealEl = sticky.querySelector(".hero-reveal");
     var networkEl = sticky.querySelector(".hero-network");
     var metricsEl = sticky.querySelector(".hero-metrics");
+    var px = 0;
+    var py = 0;
+    var tx = 0;
+    var ty = 0;
+    var parallaxRaf = 0;
+
     function update() {
       scheduled = false;
       var rect = stage.getBoundingClientRect();
@@ -85,13 +140,12 @@
       sticky.style.setProperty("--original-rise", Math.round(-20 * smooth(clamp((p - 0.3) / 0.2))) + "px");
       sticky.style.setProperty("--reveal-opacity", String(reveal * (1 - exit * 0.52)));
       sticky.style.setProperty("--reveal-rise", Math.round((1 - reveal) * 28 - exit * 12) + "px");
-      sticky.style.setProperty("--metrics-shift", Math.round(reveal * 18 - exit * 24) + "px");
-      sticky.style.setProperty("--metrics-opacity", String(1 - exit * 0.35));
+      /* Metrics ride with the signal reveal, then exit with the wave sweep */
+      sticky.style.setProperty("--metrics-opacity", String(reveal * (1 - exit)));
+      sticky.style.setProperty("--metrics-rise", Math.round((1 - reveal) * 18 - exit * 8) + "px");
       if (revealEl) revealEl.style.pointerEvents = reveal > 0.9 ? "auto" : "none";
-      if (networkEl) networkEl.style.opacity = String(0.92 * (1 - exit * 0.85));
-      if (metricsEl && window.matchMedia("(min-width: 851px)").matches) {
-        metricsEl.style.opacity = String(1 - exit * 0.35);
-      }
+      if (networkEl) networkEl.style.opacity = String(0.9 * (1 - exit * 0.85));
+      if (metricsEl) metricsEl.setAttribute("aria-hidden", reveal < 0.08 ? "true" : "false");
     }
     function request() {
       if (!scheduled) {
@@ -99,8 +153,27 @@
         requestAnimationFrame(update);
       }
     }
+    function tickParallax() {
+      parallaxRaf = 0;
+      px += (tx - px) * 0.08;
+      py += (ty - py) * 0.08;
+      if (networkEl) {
+        networkEl.style.setProperty("--parallax-x", px.toFixed(2) + "px");
+        networkEl.style.setProperty("--parallax-y", py.toFixed(2) + "px");
+      }
+      if (Math.abs(tx - px) > 0.05 || Math.abs(ty - py) > 0.05) {
+        parallaxRaf = requestAnimationFrame(tickParallax);
+      }
+    }
+    function onPointer(e) {
+      if (e.pointerType === "touch") return;
+      tx = (e.clientX / window.innerWidth - 0.5) * 22;
+      ty = (e.clientY / window.innerHeight - 0.5) * 16;
+      if (!parallaxRaf) parallaxRaf = requestAnimationFrame(tickParallax);
+    }
     window.addEventListener("scroll", request, { passive: true });
     window.addEventListener("resize", request);
+    window.addEventListener("pointermove", onPointer, { passive: true });
     update();
   })();
 
