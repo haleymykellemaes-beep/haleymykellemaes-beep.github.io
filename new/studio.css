@@ -249,7 +249,8 @@ body.nav-open::before {
   pointer-events: none;
   opacity: 0.88;
   /* Pointer parallax only — scroll motion lives on .strand-depth groups */
-  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
+  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scaleY(var(--wave-bend, 0.5));
+  transform-origin: center;
   will-change: transform, opacity;
   /* Feather the SVG boundary; strand transforms and hairline strokes stay intact. */
   -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 35%, rgba(0, 0, 0, 0.85) 55%, rgba(0, 0, 0, 0.3) 76%, transparent 96%);

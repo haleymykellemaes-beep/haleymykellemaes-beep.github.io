@@ -36,7 +36,7 @@
     var DEPTH_RIGHT = [0.62, 0.82, 1.0, 1.22, 1.48];
     var mobile = window.innerWidth <= 850;
     var pathCount = mobile ? 140 : 240;
-    var nodeCount = mobile ? 130 : 280;
+    var nodeCount = mobile ? 230 : 520;
 
     function rnd(seed) {
       var x = Math.sin(seed * 127.1 + 311.7) * 43758.5453123;
@@ -144,6 +144,8 @@
       var baseDown = p * 55;
       var baseRight = exit * window.innerWidth * 1.65;
       sticky.style.setProperty("--hero-progress", String(p));
+      /* Open with a shallow ribbon, then deepen its curve with the reveal. */
+      sticky.style.setProperty("--wave-bend", String(0.5 + reveal * 0.5));
       /* Mid-depth values keep metrics aligned with the field */
       sticky.style.setProperty("--wave-down", Math.round(baseDown) + "px");
       sticky.style.setProperty("--wave-right", Math.round(baseRight) + "px");
