@@ -248,8 +248,8 @@ body.nav-open::before {
   z-index: 0;
   pointer-events: none;
   opacity: 0.88;
-  /* Pointer parallax only — scroll motion lives on .strand-depth groups */
-  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scaleY(var(--wave-bend, 0.82));
+  /* Stay still at rest; scroll motion lives on .strand-depth groups. */
+  transform: scaleY(var(--wave-bend, 0.82));
   transform-origin: center;
   will-change: transform, opacity;
   /* Feather the SVG boundary; strand transforms and hairline strokes stay intact. */
@@ -283,7 +283,7 @@ body.nav-open::before {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
-  animation: strand-drift 32s linear infinite;
+  animation: none;
 }
 .wave-layer path.strand-a { stroke: #C9B898; }
 .wave-layer path.strand-b { stroke: #D8C7A5; }

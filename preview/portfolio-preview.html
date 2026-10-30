@@ -10,8 +10,9 @@
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
     startAtHome();
-    window.addEventListener("load", startAtHome, { once: true });
-    window.addEventListener("pageshow", startAtHome);
+    window.addEventListener("pageshow", function (event) {
+      if (event.persisted) startAtHome();
+    });
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Haley Maes · Data Analyst</title>
@@ -284,8 +285,8 @@ body.nav-open::before {
   z-index: 0;
   pointer-events: none;
   opacity: 0.88;
-  /* Pointer parallax only — scroll motion lives on .strand-depth groups */
-  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scaleY(var(--wave-bend, 0.82));
+  /* Stay still at rest; scroll motion lives on .strand-depth groups. */
+  transform: scaleY(var(--wave-bend, 0.82));
   transform-origin: center;
   will-change: transform, opacity;
   /* Feather the SVG boundary; strand transforms and hairline strokes stay intact. */
@@ -319,7 +320,7 @@ body.nav-open::before {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
-  animation: strand-drift 32s linear infinite;
+  animation: none;
 }
 .wave-layer path.strand-a { stroke: #C9B898; }
 .wave-layer path.strand-b { stroke: #D8C7A5; }
@@ -1653,7 +1654,6 @@ a:focus-visible, button:focus-visible {
   .nav-end { display: none; }
   .menu-btn { grid-column: 2; }
 }
-
 </style>
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%20%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22%231c1c1b%22/%3E%0A%20%20%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%2258%22%20height%3D%2258%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23d4c2a2%22%20stroke-opacity%3D%22.65%22/%3E%0A%20%20%3Cpath%20d%3D%22M15%2021v23m13-23v23M15%2032h13%22%20fill%3D%22none%22%20stroke%3D%22%23ede9dc%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22square%22/%3E%0A%20%20%3Cpath%20d%3D%22M36%2044V21l7%2012%207-12v23%22%20fill%3D%22none%22%20stroke%3D%22%23d4c2a2%22%20stroke-width%3D%223%22%20stroke-linejoin%3D%22round%22/%3E%0A%3C/svg%3E%0A" type="image/svg+xml" />
   <script>
@@ -2076,10 +2076,6 @@ a:focus-visible, button:focus-visible {
       var gap = highlight ? 12 + r1 * 28 : medium ? 18 + r1 * 42 : 40 + r1 * 110;
       path.setAttribute("stroke-dasharray", dash.toFixed(1) + " " + gap.toFixed(1));
       path.setAttribute("stroke-dashoffset", String(Math.round(r2 * 280 + r4 * 90)));
-      /* Desync continuous drift so threads don't pulse as one fabric */
-      path.style.animationDuration = (18 + r1 * 38).toFixed(1) + "s";
-      path.style.animationDelay = (-r2 * 32 - r4 * 12).toFixed(1) + "s";
-      if (r3 > 0.55) path.style.animationDirection = "reverse";
       var depth = Math.min(DEPTHS - 1, Math.floor(r0 * DEPTHS));
       ribbonPaths[ribbonPaths.length - 1].depth = depth;
       depthGroups[depth].appendChild(path);
@@ -2121,18 +2117,26 @@ a:focus-visible, button:focus-visible {
     var revealEl = sticky.querySelector(".hero-reveal");
     var networkEl = sticky.querySelector(".hero-network");
     var metricsEl = sticky.querySelector(".hero-metrics");
-    var px = 0;
-    var py = 0;
-    var tx = 0;
-    var ty = 0;
-    var parallaxRaf = 0;
+    var introCopy = sticky.querySelector(".cinematic-copy");
+    var mobileAction = sticky.querySelector(".pill-mobile-work");
+    var needsMeasure = true;
+    var sceneStart = 0;
+    var sceneTravel = 1;
+    var lastProgress = -1;
 
     var lastSceneBlend = -1;
     function update() {
       scheduled = false;
-      var rect = stage.getBoundingClientRect();
-      var travel = Math.max(1, stage.offsetHeight - window.innerHeight);
-      var p = clamp(-rect.top / travel);
+      var measured = needsMeasure;
+      if (measured) {
+        sceneStart = stage.getBoundingClientRect().top + window.scrollY;
+        // Match the sticky scene's stable svh height, including mobile browser chrome.
+        sceneTravel = Math.max(1, stage.offsetHeight - sticky.clientHeight);
+        needsMeasure = false;
+      }
+      var p = clamp((window.scrollY - sceneStart) / sceneTravel);
+      if (!measured && p === lastProgress) return;
+      lastProgress = p;
       var reveal = smooth(clamp((p - 0.32) / 0.17));
       var exit = smooth(clamp((p - 0.69) / 0.29));
       // Only the opening scene fans out; the reveal returns to the original ribbon.
@@ -2168,8 +2172,6 @@ a:focus-visible, button:focus-visible {
       sticky.style.setProperty("--metrics-rise", Math.round((1 - reveal) * 18 - exit * 8) + "px");
       if (revealEl) revealEl.style.pointerEvents = reveal > 0.9 ? "auto" : "none";
       if (revealEl) revealEl.inert = reveal < 0.9;
-      var introCopy = sticky.querySelector(".cinematic-copy");
-      var mobileAction = sticky.querySelector(".pill-mobile-work");
       if (introCopy) introCopy.inert = p > 0.48;
       if (mobileAction) mobileAction.inert = p > 0.48;
       if (networkEl) networkEl.style.opacity = String((0.82 + reveal * 0.18) * (1 - exit * 0.85));
@@ -2181,27 +2183,11 @@ a:focus-visible, button:focus-visible {
         requestAnimationFrame(update);
       }
     }
-    function tickParallax() {
-      parallaxRaf = 0;
-      px += (tx - px) * 0.08;
-      py += (ty - py) * 0.08;
-      if (networkEl) {
-        networkEl.style.setProperty("--parallax-x", px.toFixed(2) + "px");
-        networkEl.style.setProperty("--parallax-y", py.toFixed(2) + "px");
-      }
-      if (Math.abs(tx - px) > 0.05 || Math.abs(ty - py) > 0.05) {
-        parallaxRaf = requestAnimationFrame(tickParallax);
-      }
-    }
-    function onPointer(e) {
-      if (e.pointerType === "touch") return;
-      tx = (e.clientX / window.innerWidth - 0.5) * 22;
-      ty = (e.clientY / window.innerHeight - 0.5) * 16;
-      if (!parallaxRaf) parallaxRaf = requestAnimationFrame(tickParallax);
-    }
     window.addEventListener("scroll", request, { passive: true });
-    window.addEventListener("resize", request);
-    window.addEventListener("pointermove", onPointer, { passive: true });
+    window.addEventListener("resize", function () {
+      needsMeasure = true;
+      request();
+    });
     update();
   })();
 
@@ -2486,8 +2472,6 @@ a:focus-visible, button:focus-visible {
   }
 })();
 
-
 </script>
 </body>
 </html>
-
