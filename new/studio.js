@@ -111,10 +111,6 @@
       var gap = highlight ? 12 + r1 * 28 : medium ? 18 + r1 * 42 : 40 + r1 * 110;
       path.setAttribute("stroke-dasharray", dash.toFixed(1) + " " + gap.toFixed(1));
       path.setAttribute("stroke-dashoffset", String(Math.round(r2 * 280 + r4 * 90)));
-      /* Desync continuous drift so threads don't pulse as one fabric */
-      path.style.animationDuration = (18 + r1 * 38).toFixed(1) + "s";
-      path.style.animationDelay = (-r2 * 32 - r4 * 12).toFixed(1) + "s";
-      if (r3 > 0.55) path.style.animationDirection = "reverse";
       var depth = Math.min(DEPTHS - 1, Math.floor(r0 * DEPTHS));
       ribbonPaths[ribbonPaths.length - 1].depth = depth;
       depthGroups[depth].appendChild(path);
@@ -156,18 +152,26 @@
     var revealEl = sticky.querySelector(".hero-reveal");
     var networkEl = sticky.querySelector(".hero-network");
     var metricsEl = sticky.querySelector(".hero-metrics");
-    var px = 0;
-    var py = 0;
-    var tx = 0;
-    var ty = 0;
-    var parallaxRaf = 0;
+    var introCopy = sticky.querySelector(".cinematic-copy");
+    var mobileAction = sticky.querySelector(".pill-mobile-work");
+    var needsMeasure = true;
+    var sceneStart = 0;
+    var sceneTravel = 1;
+    var lastProgress = -1;
 
     var lastSceneBlend = -1;
     function update() {
       scheduled = false;
-      var rect = stage.getBoundingClientRect();
-      var travel = Math.max(1, stage.offsetHeight - window.innerHeight);
-      var p = clamp(-rect.top / travel);
+      var measured = needsMeasure;
+      if (measured) {
+        sceneStart = stage.getBoundingClientRect().top + window.scrollY;
+        // Match the sticky scene's stable svh height, including mobile browser chrome.
+        sceneTravel = Math.max(1, stage.offsetHeight - sticky.clientHeight);
+        needsMeasure = false;
+      }
+      var p = clamp((window.scrollY - sceneStart) / sceneTravel);
+      if (!measured && p === lastProgress) return;
+      lastProgress = p;
       var reveal = smooth(clamp((p - 0.32) / 0.17));
       var exit = smooth(clamp((p - 0.69) / 0.29));
       // Only the opening scene fans out; the reveal returns to the original ribbon.
@@ -203,8 +207,6 @@
       sticky.style.setProperty("--metrics-rise", Math.round((1 - reveal) * 18 - exit * 8) + "px");
       if (revealEl) revealEl.style.pointerEvents = reveal > 0.9 ? "auto" : "none";
       if (revealEl) revealEl.inert = reveal < 0.9;
-      var introCopy = sticky.querySelector(".cinematic-copy");
-      var mobileAction = sticky.querySelector(".pill-mobile-work");
       if (introCopy) introCopy.inert = p > 0.48;
       if (mobileAction) mobileAction.inert = p > 0.48;
       if (networkEl) networkEl.style.opacity = String((0.82 + reveal * 0.18) * (1 - exit * 0.85));
@@ -216,27 +218,11 @@
         requestAnimationFrame(update);
       }
     }
-    function tickParallax() {
-      parallaxRaf = 0;
-      px += (tx - px) * 0.08;
-      py += (ty - py) * 0.08;
-      if (networkEl) {
-        networkEl.style.setProperty("--parallax-x", px.toFixed(2) + "px");
-        networkEl.style.setProperty("--parallax-y", py.toFixed(2) + "px");
-      }
-      if (Math.abs(tx - px) > 0.05 || Math.abs(ty - py) > 0.05) {
-        parallaxRaf = requestAnimationFrame(tickParallax);
-      }
-    }
-    function onPointer(e) {
-      if (e.pointerType === "touch") return;
-      tx = (e.clientX / window.innerWidth - 0.5) * 22;
-      ty = (e.clientY / window.innerHeight - 0.5) * 16;
-      if (!parallaxRaf) parallaxRaf = requestAnimationFrame(tickParallax);
-    }
     window.addEventListener("scroll", request, { passive: true });
-    window.addEventListener("resize", request);
-    window.addEventListener("pointermove", onPointer, { passive: true });
+    window.addEventListener("resize", function () {
+      needsMeasure = true;
+      request();
+    });
     update();
   })();
 
