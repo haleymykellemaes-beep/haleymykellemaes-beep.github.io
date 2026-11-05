@@ -2,14 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <script>
+    // Start at Home instead of restoring an old section or scroll position.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    history.replaceState(null, "", location.pathname + location.search + "#top");
+    function startAtHome() {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+    startAtHome();
+    window.addEventListener("pageshow", function (event) {
+      if (event.persisted) startAtHome();
+    });
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Haley Maes · Data Analyst</title>
   <meta name="description" content="Haley Maes, data analyst. SQL, Python, and Excel — reporting systems from operational data." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Haley Maes · Data Analyst" />
+  <meta property="og:description" content="Numbers tell stories. I translate them. Explore selected work in SQL, Python, Excel, and financial analytics." />
+  <meta property="og:url" content="https://haleymykellemaes-beep.github.io/" />
+  <meta property="og:image" content="https://haleymykellemaes-beep.github.io/img/portfolio-share.jpg?v=1" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:alt" content="Haley Maes, Data Analyst — editorial portrait with champagne orbital lines on charcoal." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Haley Maes · Data Analyst" />
+  <meta name="twitter:description" content="Numbers tell stories. I translate them." />
+  <meta name="twitter:image" content="https://haleymykellemaes-beep.github.io/img/portfolio-share.jpg?v=1" />
+  <link rel="canonical" href="https://haleymykellemaes-beep.github.io/" />
   <meta name="theme-color" content="#1c1c1b" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" />
-  <link rel="stylesheet" href="studio.css?v=28" />
+  <link rel="stylesheet" href="studio.css?v=41" />
   <link rel="icon" href="../favicon.svg?v=3" type="image/svg+xml" />
   <script>
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -27,7 +53,7 @@
         <a href="#work">Work</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <a href="../Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a class="nav-resume" href="../Haley-Maes-Resume.html" target="_blank" rel="noopener noreferrer">Resume</a>
       </div>
       <div class="nav-end">
         <div class="nav-social" aria-label="Contact">
@@ -57,7 +83,6 @@
         </svg>
         <div class="hero-layout wrap">
           <div class="hero-copy cinematic-copy">
-            <span class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> Data Analyst</span>
             <h1 class="hero-title">Haley Maes</h1>
             <p class="hero-person">Data <em>Analyst</em></p>
             <p class="hero-tag">Numbers tell stories. <em>I translate them.</em></p>
@@ -76,7 +101,6 @@
             </div>
           </div>
           <div class="hero-art cinematic-art">
-            <div class="portrait-halo" aria-hidden="true"></div>
             <img class="hero-photo" src="../img/haley.png" alt="Portrait of Haley Maes" width="520" height="520" />
           </div>
         </div>
@@ -109,8 +133,8 @@
         <div class="hero-bottom wrap"><span>INDEPENDENT ANALYTICAL PORTFOLIO</span><a href="#work">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a></div>
         <a class="pill pill-mobile-work" href="#work">View My Work <span aria-hidden="true">→</span></a>
         <div class="hero-reveal" aria-live="off">
-          <h2>Finding the <em>signal</em> in the noise.</h2>
-          <p>I turn complex data into clear insights that drive better decisions.</p>
+          <h2>Finding the <em>signal</em><br />in the noise.</h2>
+          <p>Turning complex data into clear insights that drive better decisions.</p>
           <a class="pill pill-hero" href="#work">View My Work <span aria-hidden="true">→</span></a>
         </div>
         <div class="hero-progress" aria-hidden="true"><span></span></div>
@@ -122,10 +146,8 @@
     <section class="section" id="work">
       <div class="wrap">
         <div class="section-head rise">
-          <p class="kicker">Selected work</p>
-          <h2>Six projects.</h2>
-          <p>The result is on the card.</p>
-          <a class="quiet" href="https://github.com/haleymykellemaes-beep/haleymykellemaes-beep.github.io" target="_blank" rel="noopener noreferrer">Code on GitHub</a>
+          <h2>Selected Works</h2>
+          <p>From Data to Decisions</p>
         </div>
         <p class="swipe-hint"><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true" focusable="false"><path d="M0.6 6H20.2M14.6 1.4 20.4 6 14.6 10.6" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
         <ul class="bento" id="project-row">
@@ -227,65 +249,11 @@
       </div>
     </section>
 
-    <section class="section impact" id="impact">
-      <div class="wrap">
-        <div class="section-head rise">
-          <p class="kicker">Impact</p>
-          <h2>Three published figures.</h2>
-          <p>90+ share, a record count, and one correlation.</p>
-        </div>
-        <div class="impact-board">
-          <div class="tabs" role="tablist" aria-label="Published figures">
-            <button type="button" role="tab" id="tab-ar" aria-controls="panel-ar" aria-selected="true" data-panel="ar">90+ share</button>
-            <button type="button" role="tab" id="tab-students" aria-controls="panel-students" aria-selected="false" tabindex="-1" data-panel="students">6,607 records</button>
-            <button type="button" role="tab" id="tab-r" aria-controls="panel-r" aria-selected="false" tabindex="-1" data-panel="r">r = 0.836</button>
-          </div>
-          <div class="panel" role="tabpanel" id="panel-ar" data-panel="ar" aria-labelledby="tab-ar">
-            <div class="pair">
-              <p><b data-count="31.4" data-decimals="1" data-suffix="%">31.4%</b><span>Earlier extract</span></p>
-              <p><b data-count="18.7" data-decimals="1" data-suffix="%">18.7%</b><span>Later extract</span></p>
-            </div>
-            <dl class="sr-only">
-              <dt>Earlier extract, 90+ share of open A/R</dt><dd>31.4%</dd>
-              <dt>Later extract, 90+ share of open A/R</dt><dd>18.7%</dd>
-            </dl>
-            <div class="chart-wrap">
-              <div class="chart-fallback" id="ar-fallback">
-                <div class="states mini-states" aria-hidden="true">
-                  <div class="state"><div class="state-col"><span class="state-bar" style="--h:100%"></span></div><b>31.4%</b><small>Earlier</small></div>
-                  <div class="state"><div class="state-col"><span class="state-bar" style="--h:59.6%"></span></div><b>18.7%</b><small>Later</small></div>
-                </div>
-              </div>
-              <div id="ar-chart" hidden></div>
-              <div class="tip" id="ar-tip" hidden></div>
-            </div>
-            <p class="viz-note">Share of open A/R in 90+. Two dated extracts, drawn as two states. Vertical scale 0–40%. Not a trend line.</p>
-          </div>
-          <div class="panel" role="tabpanel" id="panel-students" data-panel="students" aria-labelledby="tab-students" hidden>
-            <p class="giant" data-count="6607" data-commas="1">6,607</p>
-            <p class="viz-note">Student records in the performance study. One count.</p>
-          </div>
-          <div class="panel" role="tabpanel" id="panel-r" data-panel="r" aria-labelledby="tab-r" hidden>
-            <div class="coef-layout">
-              <svg class="arc-svg" viewBox="0 0 120 120" aria-hidden="true">
-                <circle class="arc-track" cx="60" cy="60" r="46" />
-                <circle class="arc-value" cx="60" cy="60" r="46" style="--c:289.027; --rest:47.400" />
-              </svg>
-              <div>
-                <p class="giant" data-count="0.836" data-decimals="3">0.836</p>
-                <p class="viz-note">Correlation of life evaluation with log GDP per capita. One coefficient, drawn as a share of 1. Not country dots.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="toolkit">
       <div class="wrap">
         <div class="section-head rise">
-          <p class="kicker">Toolkit</p>
-          <h2>Tools I actually use.</h2>
+          <h2>Toolkit</h2>
+          <p>A few favorites from my everyday toolkit.</p>
         </div>
         <div class="tool-grid">
           <article class="rise">
@@ -298,10 +266,9 @@
           </article>
           <article class="rise">
             <h3>Business + workflow</h3>
-            <p>Financial Reporting · Reconciliation · Cost &amp; Variance Analysis · Process Automation · Google Workspace</p>
+            <p>Financial Reporting · Reconciliation · Cost &amp; Variance Analysis · Process Automation · Google Workspace · Cursor · Claude</p>
           </article>
         </div>
-        <p class="aside">AI-assisted workflow: Cursor · Claude</p>
       </div>
     </section>
 
@@ -309,7 +276,7 @@
       <div class="wrap">
         <div class="section-head rise">
           <p class="kicker">Approach</p>
-          <h2>The why behind a number.</h2>
+          <h2>The Why Behind<br />the Numbers.</h2>
         </div>
         <div class="approach-grid">
           <article class="rise">
@@ -335,7 +302,7 @@
       <div class="wrap about-panel">
         <div class="about-intro rise">
           <p class="kicker">Profile</p>
-          <h2>About me</h2>
+          <h2>My Story</h2>
         </div>
         <div class="about-copy rise">
           <p class="about-lead">Data analyst with an investigator’s eye. I turn messy operational and financial data into clear decisions through Excel, SQL, Python, and visualization.</p>
@@ -377,6 +344,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-  <script src="studio.js?v=28"></script>
+  <script src="studio.js?v=44"></script>
 </body>
 </html>
