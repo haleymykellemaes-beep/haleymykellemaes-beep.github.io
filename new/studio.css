@@ -824,7 +824,7 @@ html.js .cinematic-copy .hero-person.is-in {
   margin-top: 16px;
 }
 .desc { margin-top: 8px; font-size: 1.02rem; line-height: 1.45; max-width: 36ch; }
-.viz { margin-top: auto; padding-top: 22px; }
+.viz { margin-top: 28px; padding-top: 8px; }
 .viz-note { margin-top: 8px; color: var(--soft); font-size: 0.78rem; }
 .go {
   margin-top: auto;
@@ -835,8 +835,8 @@ html.js .cinematic-copy .hero-person.is-in {
   text-decoration-thickness: 1px;
 }
 .viz ~ .go {
-  margin-top: 16px;
-  padding-top: 0;
+  margin-top: auto;
+  padding-top: 18px;
 }
 .go i {
   display: inline-block;
@@ -846,7 +846,7 @@ html.js .cinematic-copy .hero-person.is-in {
 .card.is-touch { border-color: var(--lavender); }
 
 .states { display: flex; gap: 36px; align-items: flex-end; min-height: 200px; }
-.state { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: none; }
+.state { display: flex; flex-direction: column; align-items: center; gap: 10px; flex: none; }
 .state-col { height: 168px; display: flex; align-items: flex-end; }
 .state-bar {
   display: block;
@@ -858,10 +858,12 @@ html.js .cinematic-copy .hero-person.is-in {
   transform-origin: bottom center;
   transition: transform 0.9s cubic-bezier(.2, .7, .2, 1);
 }
-/* Use more of the existing plot area without increasing the card height. */
-.card-ar .states { gap: clamp(16px, 4vw, 44px); min-height: 230px; justify-content: space-evenly; }
-.card-ar .state-col { height: 188px; }
-.card-ar .state-bar { width: clamp(64px, 8vw, 104px); }
+/* Pair sits under the copy with a fixed gap. Extra card height stays below the link. */
+.card-ar .viz { margin-top: 36px; }
+.card-ar .viz ~ .go { margin-top: 22px; }
+.card-ar .states { gap: clamp(36px, 5vw, 64px); min-height: 0; height: auto; justify-content: center; }
+.card-ar .state-col { height: 200px; }
+.card-ar .state-bar { width: clamp(56px, 7vw, 84px); }
 .card-ar .state b { font-size: 1.4rem; }
 .card-ar .state small { font-size: 0.82rem; }
 .state:nth-child(2) .state-bar { transition-delay: 0.12s; }
@@ -869,8 +871,8 @@ html.js .cinematic-copy .hero-person.is-in {
 .state b { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; }
 .state small { color: inherit; opacity: 0.7; font-size: 0.75rem; }
 
-.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
-.facts li { border-top: 1px solid var(--line); padding-top: 8px; }
+.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+.facts li { border-top: 1px solid var(--line); padding-top: 12px; }
 .card-ar .facts li { border-top-color: rgba(247, 244, 238, 0.2); }
 .facts b {
   display: block;
@@ -882,26 +884,27 @@ html.js .cinematic-copy .hero-person.is-in {
 .facts span { font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
 .card-ar .facts span { color: var(--muted); }
 
-.hbars { display: grid; gap: 10px; }
-.hbar { display: grid; grid-template-columns: 1fr auto; column-gap: 10px; align-items: baseline; }
+.hbars { display: grid; gap: 18px; }
+.hbar { display: grid; grid-template-columns: 1fr auto; column-gap: 16px; align-items: baseline; }
 .hbar span, .hbar b { font-size: 0.82rem; font-weight: 500; }
 .hbar b { font-family: var(--serif); font-size: 1rem; font-weight: 400; }
 .hbar i {
   grid-column: 1 / -1;
-  height: 5px;
+  height: 6px;
   width: var(--w);
-  margin-top: 4px;
+  max-width: 100%;
+  margin-top: 10px;
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.8s ease;
 }
-.hbar.is-focus i { height: 7px; }
+.hbar.is-focus i { height: 8px; }
 .hbar:nth-child(2) i { transition-delay: 0.08s; }
 .hbar:nth-child(3) i { transition-delay: 0.16s; }
 .card.is-in .hbar i { transform: scaleX(1); }
 
-.arc-row { display: flex; align-items: center; gap: 16px; }
+.arc-row { display: flex; align-items: center; gap: 22px; }
 .arc-svg { width: 84px; height: 84px; flex: none; }
 .arc-track { fill: none; stroke: var(--lavender); stroke-width: 1; }
 .arc-value {
@@ -920,7 +923,7 @@ html.js .cinematic-copy .hero-person.is-in {
 
 .hold-track {
   position: relative;
-  height: 28px;
+  height: 54px;
   border-bottom: 1px solid currentColor;
 }
 .hold-mark {
@@ -928,7 +931,7 @@ html.js .cinematic-copy .hero-person.is-in {
   left: 14.6%;
   bottom: 0;
   width: 1px;
-  height: 22px;
+  height: 18px;
   background: currentColor;
   transform: scaleY(0);
   transform-origin: bottom center;
@@ -936,11 +939,13 @@ html.js .cinematic-copy .hero-person.is-in {
 }
 .hold-mark b {
   position: absolute;
-  left: 6px;
-  top: -4px;
+  left: 10px;
+  top: auto;
+  bottom: calc(100% + 8px);
   font-family: var(--serif);
   font-weight: 400;
   font-size: 0.95rem;
+  line-height: 1;
   white-space: nowrap;
 }
 .card.is-in .hold-mark { transform: scaleY(1); }
