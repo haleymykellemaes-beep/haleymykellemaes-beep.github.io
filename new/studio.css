@@ -1127,6 +1127,54 @@ a:focus-visible, button:focus-visible {
   .go i { transition: transform 0.3s ease; }
 }
 
+@media (min-width: 981px) {
+  #work .section-head { margin-bottom: 40px; }
+  #work .bento { gap: 24px; padding-top: 0; }
+  .span-ar {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    min-height: 0;
+  }
+  .span-sql,
+  .span-film {
+    grid-column: span 6;
+    min-height: 0;
+    align-self: start;
+  }
+  .span-sql .card,
+  .span-film .card { height: auto; }
+  .span-nike,
+  .span-gdp,
+  .span-odds { min-height: 0; }
+  .card-ar {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
+    column-gap: clamp(36px, 5vw, 72px);
+    align-items: center;
+    padding: 36px 40px 32px;
+  }
+  .card-ar .card-top { grid-column: 1; grid-row: 1; }
+  .card-ar .finding { grid-column: 1; grid-row: 2; }
+  .card-ar .finding-note { grid-column: 1; grid-row: 3; }
+  .card-ar h3 { grid-column: 1; grid-row: 4; }
+  .card-ar .desc { grid-column: 1; grid-row: 5; }
+  .card-ar .go { grid-column: 1; grid-row: 6; margin-top: 28px; padding-top: 0; }
+  .card-ar .viz {
+    grid-column: 2;
+    grid-row: 1 / span 6;
+    margin-top: 0;
+    padding-top: 0;
+    align-self: center;
+  }
+  .card-ar .states {
+    min-height: 0;
+    justify-content: flex-start;
+    gap: clamp(28px, 4vw, 56px);
+  }
+  .card-ar .state-col { height: 200px; }
+  .card-ar .state-bar { width: 76px; }
+}
+
 @media (min-width: 900px) {
   .hero-tag { white-space: nowrap; }
 }
