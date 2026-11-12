@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accounts Receivable Aging Analysis · Haley Maes</title>
-  <meta name="description" content="Denver-area dental practice: 90+ share of open A/R moved from 31.4% to 18.7% (~40% reduction of that share). Excel A/R tracker / morning follow-up list." />
+  <meta name="description" content="Denver-area dental practice: 90+ share of open A/R moved from 31.4% to 18.7%. Follow-up accounts are Patient ID 0001 through 1807. No names in the file." />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" />
   <link rel="stylesheet" href="styles.css?v=52" />
   <link rel="icon" href="../favicon.svg?v=3" type="image/svg+xml" />
@@ -57,15 +57,19 @@
             <div>
               <h1 class="display">Accounts Receivable Aging Analysis</h1>
               <p class="paper-rule">Collections funnel: billed/posted → collected → still open → 90+. Drop-off I own: 90+ share 31.4% → 18.7%.</p>
-              <p class="role-strip">Analyst · Excel · morning follow-up list</p>
+              <p class="role-strip">Analyst · Excel · Patient ID 0001</p>
               <div class="article-meta">
                 <a class="pill" href="studio.html#work">← Work</a>
                 <span class="pill">Dental operations</span>
                 <a class="pill" href="../AR-Sample-Ledger.xlsx">Excel · AR-Sample-Ledger.xlsx</a>
               </div>
               <p class="article-lede">Collections move as a funnel: billed/posted, collected, still open, then 90+. At a Denver-area dental practice, the drop-off I own is the last stage — 90+ share of open A/R from <strong>31.4%</strong> to <strong>18.7%</strong> (~40% reduction of that share) on two dated Curve pulls. The Excel tracker is how the morning follow-up list works that stage: insurance vs patient aging, so 90+ balances get worked first. Posted collections $388k → $443k in the same window is context; I do not treat that lift as something the workbook caused.</p>
+              <div class="panel" style="margin-top:18px">
+                <h3>HIPAA · Patient ID 0001</h3>
+                <p>Every account on the follow-up list is numbered <strong>0001</strong> through <strong>1807</strong>, in the export’s original order. That number is not a chart number and not a practice-management ID. The workbook has no names, phone numbers, ages, or clinical notes. Appointment dates stay in the working file, so that file is not posted on this site.</p>
+              </div>
             </div>
-            <figure class="phone" aria-label="Fictional morning follow-up list on a phone. Aggregated KPIs only. Sample rows are P-####. No patient names.">
+            <figure class="phone" aria-label="Fictional morning follow-up list. Sample rows use Patient ID 0001. No patient names.">
               <div class="phone-bezel">
                 <div class="phone-notch"></div>
                 <div class="phone-screen">
@@ -87,9 +91,9 @@
                     <em>Work the right phone</em>
                   </div>
                   <div class="ph-list">
-                    <div class="ph-row"><span>P-1042</span><b>90+</b></div>
-                    <div class="ph-row"><span>P-1188</span><b>Insurance</b></div>
-                    <div class="ph-row"><span>P-2310</span><b>Patient</b></div>
+                    <div class="ph-row"><span>0001</span><b>ID only</b></div>
+                    <div class="ph-row"><span>0002</span><b>No next visit</b></div>
+                    <div class="ph-row"><span>0003</span><b>Due soon</b></div>
                   </div>
                 </div>
               </div>
@@ -240,6 +244,12 @@
                 </table>
               </div>
             </div>
+
+            <h2>Follow-up list, 6 Nov 2026</h2>
+            <p>This extract has no aging buckets. It does not replace the 31.4% to 18.7% Curve result. Patient IDs <strong>0001–1807</strong> cover <strong>1,807</strong> accounts. Outstanding <strong>$88,502.31</strong>. Patient <strong>$65,004.63</strong>. Insurance <strong>$23,497.68</strong>. <strong>297</strong> accounts have a balance. <strong>1,509</strong> are at zero. One account is a <strong>$1.00</strong> credit.</p>
+            <p>High balance is <strong>$250</strong> or more. The 75th percentile of positive balances is <strong>$271.05</strong>. <strong>14</strong> accounts at that cutoff have no next visit and owe <strong>$15,769.00</strong> (<strong>$14,354.40</strong> patient / <strong>$1,414.60</strong> insurance). Median days since last payment, among the 13 of those 14 with a payment date: <strong>85</strong>.</p>
+            <p>Soon means a next visit from <strong>6 Nov 2026</strong> through <strong>20 Nov 2026</strong>. <strong>8</strong> accounts have a balance and a visit in that window. They owe <strong>$667.30</strong> (<strong>$542.30</strong> patient / <strong>$125.00</strong> insurance).</p>
+            <p>Small balance is outstanding greater than <strong>$0</strong> and at or under <strong>$20</strong>. Zero balances and the $1.00 credit are not included. A soon visit stays gold. After that priority, <strong>22</strong> accounts owe <strong>$229.10</strong> (<strong>$229.10</strong> patient / <strong>$0.00</strong> insurance). Two other accounts in that dollar range, <strong>$17.40</strong> and <strong>$2.60</strong>, stay on the soon-visit list.</p>
 
             <h2>Limitations</h2>
             <p>Practice is unnamed here (a Denver-area dental practice). No patient names, no chart copies from the PMS, no provider names, no annual collections mix by card type. The Nov 16, 2025 snapshot is dated in Curve (31.4% in 90+); the second aging screenshot is the same dashboard on a later pull (18.7% in 90+). The public workbook is a 90+ outstanding extract with placeholder IDs and demo visit / next-appointment dates — it is not the full open A/R mix those two percentages describe.</p>
