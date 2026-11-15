@@ -284,7 +284,7 @@ EVENTS = [
     _event("evt-7010-api", "DSP-7010", "api.response", "api.disbursement.create",
            "2026-11-11T10:00:04Z", processor_code="00", status="submitted",
            amount_cents=75500, idempotency_key="idem-7010",
-           message="Processor acknowledged 75500 cents. The ledger amount is 75000 cents."),
+           message="Processor acknowledged $755.00. The ledger amount is $750.00."),
     _event("evt-7011-wh", "DSP-7011", "webhook", "disbursement.failed",
            "2026-11-14T10:00:08Z", http_status=504, processor_code="96",
            status="failed", amount_cents=41000, idempotency_key="idem-7011",
