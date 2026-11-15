@@ -1,0 +1,4 @@
+refund_id,payment_id,amount_cents,refund_status,reason
+REF-2009,PAY-2009,7500,issued,front desk refunded the billed fee instead of the amount collected
+REF-2015,PAY-2015,5000,requested,patient reported a duplicate charge
+REF-2020,PAY-2020,8000,issued,service voided before it was completed
