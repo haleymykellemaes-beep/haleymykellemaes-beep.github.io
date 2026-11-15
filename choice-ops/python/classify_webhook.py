@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import sys
 from collections import Counter
+from pathlib import Path
 
 import cases
 import common
@@ -56,7 +57,7 @@ def main() -> int:
     parser.add_argument("--events", default=str(common.EVENTS_PATH), help="JSONL log to read.")
     parser.add_argument("--self-check", action="store_true", help="Always on for the seeded log.")
     args = parser.parse_args()
-    path = __import__("pathlib").Path(args.events)
+    path = Path(args.events)
     if not path.exists():
         print("Missing event log. From the portfolio folder run: python3 choice-ops/python/seed.py")
         return 1
