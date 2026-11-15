@@ -3,3 +3,14 @@
 .idea/
 Dental-AR-Tracker.xlsx
 fonts/
+
+# Generated ledger and any real PMS export (may contain PHI).
+payment-exceptions/data/*.db
+payment-exceptions/data/out/
+payment-exceptions/data/inbound/local/
+
+# Generated Choice ops ledger, logs, and batch file. Rebuild with seed.py.
+choice-ops/data/*.db
+choice-ops/data/*.jsonl
+choice-ops/data/*.csv
+choice-ops/data/out/
