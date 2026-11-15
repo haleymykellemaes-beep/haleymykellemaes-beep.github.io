@@ -12,6 +12,7 @@ import argparse
 import csv
 import sys
 from collections import defaultdict
+from pathlib import Path
 
 import cases
 import common
@@ -145,7 +146,7 @@ def main() -> int:
     parser.add_argument("--batch", default=str(common.BATCH_PATH), help="Path to the client batch CSV.")
     parser.add_argument("--self-check", action="store_true", help="Always on for the planted Northwind file.")
     args = parser.parse_args()
-    batch_path = common.Path(args.batch) if False else __import__("pathlib").Path(args.batch)
+    batch_path = Path(args.batch)
     if not common.DB_PATH.exists() or not batch_path.exists():
         print("Missing seeded files. From the portfolio folder run: python3 choice-ops/python/seed.py")
         return 1
