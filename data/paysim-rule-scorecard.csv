@@ -1,0 +1,7 @@
+rule,alerts,fraud_caught,precision_pct,recall_pct,alerts_per_day
+leak_r1_drained,65998,2526,3.827,97.454,6599.8
+leak_r3_balance_mismatch,117157,7,0.006,0.27,11715.7
+r0_baseline,7,7,100.0,0.27,0.7
+r2_large,1197,585,48.872,22.569,119.7
+r4_busy_3,4,0,0.0,0.0,0.4
+r5_off_hours,2399,680,28.345,26.235,239.9
