@@ -1,0 +1,4 @@
+period,min_step,max_step,transactions,fraud,fraud_rate_pct,baseline_alerts,baseline_caught,baseline_recall_pct
+full_dataset,1,743,6362620,8213,0.1291,16,16,0.195
+train_days_1_20,1,480,6039443,5349,0.0886,6,6,0.112
+test_days_21_30,481,720,322905,2592,0.8027,7,7,0.27

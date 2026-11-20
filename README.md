@@ -6,6 +6,7 @@ Static HTML/CSS/JS. No build step. Case studies with a question, a method, and a
 
 ## Featured work
 
+- [Transaction anomaly detection](new/transaction-anomaly.html) — DuckDB · statistics · fraud operations. 34.18% holdout fraud recall at 200 alerts/day. Reproducible scripts: [`sql/transaction-anomaly/`](sql/transaction-anomaly/).
 - [Accounts receivable tracker](ar-tracker.html) — Excel · Denver-area dental practice. 90+ share of open A/R 31.4% → 18.7%. Public workbook: [`AR-Sample-Ledger.xlsx`](AR-Sample-Ledger.xlsx) (placeholder IDs, 90+ extract, demo dates).
 - [Happiness and GDP](happiness-gdp.html) — Python · pandas. [`python/happiness_gdp.py`](python/happiness_gdp.py). r = 0.836 across 1,927 country–years.
 - [Student performance triage](student-performance-sql.html) — PostgreSQL. [`sql/student_performance_analysis.sql`](sql/student_performance_analysis.sql). Source: [`data/StudentPerformanceFactors.csv`](data/StudentPerformanceFactors.csv).
