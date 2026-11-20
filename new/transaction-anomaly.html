@@ -106,7 +106,37 @@
             <p>I used the public <a href="https://www.kaggle.com/datasets/ealaxi/paysim1" target="_blank" rel="noopener noreferrer">PaySim synthetic mobile-money dataset</a>: 6,362,620 transactions across 743 hourly steps. It contains 8,213 labeled frauds (0.1291%). Fraud appears only in <code>TRANSFER</code> and <code>CASH_OUT</code>: 4,097 and 4,116 cases, respectively.</p>
             <p>Rules and weights were developed on steps 1–480 (days 1–20). Final numbers use only steps 481–720 (days 21–30). I excluded steps 721–743 because they are a partial 31st day. This matters: a filter of <code>step &gt; 480</code> would quietly contaminate the ten-day denominator.</p>
             <div class="decision-note"><strong>Distribution shift:</strong> training contains 6.04 million transactions at 0.0886% fraud; the holdout contains 322,905 at 0.8027%. That makes this a useful stress test, but not a stable production estimate. A live system would monitor alert volume, precision, recall proxies, and feature drift by day.</div>
+          </div>
 
+          <aside class="data-source-panel" aria-labelledby="data-source-title">
+            <div class="source-heading">
+              <p>Data provenance</p>
+              <h2 id="data-source-title">Where the transactions came from</h2>
+            </div>
+            <div class="source-grid">
+              <div class="source-item">
+                <span>Portfolio dataset</span>
+                <h3>PaySim on Kaggle</h3>
+                <p><em>Synthetic Financial Datasets for Fraud Detection</em>, published by the Kaggle user ealaxi under CC BY-SA 4.0.</p>
+                <a href="https://www.kaggle.com/datasets/ealaxi/paysim1" target="_blank" rel="noopener noreferrer">Open dataset listing ↗</a>
+              </div>
+              <div class="source-item">
+                <span>Original research</span>
+                <h3>2016 EMSS paper</h3>
+                <p>Lopez-Rojas, E. A., Elmir, A., and Axelsson, S. “PaySim: A financial mobile money simulator for fraud detection.”</p>
+                <a href="https://www.msc-les.org/proceedings/emss/emss2016/emss2016_249.html" target="_blank" rel="noopener noreferrer">Open proceedings ↗</a>
+              </div>
+              <div class="source-item">
+                <span>What “synthetic” means here</span>
+                <h3>Simulated, not customer data</h3>
+                <p>PaySim models mobile-money activity using aggregated patterns from private financial logs, then injects fraudulent behavior for research.</p>
+                <a href="https://github.com/EdgarLopezPhD/PaySim" target="_blank" rel="noopener noreferrer">Open simulator repository ↗</a>
+              </div>
+            </div>
+            <p class="source-audit"><strong>File audited:</strong> <code>PS_20174392719_1491204439457_log.csv</code> · 6,362,620 rows · 11 source columns · steps 1–743. The 494 MB source file is not republished in this portfolio; only derived summary tables and a synthetic 50-row review-queue extract are stored here.</p>
+          </aside>
+
+          <div class="prose">
             <h2>The SQL work</h2>
             <p>I built the analysis as five plain DuckDB scripts: load and split, profile, engineer rule features, select weights on training data, and evaluate the frozen score. I kept the workflow in SQL so each headline number can be traced to a query rather than a notebook cell or a manually edited chart.</p>
           </div>
@@ -275,6 +305,9 @@ GROUP BY type;</code></pre>
 
             <h2>What I would do next</h2>
             <p>In a live environment, I would run this score in shadow mode, add device, IP, authentication, beneficiary age, and confirmed-loss data, then calibrate the queue by expected loss rather than event count alone. I would monitor population stability, per-rule alert volume, investigator agreement, and recall at fixed capacity. The same control-design pattern extends to security telemetry: impossible travel, failed-login bursts, new-device access, and service-account anomalies using public LANL authentication data.</p>
+
+            <h2>Portfolio framing reference</h2>
+            <p>I checked the project presentation against Springboard’s <a href="https://www.springboard.com/blog/cybersecurity/cyber-security-projects/" target="_blank" rel="noopener noreferrer">Cybersecurity Projects to Grow Your Skills &amp; Portfolio</a> guidance: solve a practical problem, document the method and findings, combine coding with visualization, and tailor the work to an industry. That guidance shaped how I communicate the project. It is <strong>not</strong> used as evidence for the fraud results; those numbers come from the cited PaySim data and the reproducible SQL above.</p>
           </div>
 
           <a class="ticker ticker-link" href="../sql/transaction-anomaly/README.md">

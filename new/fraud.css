@@ -230,6 +230,74 @@
 
 .decision-note strong { color: #594b91; }
 
+.data-source-panel {
+  margin: 24px 0 36px;
+  padding: clamp(20px, 4vw, 34px);
+  border: 1px solid rgba(79, 99, 183, .12);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(225, 239, 255, .92), rgba(241, 234, 251, .9) 58%, rgba(252, 236, 244, .86));
+}
+
+.source-heading p {
+  margin: 0 0 4px;
+  color: #8c72b6;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.source-heading h2 {
+  margin: 0;
+  color: #26345f;
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: .02em;
+}
+
+.source-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.source-item {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid rgba(79, 99, 183, .1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .76);
+}
+
+.source-item span {
+  color: #7d85a7;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.source-item h3 { margin: 7px 0; color: #34447d; font-size: 1rem; }
+.source-item p { margin: 0 0 12px; color: #4f5d83; font-size: .84rem; line-height: 1.5; }
+.source-item a { color: #5369bd; font-size: .78rem; font-weight: 700; }
+
+.source-audit {
+  margin: 16px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(79, 99, 183, .12);
+  color: #59678d;
+  font-size: .82rem;
+  line-height: 1.55;
+}
+
+.source-audit code {
+  overflow-wrap: anywhere;
+  color: #34447d;
+}
+
 .sql-workbench {
   margin: 20px 0 34px;
   padding: clamp(18px, 3vw, 28px);
@@ -346,6 +414,7 @@ html[data-theme="fraud"] .notice {
   .rule-card-grid,
   .control-list { grid-template-columns: 1fr; }
   .recall-grid { grid-template-columns: 1fr 1fr; }
+  .source-grid { grid-template-columns: 1fr; }
   .sql-step-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .sql-example-grid { grid-template-columns: 1fr; }
 }
