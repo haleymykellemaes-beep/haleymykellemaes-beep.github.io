@@ -105,13 +105,13 @@ html[data-theme="odds"] {
   --shadow: 0 18px 50px rgba(42, 86, 242, 0.16);
 }
 html[data-theme="fraud"] {
-  --blue: #163c37;
-  --pink: #b57a00;
-  --gray: #f1f6f3;
+  --blue: #4f63b7;
+  --pink: #c58acb;
+  --gray: #f5f7fd;
   --white: #ffffff;
-  --ink: #102522;
-  --muted: #526e68;
-  --shadow: 0 18px 50px rgba(16, 37, 34, 0.16);
+  --ink: #26345f;
+  --muted: #6f7897;
+  --shadow: 0 18px 50px rgba(78, 95, 177, 0.16);
 }
 
 * { box-sizing: border-box; }

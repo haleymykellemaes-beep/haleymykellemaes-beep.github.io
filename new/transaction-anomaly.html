@@ -6,8 +6,8 @@
   <title>Transaction Anomaly Detection · Haley Maes</title>
   <meta name="description" content="DuckDB fraud-rule case study on 6.36 million PaySim transactions: 34.18% holdout fraud recall at 200 alerts per day, with leakage controls and a time-based split." />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=53" />
-  <link rel="stylesheet" href="fraud.css?v=1" />
+  <link rel="stylesheet" href="styles.css?v=54" />
+  <link rel="stylesheet" href="fraud.css?v=2" />
   <link rel="icon" href="../favicon.svg?v=3" type="image/svg+xml" />
 </head>
 <body>
@@ -48,13 +48,13 @@
 
       <div class="folder">
         <main class="sheet">
-          <p class="folder-heading"><span>SQL · Statistics · Fraud operations</span></p>
+          <p class="folder-heading"><span>DuckDB SQL · Window functions · Fraud operations</span></p>
 
           <div class="fraud-hero">
             <div>
               <h1 class="display">Transaction Anomaly Detection</h1>
               <p class="paper-rule">Which controls catch the most fraud when investigators can review only 200 alerts per day?</p>
-              <p class="role-strip">Analyst · DuckDB · rule validation · alert triage</p>
+              <p class="role-strip">Portfolio analyst · DuckDB SQL · rule validation · alert triage</p>
               <div class="article-meta">
                 <a class="pill" href="../index.html#work">← Work</a>
                 <a class="pill" href="../sql/transaction-anomaly/README.md">Method &amp; SQL</a>
@@ -107,10 +107,68 @@
             <p>Rules and weights were developed on steps 1–480 (days 1–20). Final numbers use only steps 481–720 (days 21–30). I excluded steps 721–743 because they are a partial 31st day. This matters: a filter of <code>step &gt; 480</code> would quietly contaminate the ten-day denominator.</p>
             <div class="decision-note"><strong>Distribution shift:</strong> training contains 6.04 million transactions at 0.0886% fraud; the holdout contains 322,905 at 0.8027%. That makes this a useful stress test, but not a stable production estimate. A live system would monitor alert volume, precision, recall proxies, and feature drift by day.</div>
 
+            <h2>The SQL work</h2>
+            <p>I built the analysis as five plain DuckDB scripts: load and split, profile, engineer rule features, select weights on training data, and evaluate the frozen score. I kept the workflow in SQL so each headline number can be traced to a query rather than a notebook cell or a manually edited chart.</p>
+          </div>
+
+          <section class="sql-workbench" aria-label="SQL implementation examples">
+            <div class="sql-step-row">
+              <div class="sql-step"><b>01</b><span>Load + derive day/hour</span></div>
+              <div class="sql-step"><b>02</b><span>Profile fraud by type</span></div>
+              <div class="sql-step"><b>03</b><span>Build rule features</span></div>
+              <div class="sql-step"><b>04</b><span>Score + rank queue</span></div>
+              <div class="sql-step"><b>05</b><span>Evaluate holdout</span></div>
+            </div>
+
+            <div class="sql-example-grid">
+              <article class="sql-example">
+                <header><span>Train-only threshold</span><code>QUANTILE_CONT</code></header>
+                <pre><code>CREATE TABLE train_type_stats AS
+SELECT
+  type,
+  AVG(amount) AS amount_avg,
+  STDDEV_SAMP(amount) AS amount_sd,
+  QUANTILE_CONT(amount, 0.99) AS amount_p99
+FROM tx
+WHERE split = 'train'
+GROUP BY type;</code></pre>
+              </article>
+
+              <article class="sql-example">
+                <header><span>Receiver velocity candidate</span><code>RANGE window</code></header>
+                <pre><code>COUNT(*) OVER (
+  PARTITION BY name_dest
+  ORDER BY step
+  RANGE BETWEEN 23 PRECEDING
+            AND CURRENT ROW
+) AS inbound_transfer_24h</code></pre>
+              </article>
+
+              <article class="sql-example">
+                <header><span>Transparent score</span><code>no label in logic</code></header>
+                <pre><code>10 * r0_baseline
+ + 1 * r2_large
+ + 4 * r5_off_hours
+ + amount_z AS risk_score</code></pre>
+              </article>
+
+              <article class="sql-example">
+                <header><span>Capacity-constrained queue</span><code>ROW_NUMBER</code></header>
+                <pre><code>ROW_NUMBER() OVER (
+  ORDER BY risk_score DESC,
+           step,
+           tx_id
+) AS score_queue_rank</code></pre>
+              </article>
+            </div>
+            <p class="sql-caption">Every excerpt above runs in the downloadable study. <a href="../sql/transaction-anomaly/README.md">Open all five SQL files and reproduction steps →</a></p>
+          </section>
+
+          <div class="prose">
             <h2>Data-governance check: balance fields are leakage</h2>
             <p>The dataset publisher warns that fraudulent transactions are canceled and that old/new balance fields should not be used for fraud detection. That invalidates “sender drained” and “balances do not reconcile” as deployable signals in this dataset. The drained-account condition appears to catch 97.45% of holdout fraud, but it reads the simulator’s post-outcome state. Reporting that as model performance would be leakage.</p>
             <ul class="control-list">
-              <li><strong>Point-in-time features only.</strong> Candidate controls use transaction type, amount, time, and prior receiver activity; the validated score drops receiver velocity.</li>
+              <li><strong>Point-in-time features only.</strong> Candidate controls use transaction type, amount, time, and prior receiver activity; the final portfolio score drops receiver velocity.</li>
               <li><strong>Labels isolated.</strong> <code>is_fraud</code> is used for training selection and evaluation, never in rule expressions.</li>
               <li><strong>Temporal holdout.</strong> Thresholds and weights are frozen before days 21–30 are scored.</li>
               <li><strong>Exact capacity.</strong> Results are measured at 2,000 reviews over ten holdout days.</li>
