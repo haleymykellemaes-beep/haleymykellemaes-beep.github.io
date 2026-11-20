@@ -4,6 +4,22 @@ DuckDB case study using the 6,362,620-row PaySim synthetic mobile-money
 dataset. The analytical question is operational: which detection logic catches
 the most fraud under a fixed investigator capacity?
 
+## Data provenance
+
+- Portfolio dataset:
+  [Synthetic Financial Datasets for Fraud Detection](https://www.kaggle.com/datasets/ealaxi/paysim1),
+  published on Kaggle by ealaxi under CC BY-SA 4.0.
+- Original research: E. A. Lopez-Rojas, A. Elmir, and S. Axelsson,
+  “[PaySim: A financial mobile money simulator for fraud detection](https://www.msc-les.org/proceedings/emss/emss2016/emss2016_249.html),”
+  28th European Modeling and Simulation Symposium, Larnaca, Cyprus, 2016.
+- Simulator repository:
+  [EdgarLopezPhD/PaySim](https://github.com/EdgarLopezPhD/PaySim).
+
+PaySim uses aggregated patterns from private mobile-money logs to generate
+synthetic transactions and inject fraudulent behavior. It contains no customer
+records from the source service. The analyzed CSV has 6,362,620 rows, 11 source
+columns, and hourly steps 1–743.
+
 ## Reproduce
 
 1. Download
