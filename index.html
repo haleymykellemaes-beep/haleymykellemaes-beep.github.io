@@ -108,8 +108,8 @@
           <li class="metric-callout metric-a">
             <span class="metric-leader" aria-hidden="true"></span>
             <div class="metric-body">
-              <span class="metric-val">34.18%</span>
-              <span class="metric-label">Fraud Recall · 200 Alerts/Day</span>
+              <span class="metric-val">31.4% → 18.7%</span>
+              <span class="metric-label">90+ A/R Share</span>
             </div>
           </li>
           <li class="metric-callout metric-b">
@@ -152,36 +152,25 @@
         <p class="swipe-hint"><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true" focusable="false"><path d="M0.6 6H20.2M14.6 1.4 20.4 6 14.6 10.6" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
         <ul class="bento" id="project-row">
           <li class="span-ar">
-            <a class="card card-ar" href="/new/transaction-anomaly.html">
-              <div class="card-top"><span class="kicker">DuckDB SQL · Window Functions · Fraud Operations</span><span class="index">01</span></div>
-              <p class="finding" data-count="34.18" data-decimals="2" data-suffix="%">34.18%</p>
-              <p class="finding-note">Fraud recall · 200 alerts/day</p>
-              <h3>Transaction Anomaly Detection</h3>
-              <p class="desc">Rule validation and statistical ranking under a fixed investigation budget</p>
+            <a class="card card-ar" href="/new/ar-tracker.html">
+              <div class="card-top"><span class="kicker">Excel · Financial Reporting</span><span class="index">01</span></div>
+              <p class="finding" data-count="18.7" data-decimals="1" data-suffix="%">18.7%</p>
+              <p class="finding-note">90+ share, from 31.4%</p>
+              <h3>Accounts Receivable Aging Analysis</h3>
+              <p class="desc">A/R aging, collection priorities, and overdue balances</p>
               <div class="viz">
-                <div class="states" role="img" aria-label="Holdout fraud recall: existing rule 0.27 percent, rules-only queue 20.49 percent, and rules plus statistical score 34.18 percent.">
-                  <div class="state"><div class="state-col"><span class="state-bar" style="--h:1%"></span></div><b>0.27%</b><small>Existing</small></div>
-                  <div class="state"><div class="state-col"><span class="state-bar" style="--h:60%"></span></div><b>20.49%</b><small>Rules</small></div>
-                  <div class="state"><div class="state-col"><span class="state-bar" style="--h:100%"></span></div><b>34.18%</b><small>+ score</small></div>
+                <div class="states" role="img" aria-label="Two extracts of 90+ share: 31.4 percent, then 18.7 percent. Not a trend.">
+                  <div class="state"><div class="state-col"><span class="state-bar" style="--h:100%"></span></div><b>31.4%</b><small>Earlier</small></div>
+                  <div class="state"><div class="state-col"><span class="state-bar" style="--h:59.6%"></span></div><b>18.7%</b><small>Later</small></div>
                 </div>
-                <p class="viz-note">Untouched days 21–30. Same 200-alert daily limit for the two queues.</p>
+                <p class="viz-note">Two extracts. Not a trend line.</p>
               </div>
               <span class="go">View case study <i aria-hidden="true">→</i></span>
             </a>
           </li>
           <li class="span-sql">
-            <a class="card" href="/new/ar-tracker.html">
-              <div class="card-top"><span class="kicker">Excel · Financial Reporting</span><span class="index">02</span></div>
-              <p class="finding" data-count="18.7" data-decimals="1" data-suffix="%">18.7%</p>
-              <p class="finding-note">90+ share, from 31.4%</p>
-              <h3>Accounts Receivable Aging Analysis</h3>
-              <p class="desc">A/R aging, collection priorities, and overdue balances</p>
-              <span class="go">View case study <i aria-hidden="true">→</i></span>
-            </a>
-          </li>
-          <li class="span-film">
             <a class="card" href="/new/student-performance-sql.html">
-              <div class="card-top"><span class="kicker">SQL · Risk Segmentation</span><span class="index">03</span></div>
+              <div class="card-top"><span class="kicker">SQL · Risk Segmentation</span><span class="index">02</span></div>
               <p class="finding" data-count="6.02" data-decimals="2" data-prefix="+">+6.02</p>
               <p class="finding-note">pts · attendance Q4 vs Q1</p>
               <h3>Student Performance Risk Analysis</h3>
@@ -190,9 +179,9 @@
               <span class="go">View case study <i aria-hidden="true">→</i></span>
             </a>
           </li>
-          <li class="span-nike">
+          <li class="span-film">
             <a class="card" href="/new/tmdb-revenue.html">
-              <div class="card-top"><span class="kicker">Python · Pandas · Revenue Analysis</span><span class="index">04</span></div>
+              <div class="card-top"><span class="kicker">Python · Pandas · Revenue Analysis</span><span class="index">03</span></div>
               <p class="finding" data-count="47" data-decimals="0" data-prefix="$" data-suffix="M">$47M</p>
               <p class="finding-note">Comedy median, adjusted</p>
               <h3>Film Revenue and Genre Analysis</h3>
@@ -206,9 +195,9 @@
               <span class="go">View case study <i aria-hidden="true">→</i></span>
             </a>
           </li>
-          <li class="span-gdp">
+          <li class="span-nike">
             <a class="card" href="/new/nike.html">
-              <div class="card-top"><span class="kicker">Tableau · Financial Performance</span><span class="index">05</span></div>
+              <div class="card-top"><span class="kicker">Tableau · Financial Performance</span><span class="index">04</span></div>
               <p class="finding" data-count="10" data-decimals="0" data-prefix="−" data-suffix="%">−10%</p>
               <p class="finding-note">Revenue. Inventory flat.</p>
               <h3>Nike Revenue and Channel Performance</h3>
@@ -221,9 +210,9 @@
               <span class="go">View case study <i aria-hidden="true">→</i></span>
             </a>
           </li>
-          <li class="span-odds">
+          <li class="span-gdp">
             <a class="card" href="/new/happiness-gdp.html">
-              <div class="card-top"><span class="kicker">Python · Statistics · Correlation Analysis</span><span class="index">06</span></div>
+              <div class="card-top"><span class="kicker">Python · Statistics · Correlation Analysis</span><span class="index">05</span></div>
               <p class="finding" data-count="0.836" data-decimals="3" data-trim="1">.836</p>
               <p class="finding-note">r · one coefficient</p>
               <h3>GDP and Life Satisfaction Analysis</h3>
@@ -238,9 +227,9 @@
               <span class="go">View case study <i aria-hidden="true">→</i></span>
             </a>
           </li>
-          <li class="span-nike">
+          <li class="span-odds">
             <a class="card" href="/new/sports-projections.html">
-              <div class="card-top"><span class="kicker">Probability · Statistical Modeling</span><span class="index">07</span></div>
+              <div class="card-top"><span class="kicker">Probability · Statistical Modeling</span><span class="index">06</span></div>
               <p class="finding" data-count="14.6" data-decimals="1" data-suffix="%">14.6%</p>
               <p class="finding-note">Eagles hold rate</p>
               <h3>Fourth-Quarter Outcome Probability</h3>
