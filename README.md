@@ -1,3 +1,5 @@
+> **This portfolio has moved to [haleymaes.github.io](https://haleymaes.github.io/).** Every page here now forwards to its counterpart on the new site (or to the new homepage); the old pages remain in this repository's history.
+
 # Haley Maes — Data Analyst portfolio
 
 Live site: **[haleymykellemaes-beep.github.io](https://haleymykellemaes-beep.github.io/)** · GitHub: **[haleymykellemaes-beep](https://github.com/haleymykellemaes-beep)**
